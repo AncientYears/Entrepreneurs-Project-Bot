@@ -1,0 +1,22 @@
+{
+  "name": "entrepreneurs-project-bot",
+  "version": "0.0.1",
+  "description": "The awesome discord bot made by us.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AncientYears/Entrepreneurs-Project-Bot.git"
+  },
+  "author": "GameIverse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AncientYears/Entrepreneurs-Project-Bot/issues"
+  },
+  "homepage": "https://github.com/AncientYears/Entrepreneurs-Project-Bot#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  }
+}
