@@ -1,4 +1,5 @@
 const discord = require("discord.js")
+const mysql = require("mysql")
 const client = new discord.Client({disableEveryone: false})
 
 client.on("ready", async () => {
