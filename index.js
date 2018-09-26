@@ -45,19 +45,11 @@ fs.readdir("./commands/", (err, files) => {
   });
 })
 
-  var ecoCon = mysql.createConnection({
+  var ecoPool = mysql.createPool({
     host: process.env.mysqlHost,
     user: process.env.mysqlUser,
     password: process.env.mysqlPassword,
     database: process.env.mysqlDatabase
 });
-
-ecoCon.connect(err => {
-  if(err) {
-  console.error(err)
-  } else {
-console.log("Connected to Economy Database!"); 
-}
-})
 
   client.login(process.env.TOKEN)
