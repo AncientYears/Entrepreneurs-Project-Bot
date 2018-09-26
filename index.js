@@ -30,7 +30,8 @@ client.on("message", async (message, cmdFiles) => {
 
 })
 
-fs.readdir("./commands/", (files) => {
+fs.readdir("./commands/", (err, files) => {
+  if(err) confirm.error(err);
   let jsfiles = files.filter(f => f.split(".").pop() === "js");
   if(jsfiles.length <= 0) {
       console.log("No commands to load!");
