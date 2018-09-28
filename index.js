@@ -41,6 +41,26 @@ client.on('message', async (message) => {
 
 });
 
+client.on('guildMemberAdd', (member) => {
+	ecoPool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM stats', function(error, results, fields) {
+			if(!fields[0].userID) {
+				connection.query(`INSERT IGNORE INTO stats (userID, cash, bank, netWorth, employees, stocks) VALUES ('${member.id}', ${0}, ${0}, ${0}, ${0}, ${0})`);
+				connection.release();
+				if (error) throw error;
+				member.user.send('W.I.P, please standby.');
+				return;
+			}
+			else {
+				connection.release();
+				if (error) throw error;
+				return;
+			}
+		});
+		return;
+	});
+});
+
 fs.readdir('./commands/', (err, files) => {
 	if(err) console.error(err);
 	const jsfiles = files.filter(f => f.split('.').pop() === 'js');
