@@ -15,8 +15,8 @@ client.on('message', async (message) => {
 	if(message.author.bot || message.channel.type === 'dm') return;
 
 	ecoPool.getConnection(function(err, connection) {
-		connection.query('SELECT * FROM stats', function (error, results) {
-		  if(!results[0].userID) {
+		connection.query('SELECT * FROM stats', function (error, results, fields) {
+		  if(!fields[0].userID) {
 		  connection.query(`INSERT IGNORE INTO stats (userID, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', ${0}, ${0}, ${0}, ${0}, ${0})`)    
 		  connection.release();
 		  if (error) throw error;
