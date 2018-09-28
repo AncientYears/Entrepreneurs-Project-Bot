@@ -5,7 +5,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 	if(users.bot) return;
 
 	ecoPool.getConnection(function(err, connection) {
-		connection.query(`SELECT * FROM stats WHERE userID = ${message.author.id}`, function(error, results, fields) {
+		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
 			const statsEmbed = new discord.RichEmbed()
 				.setAuthor('Stats', users.displayAvatarURL)
 				.setDescription(`
