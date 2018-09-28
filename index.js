@@ -38,7 +38,7 @@ fs.readdir('./commands/', (err, files) => {
 
 	jsfiles.forEach((f, i) => {
 		const cmdFiles = require(`./commands/${f}`);
-		console.log(`Loading ${cmdFiles.help.name}!`);
+		console.log(`Loading [${i + 1}] ${cmdFiles.help.name}!`);
 		commands.set(cmdFiles.help.name, cmdFiles);
 	});
 });
