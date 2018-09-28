@@ -10,6 +10,7 @@ module.exports.run = async (client, message, args) => {
 
 module.exports.help = {
 	name: 'ping',
+	description: 'Shows bot latency',
+	usage: '?ping',
 	aliases: ['pong'],
-	usage: '?ping'
 };

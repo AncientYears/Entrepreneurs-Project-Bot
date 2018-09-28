@@ -26,6 +26,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 
 module.exports.help = {
 	name: 'stats',
+    description: 'Shows business information',
+    usage: '?stats or ?stats @someone ',
 	aliases: ['statistics'],
-	usage: '?stats or ?stats @someone ',
 };
