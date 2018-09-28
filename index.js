@@ -17,7 +17,7 @@ client.on('message', async (message) => {
 	ecoPool.getConnection(function(err, connection) {
 		connection.query('SELECT * FROM stats', function(error, results, fields) {
 			if(!fields[0].userID) {
-				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`)    
+				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
 				connection.release();
 				if (error) throw error;
 			}
