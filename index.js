@@ -3,7 +3,7 @@ const fs = require('fs');
 const mysql = require('mysql');
 require('dotenv').config();
 const client = new discord.Client({ disableEveryone: false });
-const commands = new discord.Collection();
+client.commands = new discord.Collection();
 
 client.on('ready', async () => {
 	console.log(`${client.user.username} is up and running!`);
@@ -14,6 +14,19 @@ const prefix = '?'; // temporary prefix here
 client.on('message', async (message) => {
 	if(message.author.bot || message.channel.type === 'dm') return;
 
+	ecoPool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM stats', function (error, results, fields) {
+		  if(!fields[0].userID) {
+		  connection.query(`INSERT IGNORE INTO stats (userID, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', ${0}, ${0}, ${0}, ${0}, ${0})`)    
+		  connection.release();
+		  if (error) throw error;
+		  } else {
+		  connection.release();
+		  if (error) throw error;
+		}
+		});
+		});
+
 	const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${prefix})\\s*`);
 	if (!prefixRegex.test(message.content)) return;
 	const [, matchedPrefix] = message.content.match(prefixRegex);
@@ -22,7 +35,7 @@ client.on('message', async (message) => {
 	const cmd = commands.get(cmdname) || commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
 
 	if(cmd) {
-		cmd.run(client, message, args);
+		cmd.run(client, message, args, ecoPool);
 	}
 
 });
