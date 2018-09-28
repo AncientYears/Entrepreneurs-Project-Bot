@@ -1,7 +1,7 @@
 module.exports.run = async (client, message, args) => {
 	if(!args.length) {
 		return message.author.send(
-			client.commands.map(props => `**Command: ${props.help.name}**\n${props.help.description ? `\tDescription: ${props.help.description}\n` : '' }${props.help.usage ? `\tUsage: ${props.help.usage}\n` : '' }${props.help.aliases ? `\tAliases: ${props.help.aliases.join(', ')}\n` : '' }`)
+			client.commands.map(props => props.help.hideinhelp ? '' : `**Command: ${props.help.name}**\n${props.help.description ? `\tDescription: ${props.help.description}\n` : '' }${props.help.usage ? `\tUsage: ${props.help.usage}\n` : '' }${props.help.aliases ? `\tAliases: ${props.help.aliases.join(', ')}\n` : '' }`).filter(data => data !== '')
 			, { split: { char: '\n\n' } })
 			.then(() => {
 				if (message.channel.type === 'dm') return;
@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args) => {
 	}
 	const cmd = args.join(' ').toLowerCase();
 	const command = client.commands.get(cmd) || client.commands.find(commanda => commanda.help.aliases && commanda.help.aliases.includes(cmd));
-	if (!command) return message.reply('that\'s not a valid command!');
+	if (!command || command.help.hideinhelp) return message.reply('that\'s not a valid command!');
 	const helpcmd = [];
 	helpcmd.push(`**Name:** ${command.help.name}`);
 
