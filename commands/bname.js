@@ -4,7 +4,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 			if(!results[0].businessName) {
 				if(!args.join(' ')) return message.reply('Include a name.');
 				connection.query(`UPDATE stats SET businessName = '${args.join(' ')}' WHERE userID = '${message.author.id}'`);
-				message.author.send('You have successfully named your business as **' + args.join(' ') + '**! \n\nYou are of to a great start! \nNow, where do you wish to locate your business? (I have listed some suggestions for you, use **?blocate** to view the possible locations to setup your company)');
+				message.reply('You have successfully named your business as **' + args.join(' ') + '**! \n\nYou are of to a great start! \nNow, where do you wish to locate your business? (I have listed some suggestions for you, use **?blocate** to view the possible locations to setup your company)');
 				connection.release();
 				if (error) throw error;
 			}

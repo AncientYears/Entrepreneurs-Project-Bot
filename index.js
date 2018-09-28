@@ -16,7 +16,7 @@ client.on('message', async (message) => {
 
 	ecoPool.getConnection(function(err, connection) {
 		connection.query('SELECT * FROM stats', function(error, results, fields) {
-			if(!fields[0].userID) {
+			if(!results[0].userID) {
 				connection.query(`INSERT IGNORE INTO stats (userID) VALUES ('${message.author.id}')`);
 				connection.release();
 				if (error) throw error;
