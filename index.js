@@ -32,7 +32,7 @@ client.on('message', async (message) => {
 	const [, matchedPrefix] = message.content.match(prefixRegex);
 	const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
 	const cmdname = args.shift().toLowerCase();
-	const cmd = commands.get(cmdname) || commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
+	const cmd = client.commands.get(cmdname) || client.commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
 
 	if(cmd) {
 		cmd.run(client, message, args, ecoPool);
@@ -52,7 +52,7 @@ fs.readdir('./commands/', (err, files) => {
 	jsfiles.forEach((f, i) => {
 		const cmdFiles = require(`./commands/${f}`);
 		console.log(`Loading [${i + 1}] ${cmdFiles.help.name}!`);
-		commands.set(cmdFiles.help.name, cmdFiles);
+		client.commands.set(cmdFiles.help.name, cmdFiles);
 	});
 });
 
