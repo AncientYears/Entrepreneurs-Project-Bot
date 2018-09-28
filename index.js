@@ -44,11 +44,16 @@ client.on('message', async (message) => {
 client.on('guildMemberAdd', (member) => {
 	ecoPool.getConnection(function(err, connection) {
 		connection.query('SELECT * FROM stats', function(error, results, fields) {
-			if(!fields[0].userID) {
+			if(!results[0].userID) {
 				connection.query(`INSERT IGNORE INTO stats (userID, cash, bank, netWorth, employees, stocks) VALUES ('${member.id}', ${0}, ${0}, ${0}, ${0}, ${0})`);
 				connection.release();
 				if (error) throw error;
-				member.user.send('W.I.P, please standby.');
+				member.user.send(`
+Welcome **${member.user.username}** to the Entrepreneurs server!
+I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during your stay here. I will give you tips and advice on how to grow your very own business!
+
+Alright, first things first, What should we call your business? **(?bname <business name>)**
+`);
 				return;
 			}
 			else {

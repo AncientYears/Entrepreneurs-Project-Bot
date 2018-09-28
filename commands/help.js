@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args) => {
 	}
 	const cmd = args.join(' ').toLowerCase();
 	const command = client.commands.get(cmd) || client.commands.find(commanda => commanda.help.aliases && commanda.help.aliases.includes(cmd));
-	if (!command || command.help.hideinhelp) return message.reply('that\'s not a valid command!');
+	if (!command) return message.reply('that\'s not a valid command!');
 	const helpcmd = [];
 	helpcmd.push(`**Name:** ${command.help.name}`);
 
