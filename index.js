@@ -12,12 +12,12 @@ client.on('ready', async () => {
 
 const prefix = '?'; // temporary prefix here
 client.on('message', async (message) => {
-	if(message.author.bot || message.channel.type === 'dm') return;
+	if(message.author.bot) return;
 
 	ecoPool.getConnection(function(err, connection) {
 		connection.query('SELECT * FROM stats', function(error, results, fields) {
 			if(!fields[0].userID) {
-				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
+				connection.query(`INSERT IGNORE INTO stats (userID) VALUES ('${message.author.id}')`);
 				connection.release();
 				if (error) throw error;
 			}
