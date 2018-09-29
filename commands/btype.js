@@ -1,10 +1,10 @@
 module.exports.run = async (client, message, args, ecoPool) => {
-	const types = ['Farm', 'Factory', 'Shop'];
+	const types = ['farm', 'factory', 'shop'];
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
 			if(!results[0].businessName) return message.reply('Name your business first using **?bname**!') && connection.release();
 			if(!results[0].businessType) {
-				if(!types.includes(args[0])) {
+				if(!types.includes(args[0]).toLowerCase()) {
 					return message.reply(`
 That is an invalid business type.
 
