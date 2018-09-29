@@ -5,7 +5,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 			if(!results[0].businessName) return message.reply('Name your business first using **?bname**!') && connection.release();
 			if(!results[0].businessType) {
 				if(!types.includes(args[0])) {
-					return connection.release() && message.reply(`
+					return message.reply(`
 That is an invalid business type.
 
 The types are as follows:
@@ -16,12 +16,14 @@ The types are as follows:
 **Disadvantages:**
 - Your profits depend on quality of crops, season, weather etc.
 - You have limited access to other companies so trade might be a bit difficult   
-`);
+`) && connection.release();
 				}
-				connection.query(`UPDATE stats SET businessType = ${args[0].toLowerCase()} WHERE userID = '${message.author.id}'`);
-				message.reply('You now have a **' + args[0].toLowerCase() + '** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **?blocate** to view the possible locations for companies!)');
-				connection.release();
-				if (error) throw error;
+				else {
+					connection.query(`UPDATE stats SET businessType = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
+					message.reply('You now have a **' + args[0].toLowerCase() + '** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **?blocate** to view the possible locations for companies!)');
+					connection.release();
+					if (error) throw error;
+				}
 			}
 			else {
 				message.reply('You already have a business type which is: **' + results[0].businessType + '** \nIf you would like to change it do **?bnewtype <type>**');
