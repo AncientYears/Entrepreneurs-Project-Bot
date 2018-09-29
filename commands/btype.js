@@ -4,7 +4,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
 			if(!results[0].businessName) return message.reply('Name your business first using **?bname**!') && connection.release();
 			if(!results[0].businessType) {
-				if(!types.includes(args[0].toLowerCase())) {
+				if(!types.includes(args[0] || args[0].toLowerCase())) {
 					return connection.release() && message.reply(`
 That is an invalid business type.
 
