@@ -8,14 +8,15 @@ module.exports.run = async (client, message, args, ecoPool) => {
 					return message.reply(`
 That is an invalid business type.
 
-The types are as follows:
-[1] **Farm** - You are able to produce raw goods, e.g fruits, vegetables, meat, dairy products, etc.
-**Advantages:**
-- No need to constantly buy stocks from other companies
-- Companies rely on your materials, meaning you can set the prices
-**Disadvantages:**
-- Your profits depend on quality of crops, season, weather etc.
-- You have limited access to other companies so trade might be a bit difficult   
+The types are as follows:\`\`\`css
+[ Farm ] 
+# You are able to produce raw goods, e.g fruits, vegetables, meat, dairy products, etc.
+[ Advantages ]
+# No need to constantly buy stocks from other companies
+# Companies rely on your materials, meaning you can set the prices
+[ Disadvantages ]
+# Your profits depend on quality of crops, season, weather etc.
+# You have limited access to other companies so trade might be a bit difficult\`\`\`   
 `) && connection.release();
 				}
 				else {

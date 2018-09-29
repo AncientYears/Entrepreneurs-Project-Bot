@@ -11,10 +11,11 @@ module.exports.run = async (client, message, args, ecoPool) => {
 				.setDescription(`
 **Company:** ${results[0].businessName || 'None Found'}
 **Type:** ${results[0].businessType || 'None Found'}
+**Location:** ${results[0].businessLocation || 'None Found'}
+**Employees:** ${results[0].employees}
 **Cash:** ${results[0].cash}
 **Bank:** ${results[0].bank}
 **Net Worth:** ${results[0].netWorth}
-**Employees:** ${results[0].employees}
           `)
 				.setFooter('Company owned by: ' + users.username);
 			message.channel.send(statsEmbed);
