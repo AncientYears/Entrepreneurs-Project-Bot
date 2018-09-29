@@ -23,4 +23,5 @@ module.exports.run = async (client, message, args, ecoPool) => {
 
 module.exports.help = {
 	name: 'bname',
+	hideinhelp: true,
 };

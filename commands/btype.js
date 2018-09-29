@@ -55,4 +55,5 @@ The types are as follows:\`\`\`css
 
 module.exports.help = {
 	name: 'btype',
+	hideinhelp: true,
 };
