@@ -34,7 +34,7 @@ The types are as follows:\`\`\`css
 # You can advertise your shop to get more people to buy your stock
 [ Disadvantages ]
 # You may have to lower the price for customers to buy a certain item
-# You are limited in wether/season conditions due to the fact that you need to buy stock from other companies. 
+# You are limited in wether/season conditions due to the fact that you need to buy stock from other companies.\`\`\`
 `) && connection.release();
 				}
 				else {
