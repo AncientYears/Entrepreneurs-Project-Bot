@@ -24,4 +24,5 @@ module.exports.help = {
     , description: 'Evals'
     , usage: 'eval <<>>'
     , aliases: ['e']
+    , hideinhelp: true
 , };
