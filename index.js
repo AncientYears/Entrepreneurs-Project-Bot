@@ -12,6 +12,7 @@ client.on('ready', async () => {
 
 const prefix = '?'; // temporary prefix here
 client.on('message', async (message) => {
+	if(message.system) return;
 	if(message.author.bot) return;
 
 	ecoPool.getConnection(function(err, connection) {
@@ -45,7 +46,7 @@ client.on('guildMemberAdd', (member) => {
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${member.id}'`, function(error, results, fields) {
 			if(!results) {
-				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
+				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${member.user.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
 				connection.release();
 				if (error) throw error;
 				member.user.send(`
