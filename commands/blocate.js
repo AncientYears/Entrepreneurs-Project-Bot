@@ -6,7 +6,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 			if(!results[0].businessName) return message.reply('Name your business first using **?bname**!') && connection.release();
 			if(!results[0].businessType) return message.reply('Select your business type using **?btype**') && connection.release();
 			if(!results[0].businessLocation) {
-				if(!locations.includes(args[0])) {
+				if(!args[0] || !locations.includes(args[0].toLowerCase())) {
 					return message.reply(`
 That is an invalid location.
 
