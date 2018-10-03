@@ -1,5 +1,5 @@
 module.exports.run = async (client, message, args, ecoPool) => {
-	const locations = ['farm', 'factory', 'shop'];
+	const locations = ['urban', 'rural'];
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
 			if(!results[0]) return connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`) && connection.release() && message.reply('An error occurred, please run the command again');
@@ -11,43 +11,34 @@ module.exports.run = async (client, message, args, ecoPool) => {
 That is an invalid location.
 
 The types are as follows:\`\`\`css
-[ Farm ] 
-# You are able to produce raw goods, e.g fruits, vegetables, meat, dairy products, etc.
+[ Urban ] 
+# You will locate your company in the busy city
 [ Advantages ]
-# No need to constantly buy stocks from other companies
-# Companies rely on your materials, meaning you can set the prices
+# Easy access to a lot of different services/businesses
+# A lot of people live close to your business
 [ Disadvantages ]
-# Your profits depend on quality of crops, season, weather etc.
-# You have limited access to other companies so trade might be a bit difficult\`\`\`   
+# You need to compete with lots of different companies
+# Limited land and raw-materials \`\`\`   
 \`\`\`css
-[ Factory ]
-# You are able to buy raw goods from farms and process them to create something new
+[ Rural ]
+# You will locate your company in the country-side
 [ Advantages ]
-# You can sell the new items you produce for more profit
-# No limit to what items you can produce
+# You have access to land and resources
+# You do not compete with many different businesses
 [ Disadvantages ]
-# You depend on farms and other raw material producers for profit
-# You can lose money when demand drops for your product\`\`\`
-\`\`\`css
-[ Shop ]
-# You buy stock for cheap and sell it for more to make a profit.
-[ Advantages ]
-# You can buy stock from both raw-material producers and factories
-# You can advertise your shop to get more people to buy your stock
-[ Disadvantages ]
-# You may have to lower the price for customers to buy a certain item
-# You are limited in wether/season conditions due to the fact that you need to buy stock from other companies.\`\`\`
+# Not many people live close to your business
+# You do not have access to lots of businesses nor services \`\`\`
 `) && connection.release();
 				}
 				else {
-					connection.query(`UPDATE stats SET businessType = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
-					message.reply('You now have a **' + args[0].toLowerCase() + '** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **?blocate** to view the possible locations for companies!)');
+					connection.query(`UPDATE stats SET businessLocation = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
+					message.reply('You have located your business in: **' + args[0].toLowerCase() + ' area** business! \nFantastic, you have successfully setup your business!\nNow, in the https://discord.gg/mG7eQtw server, run the **?help** command to find the commands to start running your business!\n\nAlso if you need any further help, there is a great community in that server to answer all of your questions! :joy_cat:');
 					connection.release();
 					if (error) throw error;
 				}
 			}
 			else {
-				message.reply('You already have a business type which is: **' + results[0].businessType + '** \nIf you would like to change it do **?bnewtype <type>**');
+				message.reply('You already have already located your business in: **' + results[0].businessLocation + ' area** \nIf you would like to change it do **?breset**');
 				connection.release();
 				if (error) throw error;
 			}
