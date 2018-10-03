@@ -59,7 +59,7 @@ Alright, first things first, What should we call your business? **(?bname <busin
 				return;
 			}
 			else {
-				console.log('ELSE STATEMENT WAS EXECUTED')
+				console.log(results)
 				connection.release();
 				if (error) throw error;
 				return;
