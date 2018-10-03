@@ -32,7 +32,7 @@ The types are as follows:\`\`\`css
 				}
 				else {
 					connection.query(`UPDATE stats SET businessLocation = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
-					message.reply('You have located your business in: **' + args[0].toLowerCase() + ' area** business! \nFantastic, you have successfully setup your business!\nNow, in the https://discord.gg/mG7eQtw server, run the **?help** command to find the commands to start running your business!\n\nAlso if you need any further help, there is a great community in that server to answer all of your questions! :joy_cat:');
+					message.reply('You have located your business in: **' + args[0].toLowerCase() + ' area**!\nFantastic, you have successfully setup your business!\nNow, in the https://discord.gg/mG7eQtw server, run the **?help** command to find the commands to start running your business!\n\nAlso if you need any further help, there is a great community in that server to answer all of your questions! :joy_cat:');
 					connection.release();
 					if (error) throw error;
 				}
