@@ -55,7 +55,7 @@ I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during you
 
 Alright, first things first, What should we call your business? **(?bname <business name>)**
 `).catch(err => {
-				if(error.code != 50007) throw new Error(`Could not send help DM to ${message.author.tag}.\n` + error);
+				if(err.code != 50007) throw new Error(`Could not send help DM to ${message.author.tag}.\n` + error);
 				member.addRole(member.guild.roles.find(role => role.name.toLowerCase() === 'unverified'))
 				})
 				return;
