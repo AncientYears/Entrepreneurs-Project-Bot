@@ -46,6 +46,7 @@ client.on('guildMemberAdd', (member) => {
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${member.id}'`, function(error, results, fields) {
 			if(!results) {
+				console.log(results);
 				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${member.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
 				connection.release();
 				if (error) throw error;
@@ -58,6 +59,7 @@ Alright, first things first, What should we call your business? **(?bname <busin
 				return;
 			}
 			else {
+				console.log('ELSE STATEMENT WAS EXECUTED')
 				connection.release();
 				if (error) throw error;
 				return;
