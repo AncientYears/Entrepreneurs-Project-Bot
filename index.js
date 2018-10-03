@@ -46,7 +46,7 @@ client.on('guildMemberAdd', (member) => {
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${member.id}'`, function(error, results, fields) {
 			if(!results) {
-				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${member.user.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
+				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${member.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
 				connection.release();
 				if (error) throw error;
 				member.user.send(`
