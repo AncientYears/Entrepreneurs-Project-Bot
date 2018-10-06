@@ -7,6 +7,8 @@ module.exports.run = async (client, message, args, ecoPool) => {
 				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
 				connection.release();
 				message.reply('You have not created a business yet, start off by naming one using **?setup**!');
+				return
+				;
 			}
 			else {
 				message.reply('Do you really want to reset your **WHOLE** business? (yes/no)');
