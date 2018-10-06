@@ -37,7 +37,7 @@ The types are as follows:\`\`\`css
 					connection.release();
 					if (error) throw error;
 					const setupchannel = message.guild.channels.find(channel => channel.topic === message.author.id);
-					if(setupchannel) setupchannel.delete();
+					if(setupchannel) {setTimeout(() => setupchannel.delete(), 50000);}
 				}
 			}
 			else {
