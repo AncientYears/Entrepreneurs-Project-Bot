@@ -16,6 +16,10 @@ client.on('message', async (message) => {
 	commandhandler.run(client, message, ecoPool);
 });
 
+client.on('messageUpdate', async (oldmessage, message) => {
+	commandhandler.run(client, message, ecoPool);
+});
+
 client.on('guildMemberAdd', (member) => {
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${member.id}'`, function(error, results, fields) {
