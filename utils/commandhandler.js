@@ -36,7 +36,7 @@ module.exports.start = (client) => { // load commands from command dir
 			}
 			catch(err) {
 				errorc++;
-				client.error(`${i} ${f} failed to load!\n${err}\n${err.stack}\n`);
+				console.error(`${i} ${f} failed to load!\n${err}\n${err.stack}\n`);
 			}
 		});
 
