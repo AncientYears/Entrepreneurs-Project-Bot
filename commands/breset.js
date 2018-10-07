@@ -12,15 +12,15 @@ module.exports.run = async (client, message, args, ecoPool) => {
 			}
 			else {
 				message.reply('Do you really want to reset your **WHOLE** business? (yes/no)');
-				const filter = m => m.author.id === message.author.id;
+				const filter = m => m.author.id === message.author.id && (m.content.toLowerCase() === 'yes' || m.content.toLowerCase() == 'no');
 				const collector = message.channel.createMessageCollector(filter, { time: 20000, max:1 });
 
 				collector.on('collect', m => {
-					if(m.content.toLowerCase() == 'yes') {
+					if(m.content.toLowerCase() === 'yes') {
 						connection.query(`UPDATE stats SET businessName = '', businessType = '', businessLocation = '', cash = ${0}, bank = ${0}, netWorth = ${0}, employees = ${0}, stocks = ${0} WHERE userID = '${message.author.id}'`);
 						m.reply('Your business was successfully reset, create a new one using **?setup**!');
 					}
-					else if (m.content.toLowerCase() == 'no') {
+					else if (m.content.toLowerCase() === 'no') {
 						m.reply('Your business was not reset!');
 					}
 				});
