@@ -19,11 +19,9 @@ module.exports.run = async (client, message, args, ecoPool) => {
 					if(m.content.toLowerCase() == 'yes') {
 						connection.query(`UPDATE stats SET businessName = '', businessType = '', businessLocation = '', cash = ${0}, bank = ${0}, netWorth = ${0}, employees = ${0}, stocks = ${0} WHERE userID = '${message.author.id}'`);
 						m.reply('Your business was successfully reset, create a new one using **?setup**!');
-						connection.release();
 					}
 					else if (m.content.toLowerCase() == 'no') {
 						m.reply('Your business was not reset!');
-						connection.release();
 					}
 				});
 
