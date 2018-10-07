@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 module.exports.run = async (client, message, args, ecoPool) => {
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
-			if(!results[0].businessName == '') {
+			if(results[0].businessName == '') {
 				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
 				connection.release();
 				message.reply('You have not created a business yet, start off by naming one using **?setup**!');
