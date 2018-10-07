@@ -13,7 +13,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 			else {
 				message.reply('Do you really want to reset your **WHOLE** business? (yes/no)');
 				const filter = m => m.author.id === message.author.id;
-				const collector = message.channel.createMessageCollector(filter, { time: 20000 });
+				const collector = message.channel.createMessageCollector(filter, { time: 20000, max:1 });
 
 				collector.on('collect', m => {
 					if(m.content.toLowerCase() == 'yes') {
