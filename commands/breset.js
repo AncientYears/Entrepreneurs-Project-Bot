@@ -26,7 +26,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 				});
 
 				collector.on('end', collected => {
-					message.reply('Timed out! Run the command again');
+					if(!collected.size) message.reply('Timed out! Run the command again');
 					connection.release();
 				});
 			}
