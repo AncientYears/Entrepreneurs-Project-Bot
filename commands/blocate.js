@@ -39,7 +39,15 @@ The types are as follows:\`\`\`css
 					connection.release();
 					if (error) throw error;
 					const setupchannel = message.guild.channels.find(channel => channel.topic === message.author.id);
-					if(setupchannel) {setTimeout(() => setupchannel.delete(), 50000);}
+					if(setupchannel) {
+						setTimeout(() => setupchannel.delete(), 50000);
+						const role = message.guild.roles.get('498870271764070410');
+						message.member.addRole(role).catch(console.error);
+					} else {
+						const theGuild = client.guilds.get('490999695422783489');
+						const roleToAdd = theGuild.roles.get('498870271764070410');
+						message.member.addRole(roleToAdd).catch(console.error);
+					}
 				}
 			}
 			else {
