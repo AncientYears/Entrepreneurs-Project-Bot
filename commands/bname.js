@@ -2,7 +2,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
 			connection.query('SELECT * FROM stats', function(error2, results2, fields2) {
-				if(!results[0].businessName) {
+				if(!results.businessName) {
 					if(!args.join(' ')) {
 						return message.reply('**?bname <name>**');
 					}
