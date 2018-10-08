@@ -2,7 +2,6 @@ module.exports.run = async (client, message, args, ecoPool) => {
 	const locations = ['urban', 'rural'];
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
-			if(!results[0]) return connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`) && connection.release() && message.reply('An error occurred, please run the command again');
 			if(!results[0].businessName) return message.reply('Name your business first using **?bname**!') && connection.release();
 			if(!results[0].businessType) return message.reply('Select your business type using **?btype**') && connection.release();
 			if(!results[0].businessLocation) {
