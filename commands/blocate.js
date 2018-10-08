@@ -37,15 +37,17 @@ The types are as follows:\`\`\`css
 					message.reply('You have located your business in: **' + args[0].toLowerCase() + ' area**!\nFantastic, you have successfully setup your business and earned **$100**!\nNow, in the https://discord.gg/mG7eQtw server, run the **?help** command to find the commands to start running your business!\n\nAlso if you need any further help, there is a great community in that server to answer all of your questions! :joy_cat:');
 					connection.release();
 					if (error) throw error;
-					const setupchannel = message.guild.channels.find(channel => channel.topic === message.author.id);
+					const theGuild = client.guilds.get('490999695422783489');
+					const setupchannel = theGuild.channels.find(channel => channel.topic === message.author.id);
 					if(setupchannel) {
 						setTimeout(() => setupchannel.delete(), 50000);
 						const role = message.guild.roles.get('498870271764070410');
 						message.member.addRole(role).catch(console.error);
-					} else {
-						const theGuild = client.guilds.get('490999695422783489');
+					}
+					else {
+						const user = theGuild.members.get(message.author.id)
 						const roleToAdd = theGuild.roles.get('498870271764070410');
-						message.member.addRole(roleToAdd).catch(console.error);
+						user.addRole(roleToAdd).catch(console.error);
 					}
 				}
 			}
