@@ -4,7 +4,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 			if(!results.length) return connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`) && connection.release() && message.reply('An error occurred, please run the command again');
 			if(!results[0].businessName) {
 				if(!args.join(' ')) {
-					return message.reply('Include a name.');
+					return message.reply('**?bname <name>');
 				}
 				else {
 					connection.query(`UPDATE stats SET businessName = '${args.join(' ')}' WHERE userID = '${message.author.id}'`);

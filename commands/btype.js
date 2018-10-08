@@ -36,6 +36,8 @@ The types are as follows:\`\`\`css
 [ Disadvantages ]
 # You may have to lower the price for customers to buy a certain item
 # You are limited in wether/season conditions due to the fact that you need to buy stock from other companies.\`\`\`
+
+**?btype <type>**
 `) && connection.release();
 				}
 				else {

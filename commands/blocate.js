@@ -28,6 +28,8 @@ The types are as follows:\`\`\`css
 [ Disadvantages ]
 # Not many people live close to your business
 # You do not have access to lots of businesses nor services \`\`\`
+
+**?blocate <location>**
 `) && connection.release();
 				}
 				else {
