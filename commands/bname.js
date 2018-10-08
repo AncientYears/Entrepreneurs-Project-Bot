@@ -2,14 +2,16 @@ module.exports.run = async (client, message, args, ecoPool) => {
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
 			connection.query('SELECT * FROM stats', function(error2, results2, fields2) {
-				if(!results.businessName) {
+				if(!results[0].businessName) {
 					if(!args.join(' ')) {
 						return message.reply('**?bname <name>**');
 					}
 					else {
 						let i;
 						for (i = 0; i <= results2.length; i++) {
-							if(results2[i].businessName === args.join(' ').toLowerCase()) {
+							console.log(i);
+							console.log(results2.length);
+							if(args.join(' ').toLowerCase() === results2[i].businessName) {
 								connection.release();
 								message.reply('Sorry, but that name is taken. Please try a differnt name.');
 								return;
