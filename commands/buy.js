@@ -17,8 +17,15 @@ module.exports.run = async (client, message, args, ecoPool) => {
 	else if (args[0].toLowerCase() === 'farm') {
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
+			.setDescription(`
+**Potato** - 1$ / 1
+- Cheap crop, not the most profitable though.
+`)
 			.setFooter('?buy <item> <amount> to purchase an item');
 		message.channel.send(farmEmbed);
+	}
+	else if (args[0].toLowerCase() === 'farm' && args[1].toLowerCase() === 'potato' && !isNaN(args[2])) {
+		message.channel.send('So you wanna buy a potato, huh? Well too bad the devs gotta make this part of the bot work first');
 	}
 };
 
