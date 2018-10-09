@@ -4,7 +4,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 			if(!results[0].businessName) {
 				connection.release();
 				if (error) throw error;
-				message.reply(`
+				message.author.send(`
 Welcome to the Entrepreneurs server!
 I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during your stay here. I will give you tips and advice on how to grow your very own business!
 
