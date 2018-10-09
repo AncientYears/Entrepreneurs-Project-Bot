@@ -7,7 +7,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 	ecoPool.getConnection(function(err, connection) {
 		connection.query(`SELECT * FROM stats WHERE userID = '${users.id}'`, function(error, results, fields) {
 			if(!results.length) return message.reply('Sorry but **' + users.username + '** did not create their business yet!');
-			let stockies = results[0].stocks
+			const stockies = results[0].stocks;
 			const statsEmbed = new discord.RichEmbed()
 				.setAuthor('Stats', users.displayAvatarURL)
 				.setDescription(`
