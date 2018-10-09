@@ -1,8 +1,7 @@
 const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, ecoPool) => {
-	const tobuy = args.shift().toLowerCase();
-	if(!tobuy) {
+	if(!args[0]) {
 		const categoryEmbed = new discord.RichEmbed()
 			.setAuthor('Categories', message.author.displayAvatarURL)
 			.setDescription(`
@@ -15,7 +14,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 			.setFooter('?buy <category> to view a category');
 		message.channel.send(categoryEmbed);
 	}
-	else if (tobuy.toLowerCase() === 'farm') {
+	else if (args[0].toLowerCase() === 'farm') {
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
 			.setDescription(`
@@ -25,7 +24,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 			.setFooter('?buy <item> <amount> to purchase an item');
 		message.channel.send(farmEmbed);
 	}
-	else if (tobuy.toLowerCase() === 'potato') {
+	else if (args[0].toLowerCase() === 'potato') {
 		if(isNaN(args[1])) return message.channel.send('How many potatoes do you wanna buy? **?buy potato <amount>**');
 		if(args[1].startsWith('-')) return message.channel.send('Hey, you cannot buy negative potato(es)!');
 		ecoPool.getConnection(function(err, connection) {
