@@ -25,7 +25,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 		message.channel.send(farmEmbed);
 	}
 	else if (args[0].toLowerCase() === 'potato') {
-		if(isNaN(args[1])) return message.channel.send('How many potatoes do you wanna buy? **?buy potato <amount>');
+		if(isNaN(args[1])) return message.channel.send('How many potatoes do you wanna buy? **?buy potato <amount>**');
 		message.channel.send('So you wanna buy a potato, huh? Well too bad the devs gotta make this part of the bot work first');
 	}
 };
