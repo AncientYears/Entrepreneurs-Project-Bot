@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 **Bank:** ${results[0].bank}
 **Net Worth:** ${results[0].netWorth}
 **Stocks:**
-- ${stockies[0] || '0'} potatoes!
+- ${stockies[1] || '0'} potatoes!
           `)
 				.setFooter('Company owned by: ' + users.username);
 			message.channel.send(statsEmbed);

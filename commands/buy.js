@@ -37,14 +37,14 @@ module.exports.run = async (client, message, args, ecoPool) => {
 					resultedArray.push(smaller2 + ' potato');
 					connection.query(`UPDATE stats SET stocks = '${resultedArray}' WHERE userID = '${message.author.id}'`);
 					connection.query(`UPDATE stats SET cash = '${results[0].cash - args[1]}' WHERE userID = '${message.author.id}'`);
-					message.channel.send(`You have successfully bought **${args[1]}** potato(es) \nThis has costed you **${results[0].cash - args[1]}**!`);
+					message.channel.send(`You have successfully bought **${args[1]}** potato(es) \nThis has costed you **${1 * args[1]}**!`);
 					connection.release();
 				}
 				else {
 					resultedArray.push(args[1] + ' potato');
 					connection.query(`UPDATE stats SET stocks = '${resultedArray}' WHERE userID = '${message.author.id}'`);
 					connection.query(`UPDATE stats SET cash = '${results[0].cash - args[1]}' WHERE userID = '${message.author.id}'`);
-					message.channel.send(`You have successfully bought **${args[1]}** potato(es) \nThis has costed you **${results[0].cash - args[1]}**!`);
+					message.channel.send(`You have successfully bought **${args[1]}** potato(es) \nThis has costed you **${1 * args[1]}**!`);
 					connection.release();
 				}
 			});
