@@ -7,9 +7,9 @@ module.exports.run = async (client, message) => {
 		.setThumbnail(client.user.avatarURL)
 		.setTitle('Status')
 		.setDescription(`Please wait ${client.user.username} is restarting`);
-	message.channel.send(restartembed);
+	await message.channel.send(restartembed)
 	client.destroy()
-		.then(() => client.login(process.env.TOKEN));
+		.then(() => client.login(process.env.token));
 	restartembed.setDescription(`${client.user.username} has restarted!`);
 	client.once('ready', () => {
 		message.channel.send(restartembed);
