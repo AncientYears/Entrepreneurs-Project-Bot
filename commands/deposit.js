@@ -1,5 +1,3 @@
-const discord = require('discord.js');
-
 module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
 	if(!args[0]) return message.channel.send('Include a number!\n**?deposit <amount>**');
 	if(isNaN(args[0])) return message.channel.send('Invalid Number.');

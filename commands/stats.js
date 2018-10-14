@@ -5,7 +5,6 @@ module.exports.run = async (client, message, args, ecoPool, connetion, stats) =>
 	if(users.bot) return;
 
 	if(!stats.businessLocation.length) return message.reply('Sorry but **' + users.username + '** did not create their business yet!');
-	const stockies = stats.stocks;
 	const statsEmbed = new discord.RichEmbed()
 		.setAuthor('Stats', users.displayAvatarURL)
 		.setDescription(`
