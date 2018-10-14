@@ -10,7 +10,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 		.addField('Status', stats.TimeLength !== 0 ? 'Not Growing' : `${timeLeft.getHours()}h ${timeLeft.getMinutes()}m ${timeLeft.getSeconds()}s`)
 		.setDescription(`
 **Crops Available**
-- **${stats.stocks.potato + '**' || 'no'} potato
+- **${stats.stocks.potato || '**no'} potato
 `)
 		.setFooter('Plant your crops using ?plant!');
 
