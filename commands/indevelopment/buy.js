@@ -1,7 +1,8 @@
 const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
-	if(!args[0]) {
+	const tobuy = args[0].toLowerCase();
+	if(!tobuy) {
 		const categoryEmbed = new discord.RichEmbed()
 			.setAuthor('Categories', message.author.displayAvatarURL)
 			.setDescription(`**Farm**
@@ -12,7 +13,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 			.setFooter('?buy <category> to view a category');
 		return message.channel.send(categoryEmbed);
 	}
-	else if (args[0].toLowerCase() === 'farm') {
+	else if (tobuy === 'farm') {
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
 			.setDescription(`**Potato** - 1$ / 1
@@ -20,7 +21,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 			.setFooter('?buy <item> <amount> to purchase an item');
 		return message.channel.send(farmEmbed);
 	}
-	else if (args[0].toLowerCase() === 'potato') {
+	else if (tobuy === 'potato' || tobuy === 'potatoes') {
 
 		if(isNaN(args[1])) return message.channel.send('How many potatoes do you wanna buy? **?buy potato <amount>**');
 		if(args[1] <= 0) return message.channel.send('Hey, you cannot buy negative potato(es)!');
