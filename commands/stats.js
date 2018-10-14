@@ -17,7 +17,6 @@ module.exports.run = async (client, message, args, ecoPool, connetion, stats) =>
 **Bank:** ${stats.bank}
 **Net Worth:** ${stats.netWorth}
 **Stocks:**
-- ${stockies['potato'] || '0'} potatoes!
 ${stats.businessType === 'farm' ?
 		'- **' + stats.stocks.potato || '0' + '** potato(es)'
 
