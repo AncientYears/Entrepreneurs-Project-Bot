@@ -18,6 +18,16 @@ module.exports.run = async (client, message, args, ecoPool, connetion, stats) =>
 **Net Worth:** ${stats.netWorth}
 **Stocks:**
 - ${stockies['potato'] || '0'} potatoes!
+${stats.businessType === 'farm' ?
+		'- **' + stats.stocks.potato || '0' + '** potato(es)'
+
+		: stats.businessType === 'factory' ?
+			'- **coming soon!**'
+
+			: stats.businessType === 'shop' ?
+				'- **coming soon!**'
+
+				: message.channel.send('Error, message bot owner!')}
           `)
 		.setFooter('Company owned by: ' + users.username);
 	message.channel.send(statsEmbed);
