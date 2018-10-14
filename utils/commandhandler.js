@@ -79,27 +79,23 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 	if(message.author.bot) return;
 
 	ecoPool.getConnection(function(err, connection) {
-		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
-			if(!results[0]) {
-				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
-				connection.release();
-				if (error) throw error;
+		if(err) throw err;
+		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, [stats]) {
+			if (error) throw error;
+			if(!stats) connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
+			stats.stocks = JSON.parse(stats.stocks);
+
+			const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${prefix})\\s*`);
+			if (!prefixRegex.test(message.content)) return;
+			const [, matchedPrefix] = message.content.match(prefixRegex);
+			const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
+			const cmdname = args.shift().toLowerCase();
+			const cmd = client.commands.get(cmdname) || client.commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
+
+			if(cmd) {
+				cmd.run(client, message, args, ecoPool, connection, stats);
 			}
-			else {
-				connection.release();
-				if (error) throw error;
-			}
+			connection.release();
 		});
 	});
-
-	const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${prefix})\\s*`);
-	if (!prefixRegex.test(message.content)) return;
-	const [, matchedPrefix] = message.content.match(prefixRegex);
-	const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
-	const cmdname = args.shift().toLowerCase();
-	const cmd = client.commands.get(cmdname) || client.commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
-
-	if(cmd) {
-		cmd.run(client, message, args, ecoPool);
-	}
 };

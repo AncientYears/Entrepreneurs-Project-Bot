@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 
-module.exports.run = async (client, message, args, ecoPool) => {
+module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
 	if(!args[0]) {
 		const categoryEmbed = new discord.RichEmbed()
 			.setAuthor('Categories', message.author.displayAvatarURL)
@@ -25,25 +25,18 @@ module.exports.run = async (client, message, args, ecoPool) => {
 		message.channel.send(farmEmbed);
 	}
 	else if (args[0].toLowerCase() === 'potato') {
+
 		if(isNaN(args[1])) return message.channel.send('How many potatoes do you wanna buy? **?buy potato <amount>**');
 		if(args[1] <= 0) return message.channel.send('Hey, you cannot buy negative potato(es)!');
-		ecoPool.getConnection(function(err, connection) {
-			connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
-				if(results[0].cash < (1 * args[1])) return message.channel.send('You do not have enough cash to buy this!') && connection.release();
-				if(results[0].stocks.potato) {
-					connection.query(`UPDATE stats SET stocks = '${resultedArray}' WHERE userID = '${message.author.id}'`);
-					connection.query(`UPDATE stats SET cash = '${results[0].cash - args[1]}' WHERE userID = '${message.author.id}'`);
-					message.channel.send(`You have successfully bought **${args[1]}** potato(es) \nThis has costed you **${1 * args[1]}**!`);
-					connection.release();
-				}
-				else {
-					connection.query(`UPDATE stats SET stocks = '${{ potato: args[1] }}' WHERE userID = '${message.author.id}'`);
-					connection.query(`UPDATE stats SET cash = '${results[0].cash - args[1]}' WHERE userID = '${message.author.id}'`);
-					message.channel.send(`You have successfully bought **${args[1]}** potato(es) \nThis has costed you **${1 * args[1]}**!`);
-					connection.release();
-				}
-			});
-		});
+		if(stats.cash < (1 * args[1])) return message.channel.send('You do not have enough cash to buy this!');
+
+		if(stats.stocks) {
+			if(!stats.stocks.potato) stats.stocks.potato = 0;
+			stats.stocks['potato'] += parseInt(args[1]);
+			connection.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${message.author.id}'`);
+			connection.query(`UPDATE stats SET cash = '${stats.cash - args[1]}' WHERE userID = '${message.author.id}'`);
+			message.channel.send(`You have successfully bought **${args[1]}** potato(es) \nThis has costed you **${1 * args[1]}**!`);
+		}
 	}
 };
 

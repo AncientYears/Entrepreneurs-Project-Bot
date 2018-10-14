@@ -22,7 +22,7 @@ client.on('messageUpdate', async (oldmessage, message) => {
 
 client.on('guildMemberAdd', async (member) => {
 	ecoPool.getConnection(function(err, connection) {
-		connection.query(`SELECT * FROM stats WHERE userID = '${member.id}'`, function(error, results, fields) {
+		connection.query(`SELECT * FROM stats WHERE userID = '${member.id}'`, function(error, results) {
 			if(!results.length) {
 				connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${member.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${{}})`);
 				connection.release();
