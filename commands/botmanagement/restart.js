@@ -20,4 +20,5 @@ module.exports.help = {
 	name: 'restart',
 	description: 'Restarts the Bot',
 	usage: 'restart',
+	hideinhelp: true,
 };

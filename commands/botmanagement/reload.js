@@ -21,4 +21,5 @@ module.exports.help = {
 	name: 'reload',
 	description: 'reload a command',
 	usage: 'reload <cmd>',
+	hideinhelp:true,
 };
