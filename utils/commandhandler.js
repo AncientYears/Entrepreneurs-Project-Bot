@@ -56,6 +56,7 @@ module.exports.start = (client) => { // load commands from command dir
 					console.error(`${i} ${f} failed to in ${category} load!\n${err}\n${err.stack}\n`);
 				}
 			});
+			console.log(`-------------------------------\nCategory ${category} loaded or none found!\n-------------------------------`);
 		});
 
 
