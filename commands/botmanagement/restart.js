@@ -1,10 +1,9 @@
 const Discord = require('discord.js');
-const color = require(process.cwd() + '/config/color.json');
 
 module.exports.run = async (client, message) => {
 	if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!');
 	const restartembed = new Discord.RichEmbed()
-		.setColor(color.restart)
+		.setColor('RED')
 		.setThumbnail(client.user.avatarURL)
 		.setTitle('Status')
 		.setDescription(`Please wait ${client.user.username} is restarting`);
