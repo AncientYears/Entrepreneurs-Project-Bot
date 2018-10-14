@@ -12,6 +12,8 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 
 module.exports.help = {
 	name: 'deposit',
-	aliases: ['dep', 'd'],
+	aliases: ['dep', 'd'], 
+	usage: 'deposit <amount>',
+	description: 'Used to deposit Money to your Bank!',
 	hideinhelp: false,
 };
