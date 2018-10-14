@@ -14,6 +14,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 		return message.channel.send(categoryEmbed);
 	}
 	else if (tobuy === 'farm') {
+		if(!stats.type === 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.type + '**');
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
 			.setDescription(`**Potato** - 1$ / 1
@@ -22,6 +23,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 		return message.channel.send(farmEmbed);
 	}
 	else if (tobuy === 'potato' || tobuy === 'potatoes') {
+		if(!stats.type === 'farm') return message.channel.send('Sorry, you do not have a **farm**! \nYou have a **' + stats.type + '**');
 
 		if(isNaN(args[1])) return message.channel.send('How many potatoes do you wanna buy? **?buy potato <amount>**');
 		if(args[1] <= 0) return message.channel.send('Hey, you cannot buy negative potato(es)!');
