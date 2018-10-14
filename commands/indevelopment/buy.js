@@ -1,8 +1,8 @@
 const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
-	const tobuy = args[0].toLowerCase();
-	if(!tobuy) {
+
+	if(!args[0]) {
 		const categoryEmbed = new discord.RichEmbed()
 			.setAuthor('Categories', message.author.displayAvatarURL)
 			.setDescription(`**Farm**
@@ -13,7 +13,8 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 			.setFooter('?buy <category> to view a category');
 		return message.channel.send(categoryEmbed);
 	}
-	else if (tobuy === 'farm') {
+	const tobuy = args[0].toLowerCase();
+	if (tobuy === 'farm') {
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
 			.setDescription(`**Potato** - 1$ / 1
