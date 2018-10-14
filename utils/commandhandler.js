@@ -94,7 +94,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 			const cmd = client.commands.get(cmdname) || client.commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
 			if(cmd) {
 				cmd.run(client, message, args, ecoPool, connection, stats);
-				if(cmd.help.category === 'indevelopment') message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
+				if(cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
 			}
 			connection.release();
 		});
