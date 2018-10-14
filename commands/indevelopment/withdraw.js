@@ -9,7 +9,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 	connection.query(`UPDATE stats SET bank = '${Number(stats.bank) - Number(args[0])}' WHERE userID = '${message.author.id}'`);
 	connection.query(`UPDATE stats SET cash = '${Number(stats.cash) + Number(args[0])}' WHERE userID = '${message.author.id}'`);
 
-	message.channel.send('You have successfully withdrawn **' + args[0] + '** from your bank! \nYou have **' + Number(stats.bank) - Number(args[0]) + '** left inside your bank!');
+	message.channel.send(`You have successfully withdrawn **${Number(args[0])}** from your bank! \nYou have **${Number(stats.bank) - Number(args[0])}** left inside your bank!`);
 };
 
 module.exports.help = {
