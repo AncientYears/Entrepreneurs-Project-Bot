@@ -45,7 +45,7 @@ The types are as follows:\`\`\`css
 						message.member.addRole(role).catch(console.error);
 					}
 					else {
-						const user = theGuild.members.get(message.author.id)
+						const user = theGuild.members.get(message.author.id);
 						const roleToAdd = theGuild.roles.get('498870271764070410');
 						user.addRole(roleToAdd).catch(console.error);
 					}
