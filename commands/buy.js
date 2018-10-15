@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 	}
 	const tobuy = args[0].toLowerCase();
 	if (tobuy === 'farm') {
-		if(!stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
+		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
 			.setDescription(`**Potato** - 1$ / 1
