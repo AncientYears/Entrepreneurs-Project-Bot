@@ -24,7 +24,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 		return message.channel.send(farmEmbed);
 	}
 	else if (tobuy === 'potato' || tobuy === 'potatoes') {
-		if(!stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
+		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
 		if(isNaN(args[1])) return message.channel.send('How many potatoes do you wanna buy? **?buy potato <amount>**');
 		if(args[1] <= 0) return message.channel.send('Hey, you cannot buy negative potato(es)!');
 		if(stats.cash < (1 * args[1])) return message.channel.send('You do not have enough cash to buy this!');
