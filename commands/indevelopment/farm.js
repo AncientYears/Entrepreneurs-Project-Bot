@@ -11,8 +11,13 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 		.setDescription(`
 **Crops Available**
 - ${stats.stocks.potato || 'no'} potato
+
+**Useful Commands**
+- ?plant : Plant your crops!
+- ?harvest : Harvest your crops!
+- ?farm : View information about your crops!
 `)
-		.setFooter('Plant your crops using ?plant!');
+		.setFooter(`Farm owned by ${message.author.tag}`);
 
 	message.channel.send(farmEmbed);
 };
