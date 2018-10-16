@@ -3,7 +3,7 @@ const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
 	if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
-	if(stats.TimeLength !== 0) {
+	if(stats.timeLength !== 0) {
 		message.channel.send('Your crops are already growing, use the **?farm** command to view information about them!');
 	}
 	else {
