@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args, ecoPool, connection, stats ) => 
 			const data = await request.get(bot.haste + '/raw/' + args[1]);
 			content = data.body.toString();
 		}
-		console.log(bot.chalk.red(content));
+		
 
 		if (cblockre.test(content)) {
 			content = content.replace(cblockre, '').trim();
