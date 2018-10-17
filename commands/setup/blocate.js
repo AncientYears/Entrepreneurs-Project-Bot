@@ -38,12 +38,12 @@ The types are as follows:\`\`\`css
 			if(setupchannel) {
 				setTimeout(() => setupchannel.delete(), 50000);
 				const role = message.guild.roles.get('498870271764070410');
-				message.member.addRole(role).catch(console.error);
+				message.member.addRole(role);
 			}
 			else {
 				const user = theGuild.members.get(message.author.id);
 				const roleToAdd = theGuild.roles.get('498870271764070410');
-				user.addRole(roleToAdd).catch(console.error);
+				user.addRole(roleToAdd);
 			}
 		}
 	}

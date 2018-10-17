@@ -66,7 +66,7 @@ module.exports.start = (client) => { // load commands from command dir
 };
 
 const prefix = '?'; // temporary prefix here
-
+const ms = require('ms');
 
 /**
  * Module to run and handle Commands!
@@ -84,6 +84,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, [stats]) {
 			if (error) throw error;
 			if(stats && stats.stocks) stats.stocks = JSON.parse(stats.stocks);
+			if(stats && stats.cooldowns) stats.cooldowns = JSON.parse(stats.cooldowns);
 			const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${prefix})\\s*`);
 			if (!prefixRegex.test(message.content)) return;
 			const [, matchedPrefix] = message.content.match(prefixRegex);
@@ -107,6 +108,21 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 						}
 					}
 				}
+
+				const now = Date.now();
+				const cooldownAmount = ms(cmd.help.cooldown || '5s');
+				if(!stats.cooldowns) stats.cooldowns = {};
+				if(!stats.cooldowns[cmd.help.name]) {
+					stats.cooldowns[cmd.help.name] = now - cooldownAmount;
+				}
+				const cooldown = stats.cooldowns[cmd.help.name];
+				const expirationTime = cooldown + cooldownAmount;
+				if (now < expirationTime) {
+					const timeLeft = ms(expirationTime - now, { long: true });
+					return message.reply(`please wait \`${timeLeft}\` before reusing the \`${cmd.help.name}\` command.`);
+				}
+				stats.cooldowns[cmd.help.name] = now;
+				connection.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`, console.log);
 				cmd.run(client, message, args, ecoPool, connection, stats).catch(err => message.channel.send(err.message));
 				if(cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
 			}
