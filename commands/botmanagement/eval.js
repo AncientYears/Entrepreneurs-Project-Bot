@@ -5,7 +5,7 @@ const request = require('snekfetch');
 
 const cblockre = /(^```js)|(```$)/g;
 
-module.exports.run = async (bot, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
 	try {
 		if(args[0] == 'secured') {
 			args.shift();
@@ -15,8 +15,8 @@ module.exports.run = async (bot, message, args, ecoPool, connection, stats) => {
 
 		let content = args.join(' ');
 		if(args[0] == 'haste') {
-			if(!args[1]) return message.reply('To eval a haste upload your code to ' + bot.haste);
-			const data = await request.get(bot.haste + '/raw/' + args[1]);
+			if(!args[1]) return message.reply('To eval a haste upload your code to ' + client.haste);
+			const data = await request.get(client.haste + '/raw/' + args[1]);
 			content = data.body.toString();
 		}
 
@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args, ecoPool, connection, stats) => {
 		let evaled = eval(content);
 
 		if (typeof evaled !== 'string') {evaled = require('util').inspect(evaled);}
-		await respond(message, evaled, bot, this.secured);
+		await respond(message, evaled, client, this.secured);
 	}
 	catch (err) {
 		message.channel.send(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
@@ -52,16 +52,16 @@ const header = (m, x) => {
 	}
 };
 
-async function respond(message, result, bot, secured) {
+async function respond(message, result, client, secured) {
 	header(message);
 	const wrapped = `${message.author}\n\`\`\`js\n${result}\n\`\`\``;
 	if (wrapped.length >= 2000) {
 		if(secured == true) return message.reply('message was too long in secured mode!');
-		const key = await request.post(bot.haste + '/documents')
+		const key = await request.post(client.haste + '/documents')
 			.send(result)
 			.then((r) => r.body.key);
-		await message.reply(`**Output was too long and was uploaded to ${bot.haste}${bot.haste.substring(bot.haste.length - 1) == '/' ? '' : '/'}${key}.js**`);
-		console.log('hasted', `${bot.haste}/${key}.js`);
+		await message.reply(`**Output was too long and was uploaded to ${client.haste}${client.haste.substring(client.haste.length - 1) == '/' ? '' : '/'}${key}.js**`);
+		console.log('hasted', `${client.haste}/${key}.js`);
 	}
 	else {
 		await message.channel.send(wrapped);
