@@ -10,7 +10,8 @@ module.exports.run = async (bot, message, args, ecoPool, connection, stats ) => 
 		if(args[0] == 'secured') {
 			args.shift();
 			this.secured = true;
-		}
+		} else {this.secured = false}
+			
 		let content = args.join(' ');
 		if(args[0] == 'haste') {
 			if(!args[1]) return message.reply('to eval a haste upload your code to ' + bot.haste);
