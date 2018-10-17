@@ -100,13 +100,12 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 					if(cmd.help.requires.includes('guild') && message.channel.type !== 'text') return message.channel.send('This command needs to be run in a guild!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Guild! `);
 					if(cmd.help.requires.includes('dm') && message.channel.type !== 'dm') return message.channel.send('This command needs to be run in DMs!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not DM! `);
 					if (cmd.help.requires.includes('business')) {
-						if(!stats) { // if not botadmin => return
+						if(!stats || !stats.businessLocation.length) {
 							console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: No Business! `);
 							return message.channel.send(`Seems like you dont have a business yet! Create one by using **${prefix}setup**`);
 						}
 					}
 				}
-
 				cmd.run(client, message, args, ecoPool, connection, stats);
 				if(cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
 			}
