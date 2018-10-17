@@ -123,11 +123,10 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 				}
 				stats.cooldowns[cmd.help.name] = now;
 				connection.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`, console.log);
-				cmd.run(client, message, args, ecoPool, connection, stats).catch(err => message.channel.send(err.message));
+				cmd.run(client, message, args, ecoPool, connection, stats).catch(err => message.channel.send(err.message)).then(() => message.channel.stopTyping(true));
 				if(cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
 			}
 			connection.release();
-			message.channel.stopTyping(true);
 		});
 	});
 };

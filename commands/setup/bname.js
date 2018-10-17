@@ -1,6 +1,5 @@
 module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
 	if (stats && stats.businessName) return message.reply('You already have a business named **' + stats.businessName + '** \nIf you would like to change it do **?breset**');
-
 	if (!args.join(' ')) {
 		return message.reply('**?bname <name>**');
 	}
