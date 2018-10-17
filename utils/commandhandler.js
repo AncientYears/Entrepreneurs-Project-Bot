@@ -23,7 +23,7 @@ module.exports.start = (client) => { // load commands from command dir
 		const jsfile = files.filter(f => f.split('.').pop() === 'js' && !fs.statSync(process.cwd() + '/commands/' + f).isDirectory()); // get all .js files
 		const categorys = files.filter(f => fs.statSync(process.cwd() + '/commands/' + f).isDirectory());
 		if (jsfile.length <= 0 && categorys.length <= 0) { // if no commands present
-			return console.log(' Couldn\'t find commands.'); // log no commands => close commandhandler and start bot
+			return console.log(' Couldn\'t find commands.'); // log no commands => close commandhandler and start client
 		}
 
 		console.log('-------------------------------\nStarting to load Commands!');
@@ -62,7 +62,7 @@ module.exports.start = (client) => { // load commands from command dir
 
 		console.log('Categorys loaded or none found!\n-------------------------------');
 		console.log(`${client.commands.size} Commands loaded! ${errorc == 0 ? '' : `${errorc} Error occured!` }`);
-	}); // => close commandhandler and start bot
+	}); // => close commandhandler and start client
 };
 
 const prefix = '?'; // temporary prefix here
@@ -83,9 +83,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		if(err) throw err;
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, [stats]) {
 			if (error) throw error;
-			if(!stats) connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
-			else if(stats.stocks) stats.stocks = JSON.parse(stats.stocks);
-
+			if(stats && stats.stocks) stats.stocks = JSON.parse(stats.stocks);
 			const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${prefix})\\s*`);
 			if (!prefixRegex.test(message.content)) return;
 			const [, matchedPrefix] = message.content.match(prefixRegex);
@@ -93,6 +91,22 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 			const cmdname = args.shift().toLowerCase();
 			const cmd = client.commands.get(cmdname) || client.commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
 			if(cmd) {
+				if(cmd.help.disableindm == true)return message.channel.send('Sorry this Command is not yet supported!'); // check if command is supported in dm if not => return
+				console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
+				if(cmd.help.requires) {
+					if(cmd.help.requires.includes('botowner')) {
+						if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Bot Owner! `);
+					}
+					if(cmd.help.requires.includes('guild') && message.channel.type !== 'text') return message.channel.send('This command needs to be run in a guild!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Guild! `);
+					if(cmd.help.requires.includes('dm') && message.channel.type !== 'dm') return message.channel.send('This command needs to be run in DMs!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not DM! `);
+					if (cmd.help.requires.includes('business')) {
+						if(!stats) { // if not botadmin => return
+							console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: No Business! `);
+							return message.channel.send(`Seems like you dont have a business yet! Create one by using **${prefix}setup**`);
+						}
+					}
+				}
+
 				cmd.run(client, message, args, ecoPool, connection, stats);
 				if(cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
 			}

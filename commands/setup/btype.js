@@ -1,11 +1,9 @@
-module.exports.run = async (client, message, args, ecoPool) => {
+module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
 	const types = ['farm', 'factory', 'shop'];
-	ecoPool.getConnection(function(err, connection) {
-		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, results, fields) {
-			if(!results[0].businessName) return message.reply('Name your business first using **?bname**!') && connection.release();
-			if(!results[0].businessType) {
-				if(!args[0] || !types.includes(args[0].toLowerCase())) {
-					return message.reply(`
+	if(!stats || !stats.businessName) return message.reply('Name your business first using **?bname**!');
+	if(stats && !stats.businessType) {
+		if(!args[0] || !types.includes(args[0].toLowerCase())) {
+			return message.reply(`
 That is an invalid business type.
 
 The types are as follows:\`\`\`css
@@ -37,22 +35,16 @@ The types are as follows:\`\`\`css
 # You are limited in wether/season conditions due to the fact that you need to buy stock from other companies.\`\`\`
 
 **?btype <type>**
-`) && connection.release();
-				}
-				else {
-					connection.query(`UPDATE stats SET businessType = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
-					message.reply('You now have a **' + args[0].toLowerCase() + '** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **?blocate** to view the possible locations for companies!)');
-					connection.release();
-					if (error) throw error;
-				}
-			}
-			else {
-				message.reply('You already have a business type which is: **' + results[0].businessType + '** \nIf you would like to change it do **?breset**');
-				connection.release();
-				if (error) throw error;
-			}
-		});
-	});
+`);
+		}
+		else {
+			connection.query(`UPDATE stats SET businessType = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
+			message.reply('You now have a **' + args[0].toLowerCase() + '** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **?blocate** to view the possible locations for companies!)');
+		}
+	}
+	else {
+		message.reply('You already have a business type which is: **' + stats.businessType + '** \nIf you would like to change it do **?breset**');
+	}
 };
 
 module.exports.help = {

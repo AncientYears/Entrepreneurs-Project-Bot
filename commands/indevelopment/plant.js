@@ -28,4 +28,5 @@ Successfully planted **${args[1]} ${args[0]}**!
 module.exports.help = {
 	name: 'plant',
 	hideinhelp: false,
+	requires: ['business'],
 };

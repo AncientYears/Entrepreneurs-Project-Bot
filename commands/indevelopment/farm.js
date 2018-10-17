@@ -25,4 +25,5 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 module.exports.help = {
 	name: 'farm',
 	hideinhelp: false,
+	requires: ['business'],
 };

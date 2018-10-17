@@ -1,5 +1,4 @@
 module.exports.run = (client, message, args) => {
-	if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!');
 	if(!args || args.size < 1) return message.reply('Must provide a command name to reload.');
 	const commandName = args[0];
 	// Check if the command exists and is valid
@@ -22,4 +21,5 @@ module.exports.help = {
 	description: 'reload a command',
 	usage: 'reload <cmd>',
 	hideinhelp:true,
+	requires: ['botowner'],
 };
