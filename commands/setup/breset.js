@@ -16,7 +16,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 
 				collector.on('collect', m => {
 					if(m.content.toLowerCase() === 'yes') {
-						connection.query(`UPDATE stats SET businessName = '', businessType = '', businessLocation = '', cash = ${0}, bank = ${0}, netWorth = ${0}, employees = ${0}, stocks = ${{}} WHERE userID = '${message.author.id}'`);
+						connection.query(`DELETE FROM stats WHERE userID = '${message.author.id}'`);
 						m.reply('Your business was successfully reset, create a new one using **?setup**!');
 					}
 					else if (m.content.toLowerCase() === 'no') {
