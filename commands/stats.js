@@ -1,5 +1,5 @@
 const discord = require('discord.js');
-module.exports.run = async (client, message, args, ecoPool, connetion, stats) => {
+module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
     const users = message.mentions.users.first() || message.author;
     if (users.bot) return;
     connection.query(`SELECT * FROM stats WHERE userID = '${users.id}'`, function(error, [stats]) {
