@@ -84,7 +84,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, [stats]) {
 			if (error) throw error;
 			if(!stats) connection.query(`INSERT IGNORE INTO stats (userID, businessName, businessType, businessLocation, cash, bank, netWorth, employees, stocks) VALUES ('${message.author.id}', '', '', '', ${0}, ${0}, ${0}, ${0}, ${0})`);
-			if(stats.stocks) stats.stocks = JSON.parse(stats.stocks);
+			else if(stats.stocks) stats.stocks = JSON.parse(stats.stocks);
 
 			const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${prefix})\\s*`);
 			if (!prefixRegex.test(message.content)) return;
