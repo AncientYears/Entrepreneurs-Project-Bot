@@ -31,8 +31,8 @@ ${stats.businessType === 'farm' ?
           `)
                 .setFooter('Company owned by: ' + users.username);
             message.channel.send(statsEmbed);
-        )
-    }
+    }    )
+    
 };
 module.exports.help = {
     name: 'stats'
