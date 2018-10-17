@@ -91,6 +91,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 			const cmdname = args.shift().toLowerCase();
 			const cmd = client.commands.get(cmdname) || client.commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
 			if(cmd) {
+				message.channel.startTyping();
 				if(cmd.help.disableindm == true)return message.channel.send('Sorry this Command is not yet supported!'); // check if command is supported in dm if not => return
 				console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
 				if(cmd.help.requires) {
@@ -106,10 +107,11 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 						}
 					}
 				}
-				cmd.run(client, message, args, ecoPool, connection, stats);
+				cmd.run(client, message, args, ecoPool, connection, stats).catch(err => message.channel.send(err.message));
 				if(cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
 			}
 			connection.release();
+			message.channel.stopTyping(true);
 		});
 	});
 };
