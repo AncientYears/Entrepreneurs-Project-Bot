@@ -50,6 +50,20 @@ Alright, first things first, What should we call your business? **(?bname <busin
 	});
 });
 
+
+process.on('unhandledRejection', (err) => { // OHH NO UNHANLED ERROR: NOTIFY ALL BOT DEVS
+	console.error(err);
+	if (err.name == 'DiscordAPIError' && err.message == '401: Unauthorized') return process.exit();
+	client.channels.get('498776522153525258').send(`
+	\`\`\`
+	Error: ${err.type}
+	${err.message}
+	${err.stack}
+	\`\`\`
+	`);
+});
+
+
 const ecoPool = mysql.createPool({
 	host: process.env.mysqlHost,
 	user: process.env.mysqlUser,
