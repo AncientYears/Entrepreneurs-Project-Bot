@@ -132,6 +132,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 				if(cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
 			}
 			connection.release();
+			message.channel.stopTyping(true)
 		});
 	});
 };
