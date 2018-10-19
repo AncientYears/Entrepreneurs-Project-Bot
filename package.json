@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "The awesome discord bot made by us.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AncientYears/Entrepreneurs-Project-Bot.git"
@@ -14,6 +11,11 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/AncientYears/Entrepreneurs-Project-Bot/issues"
+  },
+  "scripts": {
+	"start": "node .",
+    "lint": "eslint .  *.js",
+    "lint:fix": "eslint --fix"
   },
   "homepage": "https://github.com/AncientYears/Entrepreneurs-Project-Bot#readme",
   "dependencies": {

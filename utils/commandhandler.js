@@ -65,7 +65,7 @@ module.exports.start = (client) => { // load commands from command dir
 	}); // => close commandhandler and start client
 };
 
-const prefix = '?'; // temporary prefix here
+
 const ms = require('ms');
 
 /**
@@ -83,9 +83,15 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		if(err) throw err;
 		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, [stats]) {
 			if (error) throw error;
+			if(!stats) {
+				connection.query(`INSERT IGNORE INTO stats (userID) VALUES ('${message.author.id}')`);
+				stats = {};
+			}
 			if(stats && stats.stocks) stats.stocks = JSON.parse(stats.stocks);
+			else stats.stocks = {};
 			if(stats && stats.cooldowns) stats.cooldowns = JSON.parse(stats.cooldowns);
-			const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${prefix})\\s*`);
+			else stats.cooldowns = {};
+			const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${client.prefix})\\s*`);
 			if (!prefixRegex.test(message.content)) return;
 			const [, matchedPrefix] = message.content.match(prefixRegex);
 			const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
@@ -104,14 +110,13 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 					if (cmd.help.requires.includes('business')) {
 						if(!stats || !stats.businessLocation.length) {
 							console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: No Business! `);
-							return message.channel.send(`Seems like you dont have a business yet! Create one by using **${prefix}setup**`);
+							return message.channel.send(`Seems like you dont have a business yet! Create one by using **${client.prefix}setup**`);
 						}
 					}
 				}
 
 				const now = Date.now();
 				const cooldownAmount = ms(cmd.help.cooldown || '5s');
-				if(!stats.cooldowns) stats.cooldowns = {};
 				if(!stats.cooldowns[cmd.help.name]) {
 					stats.cooldowns[cmd.help.name] = now - cooldownAmount;
 				}
@@ -122,8 +127,8 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 					return message.reply(`please wait \`${timeLeft}\` before reusing the \`${cmd.help.name}\` command.`);
 				}
 				stats.cooldowns[cmd.help.name] = now;
-				connection.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`, console.log);
-				cmd.run(client, message, args, ecoPool, connection, stats).catch(err => message.channel.send(err.message)).then(() => message.channel.stopTyping(true));
+				connection.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`);
+				cmd.run(client, message, args, ecoPool, connection, stats);
 				if(cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
 			}
 			connection.release();
