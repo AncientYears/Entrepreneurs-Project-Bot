@@ -1,5 +1,6 @@
 module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
 	if(!stats.businessName) {
+		if(!message.member) message.member = await client.guilds.get('490999695422783489').fetchMember(message.author)
 		client.emit('guildMemberAdd', message.member);
 	}
 	else {
