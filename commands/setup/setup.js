@@ -1,5 +1,5 @@
 module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
-	if(!stats) {
+	if(!stats.businessName) {
 
 		message.channel.send('Alright, first things first, What should we call your business? **(?bname <business name>)**');
 	}
