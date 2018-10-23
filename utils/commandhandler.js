@@ -76,70 +76,69 @@ const ms = require('ms');
  * @param {ecoPool} ecoPool - EcoPool Config
  */
 module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
-	if(message.system) return;
-	if(message.author.bot) return;
-	console.log('trying to get connection!');
-	ecoPool.getConnection(function(err, connection) {
-		if(err) throw err;
-		console.log('Got Connection');
-		connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, [stats]) {
-				console.log('handling stats');
-			if (error) throw error;
-			if(!stats) {
-				connection.query(`INSERT IGNORE INTO stats (userID) VALUES ('${message.author.id}')`);
-				stats = {};
-			}
-			
-			if(stats && stats.stocks) stats.stocks = JSON.parse(stats.stocks);
-			else stats.stocks = {};
-			if(stats && stats.cooldowns) stats.cooldowns = JSON.parse(stats.cooldowns);
-			else stats.cooldowns = {};
-			console.log('Handling cmd parser');
-			const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${client.prefix})\\s*`);
-			if (!prefixRegex.test(message.content)) return;
-			const [, matchedPrefix] = message.content.match(prefixRegex);
-			const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
-			const cmdname = args.shift().toLowerCase();
-			const cmd = client.commands.get(cmdname) || client.commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
-			console.log('cmd shearched');
-			if(cmd) {
-				message.channel.startTyping();
-				if(cmd.help.disableindm == true)return message.channel.send('Sorry this Command is not yet supported!'); // check if command is supported in dm if not => return
-				console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
-				if(cmd.help.requires) {
-					if(cmd.help.requires.includes('botowner')) {
-						if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Bot Owner! `);
-					}
-					if(cmd.help.requires.includes('guild') && message.channel.type !== 'text') return message.channel.send('This command needs to be run in a guild!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Guild! `);
-					if(cmd.help.requires.includes('dm') && message.channel.type !== 'dm') return message.channel.send('This command needs to be run in DMs!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not DM! `);
-					if (cmd.help.requires.includes('business')) {
-						if(!stats || !stats.businessLocation.length) {
-							console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: No Business! `);
-							return message.channel.send(`Seems like you dont have a business yet! Create one by using **${client.prefix}setup**`);
-						}
-					}
-				}
-
-				const now = Date.now();
-				const cooldownAmount = ms(cmd.help.cooldown || '5s');
-				if(!stats.cooldowns[cmd.help.name]) {
-					stats.cooldowns[cmd.help.name] = now - cooldownAmount;
-				}
-				const cooldown = stats.cooldowns[cmd.help.name];
-				const expirationTime = cooldown + cooldownAmount;
-				if (now < expirationTime) {
-					const timeLeft = ms(expirationTime - now, { long: true });
-					return message.reply(`please wait \`${timeLeft}\` before reusing the \`${cmd.help.name}\` command.`);
-				}
-				stats.cooldowns[cmd.help.name] = now;
-				connection.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`);
-				cmd.run(client, message, args, ecoPool, connection, stats);
-				if(cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
-			}
-		
-			connection.release();
-			console.log('conecttion released');
-			message.channel.stopTyping(true)
-		});
-	});
+    if (message.system) return;
+    if (message.author.bot) return;
+    console.log('Handling cmd parser');
+    const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${client.prefix})\\s*`);
+    if (!prefixRegex.test(message.content)) return;
+    const [, matchedPrefix] = message.content.match(prefixRegex);
+    const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
+    const cmdname = args.shift().toLowerCase();
+    const cmd = client.commands.get(cmdname) || client.commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
+    console.log('cmd shearched');
+    if (cmd) {
+        message.channel.startTyping();
+        if (cmd.help.disableindm == true) return message.channel.send('Sorry this Command is not yet supported!'); // check if command is supported in dm if not => return
+        console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name}s request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
+        console.log('trying to get connection!');
+        ecoPool.getConnection(function(err, connection) {
+            if (err) throw err;
+            console.log('Got Connection');
+            connection.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`, function(error, [stats]) {
+                console.log('handling stats');
+                if (error) throw error;
+                if (!stats) {
+                    connection.query(`INSERT IGNORE INTO stats (userID) VALUES ('${message.author.id}')`);
+                    stats = {};
+                }
+                if (stats && stats.stocks) stats.stocks = JSON.parse(stats.stocks);
+                else stats.stocks = {};
+                if (stats && stats.cooldowns) stats.cooldowns = JSON.parse(stats.cooldowns);
+                else stats.cooldowns = {};
+                if (cmd.help.requires) {
+                    if (cmd.help.requires.includes('botowner')) {
+                        if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Bot Owner! `), connection.release();
+                    }
+                    if (cmd.help.requires.includes('guild') && message.channel.type !== 'text') return message.channel.send('This command needs to be run in a guild!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Guild! `), connection.release();
+                    if (cmd.help.requires.includes('dm') && message.channel.type !== 'dm') return message.channel.send('This command needs to be run in DMs!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not DM! `), connection.release();
+                    if (cmd.help.requires.includes('business')) {
+                        if (!stats || !stats.businessLocation.length) {
+                            console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: No Business! `);
+                            return message.channel.send(`Seems like you dont have a business yet! Create one by using **${client.prefix}setup**`), connection.release();;
+                        }
+                    }
+                }
+                const now = Date.now();
+                const cooldownAmount = ms(cmd.help.cooldown || '5s');
+                if (!stats.cooldowns[cmd.help.name]) {
+                    stats.cooldowns[cmd.help.name] = now - cooldownAmount;
+                }
+                const cooldown = stats.cooldowns[cmd.help.name];
+                const expirationTime = cooldown + cooldownAmount;
+                if (now < expirationTime) {
+                    const timeLeft = ms(expirationTime - now, {
+                        long: true
+                    });
+                    return message.reply(`please wait \`${timeLeft}\` before reusing the \`${cmd.help.name}\` command.`), connection.release();;
+                }
+                stats.cooldowns[cmd.help.name] = now;
+                connection.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`);
+                cmd.run(client, message, args, ecoPool, connection, stats);
+                if (cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
+                connection.release();
+            });
+        });
+        console.log('conecttion released');
+        message.channel.stopTyping(true)
+    }
 };
