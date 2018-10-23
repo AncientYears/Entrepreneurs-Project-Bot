@@ -14,6 +14,7 @@ client.on('ready', async () => {
 
 
 client.on('message', async (message) => {
+	console.log(message.content + ' received!');
 	commandhandler.run(client, message, ecoPool);
 });
 
