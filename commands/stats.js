@@ -4,11 +4,11 @@ module.exports.run = async (client, message, args, ecoPool, connection) => {
 	if (users.bot) return;
 	connection.query(`SELECT * FROM stats WHERE userID = '${users.id}'`, function(error, [stats]) {
 		if (error) throw error;
-		
+
 		if (!stats) stats = {};
-                if (stats && stats.stocks) stats.stocks = JSON.parse(stats.stocks);
-                else stats.stocks = {};
-		
+		if (stats && stats.stocks) stats.stocks = JSON.parse(stats.stocks);
+		else stats.stocks = {};
+
 		if (!stats.businessLocation.length) return message.reply('Sorry but **' + users.username + '** did not create their business yet!');
 		const statsEmbed = new discord.RichEmbed()
 			.setAuthor('Stats', users.displayAvatarURL)
