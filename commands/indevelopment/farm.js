@@ -7,7 +7,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 
 	const farmEmbed = new discord.RichEmbed()
 		.setAuthor('Farm', message.author.displayAvatarURL)
-		.addField('Status', stats.timeLength === 0 ? 'Not Growing' : (message.createdTimestamp >= stats.timeLength ? `${uptime(timeLeft)} left!` : 'Finished use **?harvest**'))
+		.addField('Status', stats.timeLength === 0 ? 'Not Growing' : message.createdTimestamp >= stats.timeLength ? `${uptime(timeLeft)} left!` : 'Finished use **?harvest**')
 		.setDescription(`
 **Crops Available**
 - ${stats.stocks.potato || 'no'} potato
