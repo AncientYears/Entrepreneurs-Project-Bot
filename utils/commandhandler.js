@@ -90,13 +90,12 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name}s request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
 		let [[stats]] = await ecoPool.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`);
 
+		client.util.parseStats(stats);
 
 		if (!stats) {
 			await ecoPool.query(`INSERT IGNORE INTO stats (userID) VALUES ('${message.author.id}')`);
 			stats = {};
 		}
-
-		// console.log(stats);
 
 		if (cmd.help.requires) {
 			if (cmd.help.requires.includes('botowner')) {

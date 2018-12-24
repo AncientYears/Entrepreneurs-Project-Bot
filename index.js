@@ -10,8 +10,13 @@ commandhandler.start(client);
 
 client.on('ready', async () => {
 	console.log(`${client.user.username} is up and running!`);
-	client.user.setPresence({ game: { name: 'Branch: ' + require(process.cwd() + '/utils/branch.js')() + ' | ' + client.prefix }, status: 'online' });
-
+	client.user.setPresence({ game: { name: client.prefix + ' | ' + 'Branch: ' + require(process.cwd() + '/utils/branch.js')() }, status: 'online' });
+	client.util = {};
+	client.util.parseStats = function(stats) {
+		if(!stats.cooldowns) stats.cooldowns = {};
+		if(!stats.stocks) stats.stocks = {};
+		if(!stats.creation) stats.creation = {};
+	};
 });
 
 
