@@ -6,10 +6,9 @@ const discord = require('discord.js');
  * @param {discord.Message} message
  * @param {Array} args
  * @param {*} ecoPool
- * @param {*} connection
  * @param {Object} stats
  */
-module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const bugembed = new discord.RichEmbed().setTitle('BugReport');
 
 	const messages = await message.channel.fetchMessages({ limit: 10 }).then(msgs => {return msgs.first(10).reverse();});

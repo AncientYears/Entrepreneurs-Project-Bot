@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 
-module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 
 	if(!args[0]) {
 		const categoryEmbed = new discord.RichEmbed()
