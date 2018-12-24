@@ -5,7 +5,7 @@ const request = require('snekfetch');
 
 const cblockre = /(^```js)|(```$)/g;
 
-module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 	try {
 		if(args[0] == 'secured') {
 			args.shift();

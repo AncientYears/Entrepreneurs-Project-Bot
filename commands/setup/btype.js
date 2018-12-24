@@ -1,4 +1,4 @@
-module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const types = ['farm', 'factory', 'shop'];
 	if(!stats || !stats.businessName) return message.reply('Name your business first using **?bname**!');
 	if(stats && !stats.businessType) {
@@ -38,7 +38,7 @@ The types are as follows:\`\`\`css
 `);
 		}
 		else {
-			connection.query(`UPDATE stats SET businessType = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
+			ecoPool.query(`UPDATE stats SET businessType = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
 			message.reply('You now have a **' + args[0].toLowerCase() + '** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **?blocate** to view the possible locations for companies!)');
 		}
 	}

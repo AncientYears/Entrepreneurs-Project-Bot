@@ -1,5 +1,5 @@
 const discord = require('discord.js');
-const mysql = require('mysql');
+const mysql = require('mysql2/promise');
 require('dotenv').config();
 const commandhandler = require('./utils/commandhandler.js');
 const client = new discord.Client({ disableEveryone: false });

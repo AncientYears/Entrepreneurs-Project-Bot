@@ -1,7 +1,7 @@
 const ms = require('ms');
 const discord = require('discord.js');
 
-module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
 	if(stats.creation.amount) {
 		message.channel.send('Your crops are already growing, use the **?farm** command to view information about them!');
@@ -21,8 +21,8 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 			'amount': args[1],
 			'time': (Number(message.createdTimestamp) + Number(ms('1h'))),
 		};
-		connection.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${message.author.id}'`, console.log);
-		connection.query(`UPDATE stats SET creation = '${JSON.stringify(stats.creation)}' WHERE userID = '${message.author.id}'`);
+		ecoPool.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${message.author.id}'`, console.log);
+		ecoPool.query(`UPDATE stats SET creation = '${JSON.stringify(stats.creation)}' WHERE userID = '${message.author.id}'`);
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Plant', message.author.displayAvatarURL)
 			.setDescription(`

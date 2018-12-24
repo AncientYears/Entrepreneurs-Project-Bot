@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 const uptime = require(process.cwd() + '/utils/uptime.js'); // For time conversation
 
-module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
 	const timeLeft = Number(stats.timeLength) - message.createdTimestamp;
 

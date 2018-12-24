@@ -1,14 +1,9 @@
 const discord = require('discord.js');
-module.exports.run = async (client, message, args, ecoPool, connection) => {
+module.exports.run = async (client, message, args, ecoPool) => {
 	const users = message.mentions.users.first() || message.author;
 	if (users.bot) return;
-	connection.query(`SELECT * FROM stats WHERE userID = '${users.id}'`, function(error, [stats]) {
+	ecoPool.query(`SELECT * FROM stats WHERE userID = '${users.id}'`, function(error, [stats]) {
 		if (error) throw error;
-
-		if (!stats) stats = {};
-		if (stats && stats.stocks) stats.stocks = JSON.parse(stats.stocks);
-		else stats.stocks = {};
-
 		if (!stats.businessLocation.length) return message.reply('Sorry but **' + users.username + '** did not create their business yet!');
 		const statsEmbed = new discord.RichEmbed()
 			.setAuthor('Stats', users.displayAvatarURL)
