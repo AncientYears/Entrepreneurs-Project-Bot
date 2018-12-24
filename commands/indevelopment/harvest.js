@@ -4,8 +4,8 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(args[0] === 'potato' && !stats.stocks.potato && stats.stocks.potato <= 1) return message.channel.send('You do not have any potatoes, please go buy some \n**?buy**');
 
 
-	connection.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${message.author.id}'`);
-	connection.query(`UPDATE stats SET creation = 'NULL'' WHERE userID = '${message.author.id}'`);
+	ecoPool.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${message.author.id}'`);
+	ecoPool.query(`UPDATE stats SET creation = 'NULL'' WHERE userID = '${message.author.id}'`);
 
 };
 

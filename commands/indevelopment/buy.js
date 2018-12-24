@@ -32,8 +32,8 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		if(stats.stocks) {
 			if(!stats.stocks.potato) stats.stocks['potato_seeds'] = 0;
 			stats.stocks['potato_seeds'] += parseInt(args[1]);
-			connection.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${message.author.id}'`);
-			connection.query(`UPDATE stats SET cash = '${stats.cash - args[1]}' WHERE userID = '${message.author.id}'`);
+			ecoPool.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${message.author.id}'`);
+			ecoPool.query(`UPDATE stats SET cash = '${stats.cash - args[1]}' WHERE userID = '${message.author.id}'`);
 			return message.channel.send(`You have successfully bought **${args[1]}** potato(es) Seeds!\nThis has costed you **${1 * args[1]}**!`);
 		}
 	}
