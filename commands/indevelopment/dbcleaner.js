@@ -7,9 +7,8 @@ const discord = require('discord.js');
  * @param {Array} args
  * @param {*} ecoPool
  * @param {*} connection
- * @param {Object} stats
  */
-module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, connection) => {
 
 
 	connection.query('SELECT userID, cooldowns FROM businesseco.stats', async function(error, users) {
