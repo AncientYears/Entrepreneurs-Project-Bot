@@ -103,6 +103,8 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 				}
 				if (stats && stats.stocks) stats.stocks = JSON.parse(stats.stocks);
 				else stats.stocks = {};
+				if (stats && stats.creation) stats.creation = JSON.parse(stats.creation);
+				else stats.creation = {};
 				if (stats && stats.cooldowns) stats.cooldowns = JSON.parse(stats.cooldowns);
 				else stats.cooldowns = {};
 				if (cmd.help.requires) {

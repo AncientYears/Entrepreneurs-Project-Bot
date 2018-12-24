@@ -18,7 +18,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
-			.setDescription(`**Potato** - 1$ / 1
+			.setDescription(`**potato_seeds** - 1$ / 1
 							- Cheap crop, not the most profitable though.`)
 			.setFooter('?buy <item> <amount> to purchase an item');
 		return message.channel.send(farmEmbed);
@@ -30,11 +30,11 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 		if(stats.cash < (1 * args[1])) return message.channel.send('You do not have enough cash to buy this!');
 
 		if(stats.stocks) {
-			if(!stats.stocks.potato) stats.stocks.potato = 0;
-			stats.stocks['potato'] += parseInt(args[1]);
+			if(!stats.stocks.potato) stats.stocks['potato_seeds'] = 0;
+			stats.stocks['potato_seeds'] += parseInt(args[1]);
 			connection.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${message.author.id}'`);
 			connection.query(`UPDATE stats SET cash = '${stats.cash - args[1]}' WHERE userID = '${message.author.id}'`);
-			return message.channel.send(`You have successfully bought **${args[1]}** potato(es) \nThis has costed you **${1 * args[1]}**!`);
+			return message.channel.send(`You have successfully bought **${args[1]}** potato(es) Seeds!\nThis has costed you **${1 * args[1]}**!`);
 		}
 	}
 };

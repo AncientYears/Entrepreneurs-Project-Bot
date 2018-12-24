@@ -23,6 +23,7 @@ client.on('messageUpdate', async (oldmessage, message) => {
 });
 
 client.on('guildMemberAdd', async (member) => {
+	if(member.user.bot) return;
 	member.user.send(`
 Welcome **${member.user.username}** to the Entrepreneurs server!
 I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during your stay here. I will give you tips and advice on how to grow your very own business!
