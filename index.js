@@ -10,11 +10,12 @@ commandhandler.start(client);
 
 client.on('ready', async () => {
 	console.log(`${client.user.username} is up and running!`);
+	client.user.setPresence({ game: { name: 'Branch: ' + require(process.cwd() + '/utils/branch.js')() + ' | ' + client.prefix }, status: 'online' });
+
 });
 
 
 client.on('message', async (message) => {
-	console.log(message.content + ' received!');
 	commandhandler.run(client, message, ecoPool);
 });
 
