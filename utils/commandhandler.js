@@ -87,7 +87,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 	if (cmd) {
 		message.channel.startTyping();
 		if (cmd.help.disableindm == true) return message.channel.send('Sorry this Command is not yet supported!'); // check if command is supported in dm if not => return
-		console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name}s request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
+		console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
 		let [[stats]] = await ecoPool.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`);
 
 		client.util.parseStats(stats);

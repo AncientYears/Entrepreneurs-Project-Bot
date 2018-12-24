@@ -7,15 +7,15 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 
 	const farmEmbed = new discord.RichEmbed()
 		.setAuthor('Farm', message.author.displayAvatarURL)
-		.addField('Status', stats.creation.time == 0 ? 'Not Growing' : (message.createdTimestamp <= stats.creation.time ? `${uptime(timeLeft)} left!` : 'Finished use **?harvest**'))
+		.addField('Status', stats.creation.time == 0 ? 'Not Growing' : (message.createdTimestamp <= stats.creation.time ? `${uptime(timeLeft)} left!` : `Finished use **${client.prefix}harvest**`))
 		.setDescription(`
 **Crops Available**
 - ${stats.stocks.potato_seeds || 'no'} potato seeds
 
 **Useful Commands**
-- ?plant : Plant your crops!
-- ?harvest : Harvest your crops!
-- ?farm : View information about your crops!
+- ${client.prefix}plant : Plant your crops!
+- ${client.prefix}harvest : Harvest your crops!
+- ${client.prefix}farm : View information about your crops!
 `)
 		.setFooter(`Farm owned by ${message.author.tag}`);
 

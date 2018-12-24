@@ -4,6 +4,8 @@ module.exports.run = async (client, message, args, ecoPool) => {
 	if (users.bot) return;
 	ecoPool.query(`SELECT * FROM stats WHERE userID = '${users.id}'`, function(error, [stats]) {
 		if (error) throw error;
+
+
 		if (!stats.businessLocation.length) return message.reply('Sorry but **' + users.username + '** did not create their business yet!');
 		const statsEmbed = new discord.RichEmbed()
 			.setAuthor('Stats', users.displayAvatarURL)
@@ -17,8 +19,8 @@ module.exports.run = async (client, message, args, ecoPool) => {
 **Net Worth:** ${stats.netWorth}
 **Stocks:**
 ${stats.businessType === 'farm' ?
-		'- **' + (stats.stocks.potato || '0') + '** potato'
-
+		'- **' + (stats.stocks.potato || '0') + '** potato' + '\n' +
+		'- **' + (stats.stocks.potato_seeds || '0') + '** potato seeds'
 		: stats.businessType === 'factory' ?
 			'- **coming soon!**'
 
