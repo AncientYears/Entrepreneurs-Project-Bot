@@ -5,7 +5,7 @@ const commandhandler = require('./utils/commandhandler.js');
 const client = new discord.Client({ disableEveryone: false });
 
 client.commands = new discord.Collection();
-client.prefix = '?';
+client.prefix = process.env.prefix || '?';
 commandhandler.start(client);
 
 client.on('ready', async () => {
@@ -56,7 +56,7 @@ Alright, first things first, What should we call your business? **(?bname <busin
 process.on('unhandledRejection', (err) => { // OHH NO UNHANLED ERROR: NOTIFY ALL BOT DEVS
 	console.error(err);
 	if (err.name == 'DiscordAPIError' && err.message == '401: Unauthorized') return process.exit();
-	client.channels.get('498776522153525258').send(`
+	(client.channels.get('526742123177836564') || client.channels.get('498776522153525258')).send(`
 \`\`\`xs
 Error: ${err.name}
 	${err.message}
