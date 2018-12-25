@@ -3,11 +3,11 @@ const uptime = require(process.cwd() + '/utils/uptime.js'); // For time conversa
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
-	const timeLeft = Number(stats.timeLength) - message.createdTimestamp;
+	const timeLeft = Number(stats.creation.time) - message.createdTimestamp;
 
 	const farmEmbed = new discord.RichEmbed()
 		.setAuthor('Farm', message.author.displayAvatarURL)
-		.addField('Status', stats.creation.time == 0 ? 'Not Growing' : (message.createdTimestamp <= stats.creation.time ? `${uptime(timeLeft)} left!` : `Finished use **${client.prefix}harvest**`))
+		.addField('Status', stats.creation.time == undefined ? 'Not Growing' : (message.createdTimestamp <= stats.creation.time ? `${uptime(timeLeft)} left!` : `Finished use **${client.prefix}harvest**`))
 		.setDescription(`
 **Crops Available**
 - ${stats.stocks.potato_seeds || 'no'} potato seeds
