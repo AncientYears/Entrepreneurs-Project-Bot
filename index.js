@@ -1,20 +1,26 @@
 const discord = require('discord.js');
-const mysql = require('mysql');
+const mysql = require('mysql2/promise');
 require('dotenv').config();
 const commandhandler = require('./utils/commandhandler.js');
 const client = new discord.Client({ disableEveryone: false });
 
 client.commands = new discord.Collection();
-client.prefix = '?';
+client.prefix = process.env.prefix || '?';
 commandhandler.start(client);
 
 client.on('ready', async () => {
 	console.log(`${client.user.username} is up and running!`);
+	client.user.setPresence({ game: { name: client.prefix + ' | ' + 'Branch: ' + require(process.cwd() + '/utils/branch.js')() }, status: 'online' });
+	client.util = {};
+	client.util.parseStats = function(stats) {
+		if(!stats.cooldowns) stats.cooldowns = {};
+		if(!stats.stocks) stats.stocks = {};
+		if(!stats.creation) stats.creation = {};
+	};
 });
 
 
 client.on('message', async (message) => {
-	console.log(message.content + ' received!');
 	commandhandler.run(client, message, ecoPool);
 });
 
@@ -23,6 +29,7 @@ client.on('messageUpdate', async (oldmessage, message) => {
 });
 
 client.on('guildMemberAdd', async (member) => {
+	if(member.user.bot) return;
 	member.user.send(`
 Welcome **${member.user.username}** to the Entrepreneurs server!
 I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during your stay here. I will give you tips and advice on how to grow your very own business!
@@ -54,7 +61,7 @@ Alright, first things first, What should we call your business? **(?bname <busin
 process.on('unhandledRejection', (err) => { // OHH NO UNHANLED ERROR: NOTIFY ALL BOT DEVS
 	console.error(err);
 	if (err.name == 'DiscordAPIError' && err.message == '401: Unauthorized') return process.exit();
-	client.channels.get('498776522153525258').send(`
+	(client.channels.get('526742123177836564') || client.channels.get('498776522153525258')).send(`
 \`\`\`xs
 Error: ${err.name}
 	${err.message}

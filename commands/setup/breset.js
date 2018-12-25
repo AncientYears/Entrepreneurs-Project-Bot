@@ -1,4 +1,4 @@
-module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(stats && stats.businessName == '') {
 		return message.reply('You have not created a business yet, start off by naming one using **?setup**!');
 	}
@@ -9,7 +9,7 @@ module.exports.run = async (client, message, args, ecoPool, connection, stats) =
 
 		collector.on('collect', m => {
 			if(m.content.toLowerCase() === 'yes') {
-				connection.query(`DELETE FROM stats WHERE userID = '${message.author.id}'`);
+				ecoPool.query(`DELETE FROM stats WHERE userID = '${message.author.id}'`);
 				m.reply('Your business was successfully reset, create a new one using **?setup**!');
 			}
 			else if (m.content.toLowerCase() === 'no') {

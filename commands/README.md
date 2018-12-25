@@ -1,5 +1,5 @@
 ```js
-module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 // cmd code
 };
 

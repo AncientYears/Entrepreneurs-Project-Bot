@@ -1,6 +1,6 @@
-module.exports.run = async (client, message, args, ecoPool, connection, stats) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(!stats.businessName) {
-		if(!message.member) message.member = await client.guilds.get('490999695422783489').fetchMember(message.author)
+		if(!message.member) return message.channel.send('Please run this command in a guild!');
 		client.emit('guildMemberAdd', message.member);
 	}
 	else {
