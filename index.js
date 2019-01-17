@@ -15,7 +15,9 @@ client.on('ready', async () => {
 	client.util.parseStats = function(stats) {
 		if(!stats.cooldowns) stats.cooldowns = {};
 		if(!stats.stocks) stats.stocks = {};
-		if(!stats.creation) stats.creation = {};
+		if(!stats.creation) stats.creation = {}; 
+		return stats;
+		
 	};
 });
 
