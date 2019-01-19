@@ -1,25 +1,22 @@
 const discord = require('discord.js');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
+const fs = require('fs');
 const commandhandler = require('./utils/commandhandler.js');
 const client = new discord.Client({ disableEveryone: false });
 
 client.commands = new discord.Collection();
 client.prefix = process.env.prefix || '?';
 commandhandler.start(client);
+commandhandler.loadApi(client);
+
 
 client.on('ready', async () => {
 	console.log(`${client.user.username} is up and running!`);
 	client.user.setPresence({ game: { name: client.prefix + ' | ' + 'Branch: ' + require(process.cwd() + '/utils/branch.js')() }, status: 'online' });
-	client.util = {};
-	client.util.parseStats = function(stats) { 
-		if(!stats) stats = {};
-		if(!stats.cooldowns) stats.cooldowns = {};
-		if(!stats.stocks) stats.stocks = {};
-		if(!stats.creation) stats.creation = {}; 
-		return stats;
-		
-	};
+	console.log(`Ready to serve in ${client.channels.size} channels on ${client.guilds.size} servers, for a total of ${client.users.size} users.`);
+
+
 });
 
 

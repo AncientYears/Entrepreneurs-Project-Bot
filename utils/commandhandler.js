@@ -65,7 +65,22 @@ module.exports.start = (client) => { // load commands from command dir
 	}); // => close commandhandler and start client
 };
 
-
+/**
+ * Module to run and handle Commands!
+ * @module commandhandler/run
+ * @param {client} client - Discord Client
+ */
+module.exports.loadApi = (client) => { // load commands from command dir
+	client.api = {};
+	fs.readdir('./api/', (err, files) => {
+		if (err) return console.error(err);
+		files.forEach(file => {
+			const api = require(`../api/${file}`);
+			const apiName = file.split('.')[0];
+			client.api[apiName] = api;
+		});
+	});
+};
 const ms = require('ms');
 
 /**
@@ -90,12 +105,12 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
 		let [[stats]] = await ecoPool.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`);
 
-		stats = client.util.parseStats(stats);
 
 		if (!stats) {
 			await ecoPool.query(`INSERT IGNORE INTO stats (userID) VALUES ('${message.author.id}')`);
 			stats = {};
 		}
+		stats = client.api.parseStats(stats);
 
 		if (cmd.help.requires) {
 			if (cmd.help.requires.includes('botowner')) {
