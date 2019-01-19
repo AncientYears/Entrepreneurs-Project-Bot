@@ -1,7 +1,6 @@
 const discord = require('discord.js');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
-const fs = require('fs');
 const commandhandler = require('./utils/commandhandler.js');
 const client = new discord.Client({ disableEveryone: false });
 
@@ -28,8 +27,8 @@ client.on('messageUpdate', async (oldmessage, message) => {
 	commandhandler.run(client, message, ecoPool);
 });
 
-client.on('guildMemberAdd', async (member) => {
-	if(member.user.bot) return;
+client.on('guildMemberAdd', async (member, message) => {
+	if(member.user.bot || (member.guild.id !== '490999695422783489' && !message)) return;
 	member.user.send(`
 Welcome **${member.user.username}** to the Entrepreneurs server!
 I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during your stay here. I will give you tips and advice on how to grow your very own business!
@@ -37,6 +36,7 @@ I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during you
 Alright, first things first, What should we call your business? **(?bname <business name>)**
 `).catch(async err => {
 		if(err.code != 50007) throw new Error(`Could not send help DM to ${member.user.author.tag}.\n` + err);
+		if(member.guild.id !== '490999695422783489') return message.channel.send('You have DMs disabled, please enable them or join https://discord.gg/mG7eQtw to get a setup-channel');
 		const overwrites = [{
 			id: member.id,
 			allowed: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
