@@ -41,6 +41,7 @@ module.exports.help = {
 	hideinhelp: true,
 	aliases: ['e'],
 	requires: ['botowner'],
+	cooldown: '1ms',
 };
 
 const header = (m, x) => {
