@@ -1,5 +1,5 @@
 module.exports.run = async (client, message, args, ecoPool, stats) => {
-	if(!args[0]) return message.channel.send('Include a number!\n**?withdraw <amount>**');
+	if(!args[0]) return message.channel.send(`Include a number!\n**³${client.prefix}withdraw <amount>**`);
 	if(isNaN(args[0])) return message.channel.send('Invalid Number.');
 	if(args[0] <= 0) return message.channel.send('You cannot withdraw negative money!');
 	if(stats.bank < args[0]) return message.channel.send('You do not have that amount of money inside of your bank!');

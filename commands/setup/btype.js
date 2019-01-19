@@ -1,6 +1,6 @@
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const types = ['farm', 'factory', 'shop'];
-	if(!stats || !stats.businessName) return message.reply('Name your business first using **?bname**!');
+	if(!stats || !stats.businessName) return message.reply(`Name your business first using **${client.prefix}bname**!`);
 	if(stats && !stats.businessType) {
 		if(!args[0] || !types.includes(args[0].toLowerCase())) {
 			return message.reply(`
