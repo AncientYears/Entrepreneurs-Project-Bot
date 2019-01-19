@@ -7,7 +7,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 
 	const farmEmbed = new discord.RichEmbed()
 		.setAuthor('Farm', message.author.displayAvatarURL)
-		.addField('Status', stats.creation.time == undefined ? 'Not Growing' : (message.createdTimestamp <= stats.creation.time ? `${uptime(timeLeft)} left!` : `Finished use **${client.prefix}harvest**`))
+		.addField('Status', stats.creation.time == undefined ? 'Not Growing' : (message.createdTimestamp <= stats.creation.time ? `${uptime(timeLeft)} left!\n${statusbar(stats)}` : `Finished use **${client.prefix}harvest**`))
 		.setDescription(`
 **Crops Available**
 - ${stats.stocks.potato || 'no'} potato seeds
@@ -26,3 +26,15 @@ module.exports.help = {
 	hideinhelp: false,
 	requires: ['business'],
 };
+
+function statusbar(stats) {
+	const percent = Number(((stats.creation.time - Date.now()) / (stats.creation.time - stats.creation.started) * -100) + 100);
+	let str = '[';
+	for (let i = 1; i < 10; i++) {
+		if(percent > i * 10) str += '▓';
+		else str += '░';
+	}
+	str += '] ' + percent.toFixed(0) + '%';
+	return str;
+
+}
