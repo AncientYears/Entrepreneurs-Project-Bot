@@ -9,13 +9,13 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	else {
 		if(!args[0] | args[0] !== 'potato') return message.channel.send(`You do not have this crop! \n**${this.help.usage}**`);
 
-		if(args[0] === 'potato' && !stats.stocks['potato_seeds'] && stats.stocks['potato_seeds'] <= 0) return message.channel.send(`You do not have any potatoes, please go buy some \n**${client.prefix}buy**`);
+		if(args[0] === 'potato' && !stats.stocks['potato'] && stats.stocks['potato'] <= 0) return message.channel.send(`You do not have any potatoes, please go buy some \n**${client.prefix}buy**`);
 		if(args[0] === 'potatoes') args[0] = 'potato';
 		if(args[0] !== 'potato') return message.channel.send('You can only plant potato!');
 		if(isNaN(args[1])) return message.channel.send(`Invalid Number! \n**${client.prefix}plant <crop> <amount>`);
-		if(args[0] === 'potato' && (!stats.stocks['potato_seeds'] || stats.stocks['potato_seeds'] < args[1])) return message.channel.send(`You do not have ENEUGH potatoes, please go buy some MORE \n**b${client.prefix}uy**`);
+		if(args[0] === 'potato' && (!stats.stocks['potato'] || stats.stocks['potato'] < args[1])) return message.channel.send(`You do not have ENEUGH potatoes, please go buy some MORE \n**b${client.prefix}uy**`);
 
-		stats.stocks.potato = Number(stats.stocks['potato_seeds']) - Number(args[1]);
+		stats.stocks.potato = Number(stats.stocks['potato']) - Number(args[1]);
 		stats.creation = {
 			'type': 'potato',
 			'amount': args[1],

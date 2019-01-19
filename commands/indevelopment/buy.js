@@ -18,25 +18,16 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
-			.setDescription(`**potato_seeds** - 1$ / 1
+			.setDescription(`**potato** - 1$ / 1
 							- Cheap crop, not the most profitable though.`)
 			.setFooter(client.prefix + 'buy <item> <amount> to purchase an item');
 		return message.channel.send(farmEmbed);
 	}
 	else if (tobuy === 'potato' || tobuy === 'potatoes') {
 		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
-		if(isNaN(args[1])) return message.channel.send(`How many potatoe seeds do you wanna buy? **${client.prefix}buy potato <amount>**`);
-		if(args[1] <= 0) return message.channel.send('Hey, you cannot buy negative potato(es)!');
-		if(stats.cash < (1 * args[1])) return message.channel.send('You do not have enough cash to buy this!');
-
-		if(stats.stocks) {
-			if(!stats.stocks.potato_seeds) stats.stocks['potato_seeds'] = 0;
-			stats.stocks['potato_seeds'] += parseInt(args[1]);
-			ecoPool.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${message.author.id}'`);
-			ecoPool.query(`UPDATE stats SET cash = '${stats.cash - args[1]}' WHERE userID = '${message.author.id}'`);
-			return message.channel.send(`You have successfully bought **${args[1]}** potato(es) Seeds!\nThis has costed you **${1 * args[1]}**!`);
-		}
+		client.api.buy(client, ecoPool, message, stats, 'potato', args[1], 1);
 	}
+	else{ return message.channel.send('Invalid Operation');}
 };
 
 module.exports.help = {
