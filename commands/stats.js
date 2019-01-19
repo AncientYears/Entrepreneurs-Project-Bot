@@ -18,17 +18,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 **Bank:** ${stats.bank}
 **Net Worth:** ${stats.netWorth}
 **Stocks:**
-${stats.businessType === 'farm' ?
-		'- **' + (stats.stocks.potato || '0') + '** potato' + '\n' +
-		'- **' + (stats.stocks.potato_seeds || '0') + '** potato seeds'
-		: stats.businessType === 'factory' ?
-			'- **coming soon!**'
-
-			: stats.businessType === 'shop' ?
-				'- **coming soon!**'
-
-				: message.channel.send('Error, message bot owner!')}
-          `)
+${mapstock(stats)}`)
 			.setFooter('Company owned by: ' + users.username);
 		message.channel.send(statsEmbed);
 	});
@@ -41,3 +31,21 @@ module.exports.help = {
 	aliases: ['statistics'],
 	requires: ['business'],
 };
+
+function mapstock(stats) {
+	let data = '';
+	for(const stock in stats.stocks) { data += (`- ${stats.stocks[stock]} ${stock.replace(/_+/, ' ')} \n`);}
+	if(data == '') return '- empty';
+	return data;
+}
+/* stats.businessType === 'farm' ?
+		'- **' + (stats.stocks.potato || '0') + '** potato' + '\n' +
+		'- **' + (stats.stocks.potato || '0') + '** potato seeds'
+		: stats.businessType === 'factory' ?
+			'- **coming soon!**'
+
+			: stats.businessType === 'shop' ?
+				'- **coming soon!**'
+
+				: message.channel.send('Error, message bot owner!')}
+          */
