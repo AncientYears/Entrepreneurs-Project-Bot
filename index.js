@@ -14,8 +14,6 @@ client.on('ready', async () => {
 	console.log(`${client.user.username} is up and running!`);
 	client.user.setPresence({ game: { name: client.prefix + ' | ' + 'Branch: ' + require(process.cwd() + '/utils/branch.js')() }, status: 'online' });
 	console.log(`Ready to serve in ${client.channels.size} channels on ${client.guilds.size} servers, for a total of ${client.users.size} users.`);
-
-
 });
 
 
