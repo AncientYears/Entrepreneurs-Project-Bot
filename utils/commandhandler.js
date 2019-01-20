@@ -66,8 +66,8 @@ module.exports.start = (client) => { // load commands from command dir
 };
 
 /**
- * Module to run and handle Commands!
- * @module commandhandler/run
+ * Module to load and handle API!
+ * @module commandhandler/loadApi
  * @param {client} client - Discord Client
  */
 module.exports.loadApi = (client) => { // load commands from command dir
