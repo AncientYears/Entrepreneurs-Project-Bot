@@ -103,15 +103,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		message.channel.startTyping();
 		if (cmd.help.disableindm == true) return message.channel.send('Sorry this Command is not yet supported!'); // check if command is supported in dm if not => return
 		console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
-		let [[stats]] = await ecoPool.query(`SELECT * FROM stats WHERE userID = '${message.author.id}'`);
-
-
-		if (!stats) {
-			await ecoPool.query(`INSERT IGNORE INTO stats (userID) VALUES ('${message.author.id}')`);
-			stats = {};
-		}
-		stats = client.api.parseStats(stats);
-
+		const stats = await client.api.getStats(message.author.id, ecoPool).then(data => data.data);
 		if (cmd.help.requires) {
 			if (cmd.help.requires.includes('botowner')) {
 				if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Bot Owner! `);
