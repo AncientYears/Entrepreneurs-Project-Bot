@@ -25,7 +25,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	}
 	else if (tobuy === 'potato' || tobuy === 'potatoes') {
 		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
-		client.api.buy(client, ecoPool, message, stats, 'potato', args[1], 1);
+		message.channel.send(client.api.buy(client, ecoPool, message, stats, 'potato', args[1], 1).message);
 	}
 	else{ return message.channel.send('Invalid Operation');}
 };
@@ -33,4 +33,5 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 module.exports.help = {
 	name: 'buy',
 	hideinhelp: false,
+	requires: ['business'],
 };

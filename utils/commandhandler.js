@@ -105,23 +105,15 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
 		const stats = await client.api.getStats(message.author.id, ecoPool).then(data => data.data);
 		if (cmd.help.requires) {
-			if (cmd.help.requires.includes('botowner')) {
-				if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Bot Owner! `);
-			}
+			if (cmd.help.requires.includes('botowner')) if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Bot Owner! `);
 			if (cmd.help.requires.includes('guild') && message.channel.type !== 'text') return message.channel.send('This command needs to be run in a guild!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Guild! `);
 			if (cmd.help.requires.includes('dm') && message.channel.type !== 'dm') return message.channel.send('This command needs to be run in DMs!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not DM! `);
-			if (cmd.help.requires.includes('business')) {
-				if (!stats || !stats.businessLocation.length) {
-					console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: No Business! `);
-					return message.channel.send(`Seems like you dont have a business yet! Create one by using **${client.prefix}setup**`);
-				}
-			}
+			if (cmd.help.requires.includes('business') && (!stats || !stats.businessLocation.length)) return message.channel.send(`Seems like you dont have a business yet! Create one by using **${client.prefix}setup**`), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: No Business! `);
 		}
+		if (((cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) && !['490999695422783489', '511221411805790209'].includes(message.guild.id))) return message.reply('This Command is indevelopment! Please join <> and use it there until it is finished!');
 		const now = Date.now();
 		const cooldownAmount = ms(cmd.help.cooldown || '5s');
-		if (!stats.cooldowns[cmd.help.name]) {
-			stats.cooldowns[cmd.help.name] = now - cooldownAmount;
-		}
+		if (!stats.cooldowns[cmd.help.name]) stats.cooldowns[cmd.help.name] = now - cooldownAmount;
 		const cooldown = stats.cooldowns[cmd.help.name];
 		const expirationTime = cooldown + cooldownAmount;
 		if (now < expirationTime) {
