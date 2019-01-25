@@ -2,8 +2,6 @@ const ms = require('ms');
 
 const produceAbles = {
 	farm: ['potato'],
-	test: ['test', 'nike'],
-	shoefactory: ['nike'],
 };
 const produceCosts = {
 	potato: [
@@ -14,7 +12,7 @@ const produceTime = {
 	potato: '1h',
 };
 
-module.exports = (client, ecoPool, message, stats, toProduce, amount) => {
+module.exports = (ecoPool, stats, toProduce, amount) => {
 	if(stats.creation.amount) {
 		return { status: 400, error : 'zumza-alreadyProducing' };
 	}
@@ -43,11 +41,11 @@ module.exports = (client, ecoPool, message, stats, toProduce, amount) => {
 		stats.creation = {
 			'type': toProduce,
 			'amount': amount,
-			'time': (Number(message.createdTimestamp) + Number(ms(produceTime[toProduce]))),
-			'started': message.createdTimestamp,
+			'time': Date.now() + ms(produceTime[toProduce] || '5min'),
+			'started': Date.now(),
 		};
-		ecoPool.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${message.author.id}'`);
-		ecoPool.query(`UPDATE stats SET creation = '${JSON.stringify(stats.creation)}' WHERE userID = '${message.author.id}'`);
+		ecoPool.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${stats.userID}'`);
+		ecoPool.query(`UPDATE stats SET creation = '${JSON.stringify(stats.creation)}' WHERE userID = '${stats.userID}'`);
 
 		let cost = null;
 		if (produceCosts[toProduce]) cost = produceCosts[toProduce].map(material => [Number(amount * material[0]), material[1]]);

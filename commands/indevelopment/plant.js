@@ -3,7 +3,7 @@ const discord = require('discord.js');
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
 
-	const planted = client.api.produce(client, ecoPool, message, stats, args[0], args[1]);
+	const planted = client.api.produce(ecoPool, stats, args[0], args[1]);
 	if(planted.error) {
 		return message.channel.send(`This command failed because of \`${planted.error}\`\n\`\`\`${require('util').inspect(planted)}\`\`\``);
 
