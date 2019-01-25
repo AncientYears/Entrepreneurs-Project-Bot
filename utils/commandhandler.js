@@ -74,6 +74,7 @@ module.exports.loadApi = (client) => { // load commands from command dir
 	client.api = {};
 	fs.readdir('./api/', (err, files) => {
 		if (err) return console.error(err);
+		files = files.filter(f => f.split('.').pop() === 'js');
 		files.forEach(file => {
 			const api = require(`../api/${file}`);
 			const apiName = file.split('.')[0];
@@ -82,6 +83,7 @@ module.exports.loadApi = (client) => { // load commands from command dir
 	});
 };
 const ms = require('ms');
+
 
 /**
  * Module to run and handle Commands!
