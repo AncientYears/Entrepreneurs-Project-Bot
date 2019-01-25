@@ -10,8 +10,8 @@ zumza-NaN
 
 ## produce
 ```
-zumza-notEneughMaterial
-    error: zumza-notEneughMaterial
+zumza-notEnoughMaterial
+    error: zumza-notEnoughMaterial
     status: 400
     missing: <[ [n, material] ]>
 ```
@@ -26,4 +26,5 @@ zumza-200
     status 200
     stats : <stats>
     created: <stats.creation>
+    cost: < [n, material] >
 ```
