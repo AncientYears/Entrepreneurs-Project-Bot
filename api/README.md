@@ -7,6 +7,12 @@ zumza-NaN
     status: 400
     NaN: <NaN>
 ```
+```
+zumza-businessTypeNotValid
+    error: zumza-businessTypeNotValid
+    status: 400
+    ableTypes: <[None | businessTypes]>
+```
 
 ## produce
 ```
@@ -16,15 +22,30 @@ zumza-notEnoughMaterial
     missing: <[ [n, material] ]>
 ```
 ```
-zumza-businessTypeNotValid
-    error: zumza-businessTypeNotValid
+zumza-200    
+    status 200
+    stats : <stats>
+    created: <stats.creation>
+    cost: < [n, material | null] >
+```
+
+## buy
+```
+zumza-itemNotValidOrNotBuyable
+    error: zumza-itemNotValidOrNotBuyable
     status: 400
-    ableTypes: <[None | businessTypes]>
+    NaI: < Invalid Item, String >
+```
+```
+zumza-notEnoughMoney
+    error: zumza-notEnoughMoney
+    status: 400
+    missing: < Missing, Number >
 ```
 ```
 zumza-200    
     status 200
     stats : <stats>
-    created: <stats.creation>
-    cost: < [n, material] >
+    bought: < [n, material] >
+    cost: < price  >
 ```
