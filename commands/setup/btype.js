@@ -34,16 +34,16 @@ The types are as follows:\`\`\`css
 # You may have to lower the price for customers to buy a certain item
 # You are limited in wether/season conditions due to the fact that you need to buy stock from other companies.\`\`\`
 
-**?btype <type>**
+**${client.prefix}btype <type>**
 `);
 		}
 		else {
 			ecoPool.query(`UPDATE stats SET businessType = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
-			message.reply('You now have a **' + args[0].toLowerCase() + '** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **?blocate** to view the possible locations for companies!)');
+			message.reply(`You now have a **' + args[0].toLowerCase() + '** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **${client.prefix}blocate** to view the possible locations for companies!)`);
 		}
 	}
 	else {
-		message.reply('You already have a business type which is: **' + stats.businessType + '** \nIf you would like to change it do **?breset**');
+		message.reply(`You already have a business type which is: **${stats.businessType}** \nIf you would like to change it do **${client.prefix}breset**`);
 	}
 };
 

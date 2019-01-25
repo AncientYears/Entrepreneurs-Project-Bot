@@ -31,7 +31,7 @@ client.on('guildMemberAdd', async (member, message) => {
 Welcome **${member.user.username}** to the Entrepreneurs server!
 I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during your stay here. I will give you tips and advice on how to grow your very own business!
 
-Alright, first things first, What should we call your business? **(?bname <business name>)**
+Alright, first things first, What should we call your business? **(${client.prefix}bname <business name>)**
 `).catch(async err => {
 		if(err.code != 50007) throw new Error(`Could not send help DM to ${member.user.author.tag}.\n` + err);
 		if(member.guild.id !== '490999695422783489') return message.channel.send('You have DMs disabled, please enable them or join https://discord.gg/mG7eQtw to get a setup-channel');
@@ -50,7 +50,7 @@ Alright, first things first, What should we call your business? **(?bname <busin
 Welcome **${member.user.username}** to the Entrepreneurs server!
 I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during your stay here. I will give you tips and advice on how to grow your very own business!
 
-Alright, first things first, What should we call your business? **(?bname <business name>)**
+Alright, first things first, What should we call your business? **(${client.prefix}bname <business name>)**
 
 `);
 	});

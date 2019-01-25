@@ -28,6 +28,6 @@ module.exports.run = async (client, message, args) => {
 module.exports.help = {
 	name: 'help',
 	description: 'Shows all the commands',
-	usage: '?help or ?help <command>',
+	usage: 'help or help <command>',
 	aliases: '',
 };

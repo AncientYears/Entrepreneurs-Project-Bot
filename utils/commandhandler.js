@@ -47,7 +47,7 @@ module.exports.start = (client) => { // load commands from command dir
 				try{
 					const props = require(`../commands/${category}/${f}`); // => load each one
 
-					console.log(`${i + 1} ${f} in category ${category} loaded!`); // => log that command got loaded
+					console.log(`${i} ${f} in category ${category} loaded!`); // => log that command got loaded
 					props.help.category = category;
 					client.commands.set(props.help.name, props); // => add command to command list
 				}

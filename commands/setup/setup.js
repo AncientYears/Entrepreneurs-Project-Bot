@@ -4,7 +4,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		client.emit('guildMemberAdd', message.member, message);
 	}
 	else {
-		message.reply('You already have a business named **' + stats.businessName + '** \nIf you would like to reset it do **?breset**');
+		message.reply(`You already have a business named **${stats.businessName}** \nIf you would like to reset it do **${client.prefix}breset**`);
 	}
 };
 
