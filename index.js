@@ -27,6 +27,8 @@ client.on('messageUpdate', async (oldmessage, message) => {
 
 client.on('guildMemberAdd', async (member, message) => {
 	if(member.user.bot || (member.guild.id !== '490999695422783489' && !message)) return;
+	const stats = await client.api.getStats(member.id, ecoPool).then(data => data.data);
+	if(stats.businessName)return;
 	member.user.send(`
 Welcome **${member.user.username}** to the Entrepreneurs server!
 I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during your stay here. I will give you tips and advice on how to grow your very own business!

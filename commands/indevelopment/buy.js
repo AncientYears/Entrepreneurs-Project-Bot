@@ -1,5 +1,3 @@
-const discord = require('discord.js');
-
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const buy = client.api.buy(ecoPool, stats, args[0], args[1]);
 	if(buy.error) {

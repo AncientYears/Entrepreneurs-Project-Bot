@@ -37,14 +37,12 @@ The types are as follows:\`\`\`css
 			const setupchannel = theGuild.channels.find(channel => channel.topic === message.author.id);
 			if(setupchannel) {
 				setTimeout(() => setupchannel.delete(), 50000);
-				const role = message.guild.roles.get('498870271764070410');
-				message.member.addRole(role);
 			}
-			else {
-				const user = theGuild.members.get(message.author.id);
-				const roleToAdd = theGuild.roles.get('498870271764070410');
-				user.addRole(roleToAdd);
-			}
+			const member = theGuild.members.get(message.author.id);
+			if(!member) return;
+			const roleToAdd = theGuild.roles.get('498870271764070410');
+			if(!roleToAdd) throw Error('Couldnt get Role!');
+			member.addRole(roleToAdd);
 		}
 	}
 	else {
