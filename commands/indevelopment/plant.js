@@ -3,21 +3,23 @@ const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
-	if(args[0] === 'potatoes') args[0] = 'potato';
-	if(args[0] !== 'potato') return message.channel.send('You can only plant potato at the moment!');
 
+	const planted = client.api.produce(client, ecoPool, message, stats, args[0], args[1]);
+	if(planted.error) {
+		return message.channel.send(`This command failed because of \`${planted.error}\n`);
 
-	const planted = client.api.produce(client, ecoPool, message, stats, this.help, args[0], 1);
-	if(planted.amount != undefined) {
+		// TO-DO: Fancy Error Handler
+		// planted.missing.map(x => '\n\t' + x[0] + 'x ' + x[1]).join('')}
+	}
 
+	else if (planted.status == 200) {
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Plant', message.author.displayAvatarURL)
-			.setDescription(`Successfully planted **${planted.amount} ${planted.type}**!`)
+			.setDescription(`Successfully planted **${planted.created.amount} ${planted.created.type}**!`)
 			.setColor('GREEN')
 			.setFooter(`Use the ${client.prefix}farm command to view information about your crop!`);
 		message.channel.send(farmEmbed);
 	}
-
 };
 
 module.exports.help = {
