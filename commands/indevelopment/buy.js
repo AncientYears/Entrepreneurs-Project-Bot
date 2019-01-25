@@ -1,7 +1,14 @@
 const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
-
+	const buy = client.api.buy(ecoPool, stats, args[0], args[1]);
+	if(buy.error) {
+		return message.channel.send(`This command failed because of \`${buy.error}\`\n\`\`\`${require('util').inspect(buy)}\`\`\``);
+		// TO-DO: Fancy Error Handler
+	}
+	message.channel.send('You succesfully bought ' + buy.bought + ' for ' + buy.cost);
+	// TO-DO: Fancy Error Succesfull handler
+/*
 	if(!args[0]) {
 		const categoryEmbed = new discord.RichEmbed()
 			.setAuthor('Categories', message.author.displayAvatarURL)
@@ -28,6 +35,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		message.channel.send(client.api.buy(client, ecoPool, message, stats, 'potato', args[1], 1).message);
 	}
 	else{ return message.channel.send('Invalid Operation');}
+	*/
 };
 
 module.exports.help = {
