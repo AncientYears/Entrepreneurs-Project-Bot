@@ -17,6 +17,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 
 module.exports.help = {
 	name: 'leaderboard',
+	usage: '<prefix>leaderboard',
 	hideinhelp: false,
 	requires: [],
 };

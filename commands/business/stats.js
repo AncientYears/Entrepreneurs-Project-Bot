@@ -23,7 +23,7 @@ ${mapstock(stats) }`)
 module.exports.help = {
 	name: 'stats',
 	description: 'Check your or anothers Entrepreneurs business stats!',
-	usage: '?stats or ?stats @someone ',
+	usage: '<prefix>stats or <prefix>stats @someone ',
 	aliases: ['statistics'],
 	requires: ['business'],
 };

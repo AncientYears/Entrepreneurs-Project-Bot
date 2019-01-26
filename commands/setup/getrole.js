@@ -15,5 +15,6 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 
 module.exports.help = {
 	name: 'getrole',
+	usage: '<prefix>getrole',
 	hideinhelp: false,
 };

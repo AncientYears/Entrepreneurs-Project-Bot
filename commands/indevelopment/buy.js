@@ -39,5 +39,6 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 module.exports.help = {
 	name: 'buy',
 	hideinhelp: false,
+	usage: '<prefix>buy <item> <amount>',
 	requires: ['business'],
 };

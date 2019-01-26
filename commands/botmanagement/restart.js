@@ -19,7 +19,7 @@ module.exports.run = async (client, message) => {
 module.exports.help = {
 	name: 'restart',
 	description: 'Restarts the Bot',
-	usage: 'restart',
+	usage: '<prefix>restart',
 	hideinhelp: true,
 	requires: ['botowner'],
 };

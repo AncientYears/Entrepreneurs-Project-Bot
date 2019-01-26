@@ -1,7 +1,7 @@
 module.exports.run = async (client, message, args) => {
 	if(!args.length) {
 		return message.author.send(
-			client.commands.map(props => props.help.hideinhelp ? '' : `**Command: ${props.help.name}**\n${props.help.category ? `\tCategory: ${props.help.category}\n` : '' }${props.help.description ? `\tDescription: ${props.help.description}\n` : '' }${props.help.usage ? `\tUsage: ${props.help.usage.replace(/<prefix>/g, client.prefix)}\n` : '' }${props.help.aliases ? `\tAliases: [ ${props.help.aliases.join(', ')} ]\n` : '' }`).filter(data => data !== '')
+			client.commands.map(props => props.help.hideinhelp ? '' : `**Command: ${props.help.name}**\n${props.help.category ? `\tCategory: ${props.help.category}\n` : '' }${props.help.description ? `\tDescription: ${props.help.description}\n` : '' }${props.help.usage ? `\tUsage: ${client.format(props.help.usage)}\n` : '' }${props.help.aliases ? `\tAliases: [ ${props.help.aliases.join(', ')} ]\n` : '' }`).filter(data => data !== '')
 			, { split: { char: '\n\n' } })
 			.then(() => {
 				if (message.channel.type === 'dm') return;
@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args) => {
 	if (command.help.category) helpcmd.push(`**Aliases:** ${command.help.category}`);
 	if (command.help.aliases) helpcmd.push(`**Aliases:** [${command.help.aliases.join(', ')}]`);
 	if (command.help.description) helpcmd.push(`**Description:** ${command.help.description}`);
-	if (command.help.usage) helpcmd.push(`**Usage:** ${command.help.usage.replace(/<prefix>/g, client.prefix)}`);
+	if (command.help.usage) helpcmd.push(`**Usage:** ${client.format(command.help.usage)}`);
 	message.channel.send(helpcmd, { split: true });
 
 };
@@ -28,6 +28,6 @@ module.exports.run = async (client, message, args) => {
 module.exports.help = {
 	name: 'help',
 	description: 'Shows all the commands',
-	usage: 'help or help <command>',
+	usage: '<prefix>help or <prefix>help <command>',
 	aliases: '',
 };

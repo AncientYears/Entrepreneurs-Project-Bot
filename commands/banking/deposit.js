@@ -1,7 +1,7 @@
 module.exports.run = (client, message, args, ecoPool, stats) => {
 	const deposit = client.api.deposit(ecoPool, stats, args[0]);
 	if(deposit.status != 200) {
-		if(deposit.error === 'zumza-NaN') return message.channel.send(`**'${deposit.NaN || 'null'}'** is not a Valid Number!\n**${client.prefix}${this.help.usage}**`);
+		if(deposit.error === 'zumza-NaN') return message.channel.send(`**'${deposit.NaN || 'null'}'** is not a Valid Number!\n**${client.format(this.help.usage)}**`);
 		if(deposit.error === 'zumza-notEnoughMoney') return message.channel.send(`You do not eneugh money inside of your bank!\nYou need ${deposit.missing}$ more!`);
 		return message.channel.send(`This command failed because of \`${deposit.error}\`\n\`\`\`${require('util').inspect(deposit)}\`\`\``);
 	}
@@ -12,7 +12,7 @@ module.exports.run = (client, message, args, ecoPool, stats) => {
 module.exports.help = {
 	name: 'deposit',
 	aliases: ['dep', 'd'],
-	usage: 'deposit <amount>',
+	usage: '<prefix>deposit <amount>',
 	description: 'Used to deposit Money to your Bank!',
 	hideinhelp: false,
 };

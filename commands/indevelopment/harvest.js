@@ -11,5 +11,5 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 module.exports.help = {
 	name: 'harvest',
 	hideinhelp: false,
-	requires: ['business'],
+	requires: ['business', 'botowner'],
 };

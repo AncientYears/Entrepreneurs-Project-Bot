@@ -26,7 +26,7 @@ ${messages.map(msg =>
 
 module.exports.help = {
 	name: 'report-bug',
-	usage: 'report-bug <info>',
+	usage: '<prefix>report-bug <info>',
 	hideinhelp: false,
 	requires: ['bug-report', 'bug'],
 };

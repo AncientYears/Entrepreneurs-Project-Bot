@@ -5,7 +5,7 @@ const uptime = require(process.cwd() + '/utils/uptime.js'); // For uptime
 module.exports.help = {
 	name: 'botinfo',
 	description: 'Shows you the Bot Info',
-	usage: 'botinfo',
+	usage: '<prefix>botinfo',
 	aliases: ['info', 'bot'],
 };
 

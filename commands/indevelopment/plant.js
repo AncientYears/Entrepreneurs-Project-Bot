@@ -24,7 +24,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 
 module.exports.help = {
 	name: 'plant',
-	usage: 'plant <crop> <amount>',
+	usage: '<prefix>plant <crop> <amount>',
 	hideinhelp: false,
 	requires: ['business'],
 };

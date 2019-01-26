@@ -19,7 +19,7 @@ module.exports.run = (client, message, args) => {
 module.exports.help = {
 	name: 'reload',
 	description: 'reload a command',
-	usage: 'reload <cmd>',
+	usage: '<prefix>reload <cmd>',
 	hideinhelp:true,
 	requires: ['botowner'],
 };
