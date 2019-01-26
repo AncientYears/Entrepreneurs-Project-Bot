@@ -1,7 +1,7 @@
-module.exports = async (id, ecoPool) => {
-	let [[stats]] = await ecoPool.query(`SELECT * FROM stats WHERE userID = '${id}'`);
+module.exports = async (id, database) => {
+	let [[stats]] = await database.query(`SELECT * FROM stats WHERE userID = '${id}'`);
 	if (!stats) {
-		await ecoPool.query(`INSERT IGNORE INTO stats (userID) VALUES ('${id}')`);
+		await database.query(`INSERT IGNORE INTO stats (userID) VALUES ('${id}')`);
 		stats = {};
 	}
 	if(!stats.cooldowns) stats.cooldowns = {};

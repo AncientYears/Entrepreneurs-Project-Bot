@@ -12,7 +12,7 @@ const produceTime = {
 	potato: '1h',
 };
 
-module.exports = (ecoPool, stats, toProduce, amount) => {
+module.exports = (database, stats, toProduce, amount) => {
 	if(stats.creation.amount) {
 		return { status: 400, error : 'zumza-alreadyProducing' };
 	}
@@ -44,8 +44,8 @@ module.exports = (ecoPool, stats, toProduce, amount) => {
 			'time': Date.now() + ms(produceTime[toProduce] || '5min'),
 			'started': Date.now(),
 		};
-		ecoPool.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${stats.userID}'`);
-		ecoPool.query(`UPDATE stats SET creation = '${JSON.stringify(stats.creation)}' WHERE userID = '${stats.userID}'`);
+		database.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${stats.userID}'`);
+		database.query(`UPDATE stats SET creation = '${JSON.stringify(stats.creation)}' WHERE userID = '${stats.userID}'`);
 
 		let cost = null;
 		if (produceCosts[toProduce]) cost = produceCosts[toProduce].map(material => [Number(amount * material[0]), material[1]]);
