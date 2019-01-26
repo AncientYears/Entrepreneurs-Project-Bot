@@ -1,13 +1,11 @@
-module.exports.run = async (client, message, args, ecoPool, stats) => {
-	if(!args[0]) return message.channel.send(`Include a number!\n**${client.prefix}deposit <amount>**`);
-	if(isNaN(args[0])) return message.channel.send('Invalid Number.');
-	if(args[0] <= 0) return message.channel.send('You cannot deposit negative money!');
-	if(stats.cash < args[0]) return message.channel.send('You do not have that amount of money!');
+module.exports.run = (client, message, args, ecoPool, stats) => {
+	const deposit = client.api.deposit(ecoPool, stats, args[0]);
+	if(deposit.error) {
+		return message.channel.send(`This command failed because of \`${deposit.error}\`\n\`\`\`${require('util').inspect(deposit)}\`\`\``);
+		// TO-DO: Fancy Error Handler
+	}
 
-	ecoPool.query(`UPDATE stats SET bank = '${Number(stats.bank) + Number(args[0])}' WHERE userID = '${message.author.id}'`);
-	ecoPool.query(`UPDATE stats SET cash = '${Number(stats.cash) - Number(args[0])}' WHERE userID = '${message.author.id}'`);
-
-	message.channel.send(`You have successfully deposited **${Number(args[0])}** into your bank! \nYou have **${Number(stats.cash) - Number(args[0])}** cash left!`);
+	message.channel.send(`You have successfully deposited **${deposit.cost}** into your bank! \nYou have **${Number(deposit.stats.cash) - Number(deposit.cost)}** cash left!`);
 };
 
 module.exports.help = {
