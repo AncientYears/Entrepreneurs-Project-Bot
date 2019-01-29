@@ -1,3 +1,5 @@
+const ms = require('ms');
+
 module.exports.run = async (client, message, args) => {
 	if(!args.length) {
 		return message.author.send(
@@ -17,10 +19,11 @@ module.exports.run = async (client, message, args) => {
 	if (!command) return message.reply('that\'s not a valid command!');
 	const helpcmd = [];
 	helpcmd.push(`**Name:** ${command.help.name}`);
-	if (command.help.category) helpcmd.push(`**Aliases:** ${command.help.category}`);
+	if (command.help.category) helpcmd.push(`**Category:** ${command.help.category}`);
 	if (command.help.aliases) helpcmd.push(`**Aliases:** [${command.help.aliases.join(', ')}]`);
 	if (command.help.description) helpcmd.push(`**Description:** ${command.help.description}`);
 	if (command.help.usage) helpcmd.push(`**Usage:** ${client.format(command.help.usage)}`);
+	if (command.help.cooldown) helpcmd.push(`**Cooldown:** ${ms(ms(command.help.cooldown), { long : true })}`);
 	message.channel.send(helpcmd, { split: true });
 
 };
