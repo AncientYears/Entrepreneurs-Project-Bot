@@ -103,16 +103,16 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 	const cmd = client.commands.get(cmdname) || client.commands.find(com => com.help.aliases && com.help.aliases.includes(cmdname));
 	if (cmd) {
 		message.channel.startTyping();
-		if (cmd.help.disableindm == true) return message.channel.send('Sorry this Command is not yet supported!'); // check if command is supported in dm if not => return
+		if (cmd.help.disableindm == true) return message.channel.send('Sorry this Command is not yet supported!'), message.channel.stopTyping(true); // check if command is supported in dm if not => return
 		console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
 		const stats = await client.api.getStats(message.author.id, ecoPool).then(data => data.data);
 		if (cmd.help.requires) {
-			if (cmd.help.requires.includes('botowner')) if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Bot Owner! `);
-			if (cmd.help.requires.includes('guild') && message.channel.type !== 'text') return message.channel.send('This command needs to be run in a guild!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Guild! `);
-			if (cmd.help.requires.includes('dm') && message.channel.type !== 'dm') return message.channel.send('This command needs to be run in DMs!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not DM! `);
-			if (cmd.help.requires.includes('business') && (!stats || !stats.businessLocation.length)) return message.channel.send(`Seems like you dont have a business yet! Create one by using **${client.prefix}setup**`), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: No Business! `);
+			if (cmd.help.requires.includes('botowner')) if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Bot Owner! `), message.channel.stopTyping(true);
+			if (cmd.help.requires.includes('guild') && message.channel.type !== 'text') return message.channel.send('This command needs to be run in a guild!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Guild! `), message.channel.stopTyping(true);
+			if (cmd.help.requires.includes('dm') && message.channel.type !== 'dm') return message.channel.send('This command needs to be run in DMs!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not DM! `), message.channel.stopTyping(true);
+			if (cmd.help.requires.includes('business') && (!stats || !stats.businessLocation.length)) return message.channel.send(`Seems like you dont have a business yet! Create one by using **${client.prefix}setup**`), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: No Business! `), message.channel.stopTyping(true);
 		}
-		if (((cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) && !['490999695422783489', '511221411805790209'].includes(message.guild.id))) return message.reply('This Command is indevelopment! Please join <> and use it there until it is finished!');
+		if (((cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) && !['490999695422783489', '511221411805790209'].includes(message.guild.id))) return message.reply('This Command is indevelopment! Please join <> and use it there until it is finished!'), message.channel.stopTyping(true);
 		const now = Date.now();
 		const cooldownAmount = ms(cmd.help.cooldown || '5s');
 		if (!stats.cooldowns[cmd.help.name]) stats.cooldowns[cmd.help.name] = now - cooldownAmount;
@@ -122,13 +122,12 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 			const timeLeft = ms(expirationTime - now, {
 				long: true,
 			});
-			return message.reply(`please wait \`${timeLeft}\` before reusing the \`${cmd.help.name}\` command.`);
+			return message.reply(`please wait \`${timeLeft}\` before reusing the \`${cmd.help.name}\` command.`), message.channel.stopTyping(true);
 		}
 		stats.cooldowns[cmd.help.name] = now;
 		await ecoPool.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`);
 		cmd.run(client, message, args, ecoPool, stats);
 		if (cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
 		message.channel.stopTyping(true);
-
 	}
 };
