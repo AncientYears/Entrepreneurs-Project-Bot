@@ -2,7 +2,7 @@ const discord = require('discord.js');
 const uptime = require(process.cwd() + '/utils/uptime.js'); // For time conversation
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
-	if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
+	if(stats.business.type !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.business.type + '**');
 	const timeLeft = Number(stats.creation.time) - message.createdTimestamp;
 
 	const farmEmbed = new discord.RichEmbed()

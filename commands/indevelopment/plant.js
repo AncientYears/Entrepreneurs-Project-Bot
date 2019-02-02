@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
-	if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
+	if(stats.business.type !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.business.type + '**');
 
 	const planted = client.api.produce(ecoPool, stats, args[0], args[1]);
 	if(planted.error) {

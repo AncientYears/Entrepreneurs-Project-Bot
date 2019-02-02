@@ -1,16 +1,15 @@
 const discord = require('discord.js');
-module.exports.run = async (client, message, args, ecoPool) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const users = message.mentions.users.first() || message.author;
-	let [[stats]] = await ecoPool.query(`SELECT * FROM stats WHERE userID = '${users.id}'`);
-	stats = client.api.parseStats(stats).data;
-	if (!stats.businessLocation || !stats.businessLocation.length) return message.reply('Sorry but **' + users.username + '** did not create their business yet!');
+	if(message.author.id != users.id) stats = await client.api.getStats(users.id, ecoPool).then(data => data.data);
+	if (!stats.business.location || !stats.business.location.length) return message.reply('Sorry but **' + users.username + '** did not create their business yet!');
 
 	const statsEmbed = new discord.RichEmbed()
 		.setAuthor('Stats', users.displayAvatarURL)
 		.setDescription(`
-						**Company:** ${stats.businessName}
-						**Type:** ${stats.businessType}
-						**Location:** ${stats.businessLocation}
+						**Company:** ${stats.business.name}
+						**Type:** ${stats.business.type}
+						**Location:** ${stats.business.location}
 						**Employees:** ${stats.employees} 
 						**Cash:** ${stats.cash}
 						**Bank:** ${stats.bank}
@@ -23,7 +22,7 @@ ${mapstock(stats) }`)
 module.exports.help = {
 	name: 'stats',
 	description: 'Check your or anothers Entrepreneurs business stats!',
-	usage: '<prefix>stats or <prefix>stats @someone ',
+	usage: '<prefix>stats or <prefix>stats <mention> ',
 	aliases: ['statistics'],
 	requires: ['business'],
 };

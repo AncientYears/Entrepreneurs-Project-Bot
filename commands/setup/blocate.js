@@ -1,8 +1,8 @@
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const locations = ['urban', 'rural'];
-	if(!stats || !stats.businessName) return message.reply(`Name your business first using **${client.prefix}bname**!`);
-	if(!stats || !stats.businessType) return message.reply(`Select your business type using **${client.prefix}btype**`);
-	if(!stats.businessLocation) {
+	if(!stats || !stats.business.name) return message.reply(`Name your business first using **${client.prefix}bname**!`);
+	if(!stats || !stats.business.type) return message.reply(`Select your business type using **${client.prefix}btype**`);
+	if(!stats.business.location) {
 		if(!args[0] || !locations.includes(args[0].toLowerCase())) {
 			return message.reply(`
 That is an invalid location.
@@ -30,7 +30,8 @@ The types are as follows:\`\`\`css
 `);
 		}
 		else {
-			ecoPool.query(`UPDATE stats SET businessLocation = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
+			stats.business.location = args[0].toLowerCase();
+			ecoPool.query(`UPDATE stats SET business = '${JSON.stringify(stats.business)}' WHERE userID = '${message.author.id}'`);
 			ecoPool.query(`UPDATE stats SET bank = '${100}' WHERE userID = '${message.author.id}'`);
 			message.reply(`You have located your business in: **${args[0].toLowerCase()} area**!\nFantastic, you have successfully setup your business and earned **$100**!\nNow, in the https://discord.gg/mG7eQtw server, run the **${client.prefix}help** command to find the commands to start running your business!\n\nAlso if you need any further help, there is a great community in that server to answer all of your questions! :joy_cat:`);
 			const theGuild = client.guilds.get('490999695422783489');
@@ -46,7 +47,7 @@ The types are as follows:\`\`\`css
 		}
 	}
 	else {
-		message.reply(`You already have already located your business in: **' + stats.businessLocation + ' area** \nIf you would like to change it do **${client.prefix}breset**`);
+		message.reply(`You already have already located your business in: **${stats.business.location} area** \nIf you would like to change it do **${client.prefix}breset**`);
 	}
 };
 

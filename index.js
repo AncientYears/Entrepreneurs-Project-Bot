@@ -16,6 +16,7 @@ client.on('ready', async () => {
 	console.log(`Ready to serve in ${client.channels.size} channels on ${client.guilds.size} servers, for a total of ${client.users.size} users.`);
 	client.format = function(string) {
 		string = string.replace(/<prefix>/g, client.prefix);
+		string = string.replace(/<mention>/g, client.user.toString());
 		return string;
 	};
 });
@@ -32,7 +33,7 @@ client.on('messageUpdate', async (oldmessage, message) => {
 client.on('guildMemberAdd', async (member, message) => {
 	if(member.user.bot || (member.guild.id !== '490999695422783489' && !message)) return;
 	const stats = await client.api.getStats(member.id, ecoPool).then(data => data.data);
-	if(stats.businessName)return;
+	if(stats.business.name)return;
 	member.user.send(`
 Welcome **${member.user.username}** to the Entrepreneurs server!
 I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during your stay here. I will give you tips and advice on how to grow your very own business!

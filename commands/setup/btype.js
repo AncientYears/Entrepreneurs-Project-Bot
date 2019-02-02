@@ -1,7 +1,7 @@
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const types = ['farm', 'factory', 'shop'];
-	if(!stats || !stats.businessName) return message.reply(`Name your business first using **${client.prefix}bname**!`);
-	if(stats && !stats.businessType) {
+	if(!stats || !stats.business.name) return message.reply(`Name your business first using **${client.prefix}bname**!`);
+	if(stats && !stats.business.type) {
 		if(!args[0] || !types.includes(args[0].toLowerCase())) {
 			return message.reply(`
 That is an invalid business type.
@@ -38,12 +38,13 @@ The types are as follows:\`\`\`css
 `);
 		}
 		else {
-			ecoPool.query(`UPDATE stats SET businessType = '${args[0].toLowerCase()}' WHERE userID = '${message.author.id}'`);
+			stats.business.type = args[0].toLowerCase();
+			ecoPool.query(`UPDATE stats SET business = '${JSON.stringify(stats.business)}' WHERE userID = '${message.author.id}'`);
 			message.reply(`You now have a **' + args[0].toLowerCase() + '** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **${client.prefix}blocate** to view the possible locations for companies!)`);
 		}
 	}
 	else {
-		message.reply(`You already have a business type which is: **${stats.businessType}** \nIf you would like to change it do **${client.prefix}breset**`);
+		message.reply(`You already have a business type which is: **${stats.business.type}** \nIf you would like to change it do **${client.prefix}breset**`);
 	}
 };
 

@@ -4,6 +4,7 @@ module.exports = (stats) => {
 	if(!stats.cooldowns) stats.cooldowns = {};
 	if(!stats.stocks) stats.stocks = {};
 	if(!stats.creation) stats.creation = {};
+	if(!stats.business) stats.business = {};
 	return { 'status': 200, 'data': stats };
 };
 

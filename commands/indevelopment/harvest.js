@@ -1,5 +1,5 @@
 module.exports.run = async (client, message, args, ecoPool, stats) => {
-	if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
+	if(stats.business.type !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.business.type + '**');
 	if(!stats.creation.time || message.createdTimestamp <= stats.creation.time) return message.channel.send(`Your crops are not ready to harvest! \nUse the **${client.prefix}farm** command to view information about your crops`);
 
 
