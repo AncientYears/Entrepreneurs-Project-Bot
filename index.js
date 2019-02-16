@@ -13,7 +13,7 @@ commandhandler.loadApi(client);
 client.on('ready', async () => {
 	console.log(`${client.user.username} is up and running!`);
 	const branch = require(process.cwd() + '/utils/branch.js')();
-	if(branch == 'master' && client.id != 491313910620749834) client.branch = 'beta'; else client.branch = branch;
+	if(branch == 'master' && client.id != '491313910620749834') client.branch = 'beta'; else client.branch = branch;
 	client.user.setPresence({ game: { name: `${client.prefix} | Branch: ${client.branch}` }, status: 'online' });
 	console.log(`Ready to serve in ${client.channels.size} channels on ${client.guilds.size} servers, for a total of ${client.users.size} users.`);
 	client.format = function(string) {
