@@ -6,11 +6,11 @@ module.exports = () => {
 
 		data = /ref: refs\/heads\/([^\n]+)/.exec(data.toString());
 		if(data[1]) return data[1];
-		else return 'master';
+		else return process.env.branch || 'master';
 	}
 	catch (err) {
 		console.error(err.message);
-		return 'master';
+		return process.env.branch || 'master';
 	}
 
 };
