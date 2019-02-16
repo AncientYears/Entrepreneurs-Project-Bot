@@ -16,8 +16,10 @@ module.exports.run = async (bot, message) => {
 		.setTimestamp(message.createdAt)
 		.setAuthor(bot.user.username, bot.user.displayAvatarURL)
 		.addField('Bot Created on', new Date(bot.user.createdAt).toUTCString(), true)
-		.addField('⏱ uptime', `${uptime(bot.uptime)}`, true);
-
+		.addField('uptime', `${uptime(bot.uptime)}`, false)
+		.addField('Branch:', bot.branch, true)
+		.addField(`Prefix: ${bot.prefix}`, '\u200B', true)
+		.addField('Discord.Js Version', Discord.version, true);
 	const m = await message.channel.send(botembed);
 	await botembed.addField('Ping:', `Latency is ${m.createdTimestamp - message.createdTimestamp}ms.\nAPI Latency is ${Math.round(bot.ping)}ms!`);
 	await m.edit(botembed);
