@@ -20,8 +20,6 @@ module.exports = (database, stats, toProduce, amount) => {
 		return { status: 400, error : 'zumza-businessTypeNotValid', ableTypes: getTypes(toProduce, produceAbles) };
 	}
 	else {
-
-
 		if(isNaN(amount) || Number(amount).toFixed(0) < 1) return { status: 400, error : 'zumza-NaN', NaN: amount };
 		amount = Number(amount).toFixed(0);
 
