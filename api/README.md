@@ -49,3 +49,30 @@ zumza-200
     bought: < [n, material] >
     cost: < price  >
 ```
+#harvest
+```
+zumza-produceNotFinished
+    status: 400
+    error : 'zumza-produceNotFinished'
+    timeLeft: <Time Left, int < -1 if not produceing>>
+```
+```
+zumza-businessTypeNotValid
+    universal
+```
+
+```
+zumza-notEnoughMaterial
+    error: zumza-notEnoughMaterial
+    status: 400
+    missing: <[ [n, material] ]>
+```
+
+```
+zumza-200    
+    status 200
+    stats : <stats>
+    harvested: < [n, material] >
+    cost: < price  >
+    luck: <luck, %>
+```
