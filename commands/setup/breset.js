@@ -23,5 +23,5 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 };
 module.exports.help = {
 	name: 'breset',
-	hideinhelp: true,
+	hideinhelp: false,
 };
