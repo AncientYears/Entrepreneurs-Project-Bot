@@ -28,5 +28,5 @@ module.exports.help = {
 	name: 'report-bug',
 	usage: '<prefix>report-bug <info>',
 	hideinhelp: false,
-	requires: ['bug-report', 'bug'],
+	aliases: ['bug-report', 'bug'],
 };
