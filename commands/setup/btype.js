@@ -7,7 +7,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 That is an invalid business type.
 
 The types are as follows:\`\`\`css
-[ Farm ] 
+[ ★ Farm ★ ] 
 # You are able to produce raw goods, e.g fruits, vegetables, meat, dairy products, etc.
 [ Advantages ]
 # No need to constantly buy stocks from other companies
@@ -16,6 +16,7 @@ The types are as follows:\`\`\`css
 # Your profits depend on quality of crops, season, weather etc.
 # You have limited access to other companies so trade might be a bit difficult\`\`\`   
 \`\`\`css
+[ NOT YET IMPLEMENTED DO NOT USE ! ]
 [ Factory ]
 # You are able to buy raw goods from farms and process them to create something new
 [ Advantages ]
@@ -25,6 +26,7 @@ The types are as follows:\`\`\`css
 # You depend on farms and other raw material producers for profit
 # You can lose money when demand drops for your product\`\`\`
 \`\`\`css
+[ NOT YET IMPLEMENTED DO NOT USE ! ]
 [ Shop ]
 # You buy stock for cheap and sell it for more to make a profit.
 [ Advantages ]
