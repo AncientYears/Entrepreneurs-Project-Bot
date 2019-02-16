@@ -21,5 +21,5 @@ module.exports.help = {
 	name: 'suggest',
 	usage: '<prefix>suggest <info>',
 	hideinhelp: false,
-	cooldown: '10 ms',
+	cooldown: '10 min',
 };
