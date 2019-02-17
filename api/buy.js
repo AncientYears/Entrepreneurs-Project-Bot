@@ -1,6 +1,7 @@
 const buyPrice = {
 	potato: 1,
 	carrot_seed: 2,
+	corn_seed: 5,
 };
 
 module.exports = (database, stats, tobuy, amount) => {

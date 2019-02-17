@@ -21,6 +21,8 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 							 - Cheap crop, not the most profitable though.
 							**carrot_seed** - 2$ / 1
 							 - A bit better, but slower than potatoes!
+							 **corn_seed** - 5$ / 1
+							 - Some of the best stuff you can grow, but very slow, and you may loose it all!
 							 `)
 
 			.setFooter(client.format('<prefix>buy <item> <amount> to purchase an item'));

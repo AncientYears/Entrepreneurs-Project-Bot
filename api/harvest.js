@@ -1,5 +1,5 @@
 const harvestAbles = {
-	farm: ['potato', 'carrot_seed'],
+	farm: ['potato', 'carrot_seed', 'corn_seed'],
 };
 const harvestCosts = {
 	example: [
@@ -14,11 +14,15 @@ const harvestRewards = {
 	carrot_seed: [
 		[3, 'carrot'],
 	],
+	corn_seed: [
+		[3, 'corn'],
+	],
 };
 
 const harvestLuck = {
 	default: [100, 100],
 	carrot_seed: [50, 100],
+	corn_seed: [30, 100],
 };
 
 /*  JUST DONT CHANGE STUFF BEHIND HERE */

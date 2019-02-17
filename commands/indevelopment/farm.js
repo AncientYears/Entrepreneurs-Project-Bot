@@ -10,8 +10,9 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		.addField('Status', stats.creation.time == undefined ? 'Not Growing' : (message.createdTimestamp <= stats.creation.time ? `${uptime(timeLeft)} left!\n${statusbar(stats)}` : `Finished use **${client.prefix}harvest**`))
 		.setDescription(`
 **Crops Available**
-- ${stats.stocks.potato || 'no'} potatoes
-- ${stats.stocks.carrot_seeds || 'no'} carrot seeds
+- ${stats.stocks.potato || 'no'} potatoes | 1h grow time
+- ${stats.stocks.carrot_seeds || 'no'} carrot seeds | 3h grow time
+- ${stats.stocks.corn_seeds || 'no'} corn seeds | 5h grow time
 **Useful Commands**
 - ${client.prefix}plant : Plant your crops!
 - ${client.prefix}harvest : Harvest your crops!
