@@ -13,20 +13,20 @@ module.exports.run = async (client, message, args, database, stats) => {
 
 	const offer = transform.get(args.join(' '));
 	if (!offer) return message.channel.send('The ID is invalid!');
-
-
+	if(offer.userID === stats.userID) return message.channel.send('Use !removemarket <id> instead!');
 	if (stats.cash < offer.price) return message.channel.send('zumza-notEnoughMoney missing: ' + offer.price - stats.cash);
 
 
 	if (!stats.stocks[offer.type]) stats.stocks[offer.type] = 0;
 	stats.stocks[offer.type] = parseInt(stats.stocks[offer.type]) + parseInt(offer.amount);
-	database.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${stats.userID}'`);
-	database.query(`UPDATE stats SET cash = '${stats.cash - offer.price}' WHERE userID = '${stats.userID}'`);
 
 	const sellerstats = await client.api.getStats(offer.userID, database).then(stat => stat.data);
 	delete sellerstats.market[offer.id];
+	database.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${stats.userID}'`);
 	database.query(`UPDATE stats SET market = '${JSON.stringify(sellerstats.market)}' WHERE userID = '${sellerstats.userID}'`);
 	database.query(`UPDATE stats SET cash = '${Number(sellerstats.cash) + Number(offer.price)}' WHERE userID = '${sellerstats.userID}'`);
+	database.query(`UPDATE stats SET cash = '${stats.cash - offer.price}' WHERE userID = '${stats.userID}'`);
+	message.channel.send('Succesfull!');
 };
 
 module.exports.help = {
