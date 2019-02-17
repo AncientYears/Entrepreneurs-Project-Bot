@@ -11,10 +11,10 @@ module.exports.run = async (client, message, args, database, stats) => {
 	const SnowFlake = discord.SnowflakeUtil.generate();
 	console.log(SnowFlake);
 
-	if(isNaN(args[0]) || Number(args[0]).toFixed(0) < 1) return message.channel.send('zumza-NaN "' + args[0] + '"');
+	if (isNaN(args[0]) || Number(args[0]).toFixed(0) < 1) return message.channel.send('zumza-NaN "' + args[0] + '"');
 	args[0] = Number(args[0]).toFixed(0);
 
-	if(isNaN(args[2]) || Number(args[2]).toFixed(0) < 1) return message.channel.send('zumza-NaN "' + args[2] + '"');
+	if (isNaN(args[2]) || Number(args[2]).toFixed(0) < 1) return message.channel.send('zumza-NaN "' + args[2] + '"');
 	args[2] = Number(args[2]).toFixed(0);
 
 
@@ -22,11 +22,11 @@ module.exports.run = async (client, message, args, database, stats) => {
 	stats.stocks[material[1]] = Number(stats.stocks[material[1]] == undefined ? 0 : stats.stocks[material[1]]) - Number(material[0]);
 
 	const missing = Object.keys(stats.stocks).map(stock => {
-		if(stats.stocks[stock] < 0) return [stats.stocks[stock] * -1, stock];
+		if (stats.stocks[stock] < 0) return [stats.stocks[stock] * -1, stock];
 		else return undefined;
 	}).filter(test => test);
 
-	if(missing.length) return message.channel.send('zumza-notEnoughMaterial  status: 400 ' + require('util').inspect(missing));
+	if (missing.length) return message.channel.send('zumza-notEnoughMaterial  status: 400 ' + require('util').inspect(missing));
 
 	stats.market[SnowFlake] = {
 		type: args[1],
