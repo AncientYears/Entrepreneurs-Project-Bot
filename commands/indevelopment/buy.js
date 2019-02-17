@@ -16,8 +16,12 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	else if (args[0] === 'farm') {
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
-			.setDescription(`**potato** - 1$ / 1
-							 - Cheap crop, not the most profitable though.`)
+			.setDescription(`
+							**potato** - 1$ / 1
+							 - Cheap crop, not the most profitable though.
+							**carrot_seed** - 2$ / 1
+							 - A bit better, but slower than potatoes!
+							 `)
 
 			.setFooter(client.format('<prefix>buy <item> <amount> to purchase an item'));
 		return message.channel.send(farmEmbed);

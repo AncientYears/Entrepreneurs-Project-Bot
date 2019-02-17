@@ -1,5 +1,5 @@
 const harvestAbles = {
-	farm: ['potato'],
+	farm: ['potato', 'carrot_seed'],
 };
 const harvestCosts = {
 	example: [
@@ -11,13 +11,17 @@ const harvestRewards = {
 	potato: [
 		[3, 'potato'],
 	],
+	carrot_seed: [
+		[3, 'carrot'],
+	],
 };
 
 const harvestLuck = {
 	default: [100, 100],
-	test: [0, 100],
+	carrot_seed: [50, 100],
 };
 
+/*  JUST DONT CHANGE STUFF BEHIND HERE */
 module.exports = (database, stats) => {
 	if(!stats.creation.time || Date.now() <= stats.creation.time) {
 		return { status: 400, error : 'zumza-produceNotFinished', timeLeft: isNaN(stats.creation.time) ? -1 : Number(stats.creation.time) - Date.now() };

@@ -1,15 +1,19 @@
 const ms = require('ms');
 
 const produceAbles = {
-	farm: ['potato'],
+	farm: ['potato', 'carrot_seed'],
 };
 const produceCosts = {
 	potato: [
 		[1, 'potato'],
 	],
+	carrot_seed: [
+		[1, 'carrot_seed'],
+	],
 };
 const produceTime = {
 	potato: '1h',
+	carrot_seed: '2h',
 };
 
 module.exports = (database, stats, toProduce, amount) => {

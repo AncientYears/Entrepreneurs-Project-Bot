@@ -11,6 +11,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		.setDescription(`
 **Crops Available**
 - ${stats.stocks.potato || 'no'} potatoes
+- ${stats.stocks.carrot_seeds || 'no'} carrot seeds
 **Useful Commands**
 - ${client.prefix}plant : Plant your crops!
 - ${client.prefix}harvest : Harvest your crops!
