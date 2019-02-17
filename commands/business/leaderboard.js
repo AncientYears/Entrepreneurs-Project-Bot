@@ -20,4 +20,5 @@ module.exports.help = {
 	usage: '<prefix>leaderboard',
 	hideinhelp: false,
 	requires: [],
+	cooldown: '10 min',
 };
