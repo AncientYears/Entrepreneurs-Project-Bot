@@ -22,8 +22,8 @@ module.exports.run = async (client, message, args, database, stats) => {
 
 	const sellerstats = await client.api.getStats(offer.userID, database).then(stat => stat.data);
 	delete sellerstats.market[offer.id];
-	database.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${stats.userID}'`);
 	database.query(`UPDATE stats SET market = '${JSON.stringify(sellerstats.market)}' WHERE userID = '${sellerstats.userID}'`);
+	database.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${stats.userID}'`);
 	database.query(`UPDATE stats SET cash = '${Number(sellerstats.cash) + Number(offer.price)}' WHERE userID = '${sellerstats.userID}'`);
 	database.query(`UPDATE stats SET cash = '${stats.cash - offer.price}' WHERE userID = '${stats.userID}'`);
 	message.channel.send('Succesfull!');
