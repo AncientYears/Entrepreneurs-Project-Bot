@@ -11,6 +11,7 @@ module.exports = async (id, database) => {
 	if(!stats.cooldowns) stats.cooldowns = {};
 	if(!stats.stocks) stats.stocks = {};
 	if(!stats.creation) stats.creation = {};
+	if(!stats.market) stats.market = {};
 	return { 'status': 200, 'data': stats };
 
 };
