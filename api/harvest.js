@@ -46,13 +46,12 @@ module.exports = (database, stats) => {
 
 			if(missing.length) return { error: 'zumza-notEnoughMaterial', status: 400, missing: missing };
 		}
-		const harvested = [];
 		const luck = getRandomIntInclusive(harvestLuck[stats.creation.type] == undefined ? harvestLuck['default'][0] : harvestLuck[stats.creation.type][0], harvestLuck[stats.creation.type] == undefined ? harvestLuck['default'][1] : harvestLuck[stats.creation.type][1]);
 
 
-		harvestRewards[stats.creation.type].forEach(reward => {
-			harvested[reward[1]] = Number(Number(reward[0]) * luck * stats.creation.amount).toFixed(0);
-			stats.stocks[reward[1]] = Number(stats.stocks[reward[1]] == undefined ? 0 : stats.stocks[reward[1]]) + Number(harvested[reward[1]]);
+		const harvested = harvestRewards[stats.creation.type].map(reward => {
+			stats.stocks[reward[1]] = Number(stats.stocks[reward[1]] == undefined ? 0 : stats.stocks[reward[1]]) + Number(reward[0] * luck * stats.creation.amount).toFixed(0);
+			return [ Number(Number(reward[0]) * luck * stats.creation.amount).toFixed(0), reward[1]];
 
 		});
 
