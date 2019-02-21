@@ -2,20 +2,37 @@ const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(stats.business.type !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.business.type + '**');
-
 	const planted = client.api.produce(ecoPool, stats, args[0], args[1]);
-	if(planted.error) {
+	if(planted.error || planted.status !== 200) {
+		if(planted.error === 'zumza-alreadyProducing') {
+			const Embed = new discord.RichEmbed()
+				.setAuthor('You are already doing something. Get back here!!', message.author.displayAvatarURL)
+				.setDescription(`You should be currently looking after your **${planted.stats.creation.type}**!`)
+				.setColor('RED');
+			return message.channel.send(Embed);
+		}
+		if(planted.error === 'zumza-businessTypeNotValid') {
+			const Embed = new discord.RichEmbed()
+				.setAuthor('Thats not your business!', message.author.displayAvatarURL)
+				.setDescription(`These Business-types are able to do that job:\n${planted.ableTypes.join('\n')}`)
+				.setColor('RED');
+			return message.channel.send(Embed);
+		}
+		if(planted.error === 'zumza-notEnoughMaterial') {
+			const Embed = new discord.RichEmbed()
+				.setAuthor('Let\'s go shopping!', message.author.displayAvatarURL)
+				.setDescription(`We are missing some stuff:${planted.missing.map(x => '\n\t' + x[0] + 'x ' + x[1]).join('')}`)
+				.setColor('RED');
+			return message.channel.send(Embed);
+		}
+		// TO-DO: Handle Uncommon Errors
 		return message.channel.send(`This command failed because of \`${planted.error}\`\n\`\`\`${require('util').inspect(planted)}\`\`\``);
-
-		// TO-DO: Fancy Error Handler
-		// planted.missing.map(x => '\n\t' + x[0] + 'x ' + x[1]).join('')}
 	}
 
-	else if (planted.status == 200) {
-		// TO-DO: Fancy succesfull Handler
+	else {
 		const farmEmbed = new discord.RichEmbed()
 			.setAuthor('Plant', message.author.displayAvatarURL)
-			.setDescription(`Successfully planted **${planted.created.amount} ${planted.created.type}**!\nThis has cost you:\n${require('util').inspect(planted.cost)}`)
+			.setDescription(`Successfully planted **${planted.created.amount} ${planted.created.type}**!\nThis has cost you:${planted.cost.map(x => '\n\t' + x[0] + 'x ' + x[1]).join('')}`)
 			.setColor('GREEN')
 			.setFooter(`Use the ${client.prefix}farm command to view information about your crop!`);
 		message.channel.send(farmEmbed);

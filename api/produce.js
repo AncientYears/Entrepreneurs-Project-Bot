@@ -23,7 +23,7 @@ const produceTime = {
 
 module.exports = (database, stats, toProduce, amount) => {
 	if(stats.creation.amount) {
-		return { status: 400, error : 'zumza-alreadyProducing' };
+		return { status: 400, error : 'zumza-alreadyProducing', stats: stats };
 	}
 	else if(!produceAbles[stats.business.type].includes(toProduce)) {
 		return { status: 400, error : 'zumza-businessTypeNotValid', ableTypes: getTypes(toProduce, produceAbles) };

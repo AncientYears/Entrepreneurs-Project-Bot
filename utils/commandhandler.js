@@ -112,7 +112,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 			if (cmd.help.requires.includes('dm') && message.channel.type !== 'dm') return message.channel.send('This command needs to be run in DMs!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not DM! `), message.channel.stopTyping(true);
 			if (cmd.help.requires.includes('business') && (!stats || !stats.business.location.length)) return message.channel.send(`Seems like you dont have a business yet! Create one by using **${client.prefix}setup**`), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: No Business! `), message.channel.stopTyping(true);
 		}
-		if (((cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) && !['490999695422783489', '511221411805790209'].includes(message.guild.id))) return message.reply('This Command is indevelopment! Please join <> and use it there until it is finished!'), message.channel.stopTyping(true);
+		if (((cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) && (!message.guild || !['490999695422783489', '511221411805790209'].includes(message.guild.id)))) return message.reply(client.format('This Command is indevelopment! Please join <mainserverinvite> and use it there until it is finished!')), message.channel.stopTyping(true);
 		const now = Date.now();
 		const cooldownAmount = ms(cmd.help.cooldown || '5s');
 		if (!stats.cooldowns[cmd.help.name]) stats.cooldowns[cmd.help.name] = now - cooldownAmount;

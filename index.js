@@ -19,6 +19,7 @@ client.on('ready', async () => {
 	client.format = function(string) {
 		string = string.replace(/<prefix>/g, client.prefix);
 		string = string.replace(/<mention>/g, client.user.toString());
+		string = string.replace(/<mainserverinvite>/g, 'https://discord.gg/mG7eQtw');
 		return string;
 	};
 });
