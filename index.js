@@ -69,7 +69,16 @@ Alright, first things first, What should we call your business? **(${client.pref
 process.on('unhandledRejection', (err) => { // OHH NO UNHANLED ERROR: NOTIFY ALL BOT DEVS
 	console.error(err);
 	if (err.name == 'DiscordAPIError' && err.message == '401: Unauthorized') return process.exit();
-	(client.channels.get('526742123177836564') || client.channels.get('498776522153525258')).send(`
+
+	if(err.name == 'DiscordAPIError') {
+		return (client.channels.get('526742123177836564') || client.channels.get('498776522153525258')).send(`
+	\`\`\`js
+	Error: ${require('util').inspect(err).slice(0, 1800)}
+		\`\`\`
+		`);
+	}
+
+	return (client.channels.get('526742123177836564') || client.channels.get('498776522153525258')).send(`
 \`\`\`xs
 Error: ${err.name}
 	${err.message}
