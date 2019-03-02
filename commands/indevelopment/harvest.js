@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 					.setAuthor('Still Growing!', message.author.displayAvatarURL)
 					.setDescription(`Your plants are still growing!\nThey will need anohter ${uptime(harvest.timeLeft)}`)
 					.setFooter('Use !farm to get more Info')
-					.setColor('GREEN');
+					.setColor('RED');
 				return message.channel.send(Embed);
 			}
 
@@ -45,5 +45,5 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 module.exports.help = {
 	name: 'harvest',
 	hideinhelp: false,
-	requires: ['business', 'botowner'],
+	requires: ['business'],
 };
