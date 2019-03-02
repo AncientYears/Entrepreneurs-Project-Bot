@@ -2,6 +2,7 @@ const ms = require('ms');
 
 const produceAbles = {
 	farm: ['potato', 'carrot_seed', 'corn_seed'],
+	factory: ['popcorn', 'chips', 'nutrient_paste'],
 };
 const produceCosts = {
 	potato: [
@@ -13,12 +14,26 @@ const produceCosts = {
 	corn_seed: [
 		[1, 'corn_seed'],
 	],
+	popcorn: [
+		[2, 'corn'],
+	],
+	chips: [
+		[2, 'potato'],
+	],
+	nutrient_paste: [
+		[2, 'corn'],
+		[1, 'carrot'],
+		[5, 'potato'],
+	],
 
 };
 const produceTime = {
 	potato: '1h',
 	carrot_seed: '3h',
 	corn_seed: '5h',
+	popcorn: '1h',
+	chips: '2h',
+	nutrient_paste: '30m',
 };
 
 module.exports = (database, stats, toProduce, amount) => {
