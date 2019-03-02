@@ -5,11 +5,11 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 
 module.exports.help = {
 	name: 'cmd name',
-	description: 'description'
+	description: 'description',
 	usage: 'usage',
-	requires: ['botowner', 'guild', 'dm', 'business', 'farm', 'factory', 'shop']
-	aliases: ['a', 'b']
+	requires: ['botowner', 'guild', 'dm', 'business', 'farm', 'factory', 'shop'],
+	aliases: ['a', 'b'],
 	hideinhelp: true,
-	cooldown: '5min'
+	cooldown: '5min',
 };
 ```
