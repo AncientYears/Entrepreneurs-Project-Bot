@@ -88,11 +88,11 @@ process.on('unhandledRejection', (err) => { // OHH NO UNHANLED ERROR: NOTIFY ALL
 			}
 		}
 		return (client.channels.get('526742123177836564') || client.channels.get('498776522153525258')).send(`
-	\`\`\`js
-	Error: ${require('util').inspect(err).slice(0, 1800)}
+\`\`\`js
+Error: ${require('util').inspect(err).slice(0, 1800)}
 
 	${addInfo}
-		\`\`\`
+\`\`\`
 		`);
 	}
 
