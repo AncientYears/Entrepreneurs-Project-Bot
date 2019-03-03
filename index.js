@@ -71,9 +71,27 @@ process.on('unhandledRejection', (err) => { // OHH NO UNHANLED ERROR: NOTIFY ALL
 	if (err.name == 'DiscordAPIError' && err.message == '401: Unauthorized') return process.exit();
 
 	if(err.name == 'DiscordAPIError') {
+		let addInfo = 'None Found!';
+		if(err.path !== undefined) {
+			const split = err.path.split('/');
+			if(split[3] == 'channels') {
+				const channel = client.channels.get(split[4]);
+				if(channel) {
+					addInfo = `Additional Debug Info:\n\tChannel: ${channel.name ? channel.name : 'Unknown'}\n\tGuild: ${channel.guild ? channel.guild.name : 'Unknown'}`;
+				}
+			}
+			if(split[3] == 'guilds') {
+				const guild = client.guilds.get(split[4]);
+				if(guild) {
+					addInfo = `Additional Debug Info:\n\tGuild: ${guild.name ? guild.name : 'Unknown'}`;
+				}
+			}
+		}
 		return (client.channels.get('526742123177836564') || client.channels.get('498776522153525258')).send(`
 	\`\`\`js
 	Error: ${require('util').inspect(err).slice(0, 1800)}
+
+	${addInfo}
 		\`\`\`
 		`);
 	}
