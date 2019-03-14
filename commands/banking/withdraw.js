@@ -1,4 +1,13 @@
-module.exports.run = async (client, message, args, ecoPool, stats) => {
+const { Client, Message } = require('discord.js');
+const { Pool } = require('mysql2');
+/**
+ * @param {Client} client - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ * @param {Array} args - Array with parsed args
+ * @param {Pool} ecoPool - DataBase
+ * @param {Object} stats - Object containing User Stats
+ */
+module.exports.run = (client, message, args, ecoPool, stats) => {
 	const withdraw = client.api.withdraw(ecoPool, stats, args[0]);
 	if(withdraw.status != 200) {
 		if(withdraw.error === 'zumza-NaN') return message.channel.send(`**'${withdraw.NaN || 'null'}'** is not a Valid Number!\n**${client.format(this.help.usage)} <amount>**`);

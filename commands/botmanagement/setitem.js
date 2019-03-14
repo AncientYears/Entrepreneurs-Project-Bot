@@ -1,3 +1,11 @@
+const { Client, Message } = require('discord.js');
+const { Pool } = require('mysql2');
+/**
+ * @param {Client} client - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ * @param {Array} args - Array with parsed args
+ * @param {Pool} database - DataBase
+ */
 module.exports.run = async (client, message, args, database) => {
 	let user = message.mentions.users.first() || client.users.get(args[0]);
 	let amount = 0;

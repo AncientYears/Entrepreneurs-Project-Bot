@@ -1,5 +1,10 @@
 const discord = require('discord.js');
 
+const { Client, Message } = require('discord.js');
+/**
+ * @param {Client} client - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ */
 module.exports.run = async (client, message) => {
 	const pingEmbed = new discord.RichEmbed()
 		.setAuthor('Bot Latency', client.user.avatarURL)

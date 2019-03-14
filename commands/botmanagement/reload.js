@@ -1,3 +1,9 @@
+const { Client, Message } = require('discord.js');
+/**
+ * @param {Client} client - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ * @param {Array} args - Array with parsed args
+ */
 module.exports.run = (client, message, args) => {
 	if(!args || args.size < 1) return message.reply('Must provide a command name to reload.');
 	const commandName = args[0];

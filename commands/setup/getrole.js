@@ -1,3 +1,12 @@
+const { Client, Message } = require('discord.js');
+const { Pool } = require('mysql2');
+/**
+ * @param {Client} client - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ * @param {Array} args - Array with parsed args
+ * @param {Pool} ecoPool - DataBase
+ * @param {Object} stats - Object containing User Stats
+ */
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(!message.member) return message.channel.send('This is not a Guild!');
 	if(message.member.roles.some(role => role.name === 'Entrepreneur-zumza')) return message.channel.send('You already have the rule O.o!').then(msg => msg.delete(5000));

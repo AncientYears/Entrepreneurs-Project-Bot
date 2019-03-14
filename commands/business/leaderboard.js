@@ -1,11 +1,12 @@
 const discord = require('discord.js'); // eslint-disable-line no-unused-vars
 const mysql = require('mysql2'); // eslint-disable-line no-unused-vars
+const { Client, Message } = require('discord.js');
+const { Pool } = require('mysql2');
 /**
- * Command
- * @param {discord.Client} client
- * @param {discord.Message} message
- * @param {Array} args
- * @param {mysql.Pool} ecoPool
+ * @param {Client} client - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ * @param {Array} args - Array with parsed args
+ * @param {Pool} ecoPool - DataBase
  */
 module.exports.run = async (client, message, args, ecoPool) => {
 	const [data] = await ecoPool.query('select * from stats ORDER BY cash + bank DESC');

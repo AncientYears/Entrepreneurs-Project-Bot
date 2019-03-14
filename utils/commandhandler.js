@@ -1,9 +1,12 @@
 const fs = require('fs');
-
+const { Client, Message } = require('discord.js');
+const { Pool } = require('mysql2');
 /**
  * Module to run and handle Commands!
+ *
  * @module commandhandler/run
- * @param {client} client - Discord Client
+ * @param {Client} client - Discord Client
+ *
  */
 module.exports.start = (client) => { // load commands from command dir
 	let errorc = 0;
@@ -67,8 +70,9 @@ module.exports.start = (client) => { // load commands from command dir
 
 /**
  * Module to load and handle API!
+ *
  * @module commandhandler/loadApi
- * @param {client} client - Discord Client
+ * @param {Client} client - Discord Client
  */
 module.exports.loadApi = (client) => { // load commands from command dir
 	client.api = {};
@@ -87,10 +91,11 @@ const ms = require('ms');
 
 /**
  * Module to run and handle Commands!
+ *
  * @module commandhandler/run
- * @param {DiscordClient} client - Discord Client
- * @param {message} message - Message Object to handle Command in
- * @param {ecoPool} ecoPool - EcoPool Config
+ * @param {Client} client - Discord Client
+ * @param {Message} message - Message Object to handle Command in
+ * @param {Pool} ecoPool - EcoPool Config
  */
 module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 	if (message.system) return;

@@ -1,5 +1,10 @@
 const Discord = require('discord.js');
 
+const { Client, Message } = require('discord.js');
+/**
+ * @param {Client} client - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ */
 module.exports.run = async (client, message) => {
 	if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!');
 	const restartembed = new Discord.RichEmbed()

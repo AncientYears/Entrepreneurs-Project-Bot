@@ -9,6 +9,11 @@ module.exports.help = {
 	aliases: ['info', 'bot'],
 };
 
+const { Client, Message } = require('discord.js');
+/**
+ * @param {Client} bot - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ */
 module.exports.run = async (bot, message) => {
 	const botembed = new Discord.RichEmbed()
 		.setTitle('Bot Information')

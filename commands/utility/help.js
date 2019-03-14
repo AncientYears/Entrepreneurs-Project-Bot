@@ -1,5 +1,10 @@
 const ms = require('ms');
-
+const { Client, Message } = require('discord.js');
+/**
+ * @param {Client} client - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ * @param {Array} args - Array with parsed args
+ */
 module.exports.run = async (client, message, args) => {
 	if(!args.length) {
 		return message.author.send(

@@ -1,5 +1,7 @@
 const fs = require('fs');
-
+/**
+ * @returns {string} - Returns Name of current Branch.
+ */
 module.exports = () => {
 	try{
 		let data = fs.readFileSync('.git/HEAD', 'utf8');
