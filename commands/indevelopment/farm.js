@@ -26,6 +26,7 @@ module.exports.help = {
 	name: 'farm',
 	hideinhelp: false,
 	usage: '<prefix>farm',
+	aliases: ['crops'],
 	requires: ['business', 'farm'],
 };
 
