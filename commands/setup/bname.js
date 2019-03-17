@@ -17,7 +17,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		if (found[0].length) return message.channel.send('Name already used!');
 		stats.business.name = args.join(' ');
 		ecoPool.query(`UPDATE stats SET business = '${JSON.stringify(stats.business)}' WHERE userID = '${message.author.id}'`);
-		message.reply(`You have successfully named your business as **${args.join(' ')}**! \n\nYou are of to a great start! \nNow, what type of business would this be? (Use **${client.prefix}btype** to view the possible types of businesses)`);
+		message.reply(`You have successfully named your business as **${args.join(' ')}**! \n\nYou're off to a great start! \nNow, what type of business would this be? (Use **${client.prefix}btype** to view the possible types of businesses)`);
 
 	}
 };
