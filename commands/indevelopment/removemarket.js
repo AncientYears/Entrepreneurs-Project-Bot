@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args, database, stats) => {
 	database.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${stats.userID}'`);
 	delete stats.market[offer.id];
 	database.query(`UPDATE stats SET market = '${JSON.stringify(stats.market)}' WHERE userID = '${stats.userID}'`);
-	message.channel.send('Succesffully removed!');
+	message.channel.send('Successfully removed!');
 };
 
 module.exports.help = {
