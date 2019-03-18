@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(!stats.business.location) {return message.reply(`Select your business type using **${client.prefix}blocate**`);}
 	else {
 		const roleToAdd = message.guild.roles.find(role => role.name === 'Entrepreneur-zumza');
-		if(!roleToAdd) return message.channel.send('This guild has no role named `Entrepreneur-zumza`! But this one has for sure! https://discord.gg/mG7eQtw');
+		if(!roleToAdd) return message.channel.send(client.format('This guild has no role named `Entrepreneur-zumza`! But this one has for sure! <mainserverinvite>'));
 		message.member.addRole(roleToAdd);
 		message.delete(5000).catch(() => null);
 		message.reply('Here is your Role!').then(msg => msg.delete(5000));
