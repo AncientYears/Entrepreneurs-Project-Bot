@@ -26,6 +26,13 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 				.setColor('RED');
 			return message.channel.send(Embed);
 		}
+		if(fabricated.error === 'zumza-NaN') {
+			const Embed = new discord.RichEmbed()
+				.setAuthor('That\'s not a Number!', message.author.displayAvatarURL)
+				.setDescription(`'${fabricated.NaN}' is not a valid Number!`)
+				.setColor('RED');
+			return message.channel.send(Embed);
+		}
 		// TO-DO: Handle Uncommon Errors
 		return message.channel.send(`This command failed because of \`${fabricated.error}\`\n\`\`\`${require('util').inspect(fabricated)}\`\`\``);
 	}

@@ -25,6 +25,13 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 				.setColor('RED');
 			return message.channel.send(Embed);
 		}
+		if(planted.error === 'zumza-NaN') {
+			const Embed = new discord.RichEmbed()
+				.setAuthor('That\'s not a Number!', message.author.displayAvatarURL)
+				.setDescription(`'${planted.NaN}' is not a valid Number!`)
+				.setColor('RED');
+			return message.channel.send(Embed);
+		}
 		// TO-DO: Handle Uncommon Errors
 		return message.channel.send(`This command failed because of \`${planted.error}\`\n\`\`\`${require('util').inspect(planted)}\`\`\``);
 	}
