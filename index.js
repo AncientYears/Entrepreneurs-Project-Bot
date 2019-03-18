@@ -19,7 +19,7 @@ client.on('ready', async () => {
 	client.format = function(string) {
 		string = string.replace(/<prefix>/g, client.prefix);
 		string = string.replace(/<mention>/g, client.user.toString());
-		string = string.replace(/<mainserverinvite>/g, 'https://discord.gg/VJk8jDm');
+		string = string.replace(/<mainserverinvite>/g, 'https://discord.gg/p4ZhgNv');
 		return string;
 	};
 });
@@ -44,7 +44,7 @@ I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during you
 Alright, first things first, What should we call your business? **(${client.prefix}bname <business name>)**
 `).catch(async err => {
 		if(err.code != 50007) throw new Error(`Could not send help DM to ${member.user.author.tag}.\n` + err);
-		if(member.guild.id !== '490999695422783489') return message.channel.send('You have DMs disabled, please enable them or join https://discord.gg/VJk8jDm to get a setup-channel');
+		if(member.guild.id !== '490999695422783489') return message.channel.send('You have DMs disabled, please enable them or join <mainserverinvite> to get a setup-channel');
 		const overwrites = [{
 			id: member.id,
 			allowed: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
