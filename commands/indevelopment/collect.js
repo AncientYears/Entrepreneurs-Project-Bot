@@ -17,7 +17,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 			else {
 				const Embed = new discord.RichEmbed()
 					.setAuthor('Still Growing!', message.author.displayAvatarURL)
-					.setDescription(`Your plants are still growing!\nThey will need anohter ${uptime(collect.timeLeft)}`)
+					.setDescription(`Your plants are still growing!\nThey will need anothter ${uptime(collect.timeLeft)}`)
 					.setFooter('Use !factory to get more Info')
 					.setColor('RED');
 				return message.channel.send(Embed);
