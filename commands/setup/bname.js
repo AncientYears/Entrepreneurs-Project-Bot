@@ -16,7 +16,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		const found = await ecoPool.query('SELECT business, business->"$.name" as selectdata FROM stats WHERE JSON_EXTRACT(business, "$.name") = ?', [args.join(' ')]);
 		if (found[0].length) return message.channel.send('Name already used!');
 		stats.business.name = args.join(' ');
-		ecoPool.query(`UPDATE stats SET business = '${JSON.stringify(stats.business)}' WHERE userID = '${message.author.id}'`);
+		ecoPool.query(`UPDATE stats SET business = '${JSON.stringify(stats.business)}' WHERE userID = '${message.author.id}'`).catch(() => message.channel.send(client.format('An Error occured, you may do <prefix>bug-report <msg> if you think this is an Bug!')));
 		message.reply(`You have successfully named your business as **${args.join(' ')}**! \n\nYou're off to a great start! \nNow, what type of business would this be? (Use **${client.prefix}btype** to view the possible types of businesses)`);
 
 	}
