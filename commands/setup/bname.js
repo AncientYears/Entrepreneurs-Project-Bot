@@ -10,7 +10,7 @@ const { Pool } = require('mysql2');
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if (stats && stats.business.name) return message.reply(`You already have a business named **${stats.business.name}** \nIf you would like to change it do **${client.prefix}breset**`);
 	if (!args.join(' ')) {
-		return message.reply(`**${client.prefix}bname <name>**`);
+		return message.reply(client.format(`**${this.help.usage}**`));
 	}
 	else {
 		const found = await ecoPool.query('SELECT business, business->"$.name" as selectdata FROM stats WHERE JSON_EXTRACT(business, "$.name") = ?', [args.join(' ')]);
@@ -24,5 +24,6 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 
 module.exports.help = {
 	name: 'bname',
+	usage: '<prefix>bname <name>',
 	hideinhelp: true,
 };
