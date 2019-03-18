@@ -25,7 +25,6 @@ The types are as follows:\`\`\`css
 # Your profits depend on quality of crops, season, weather etc.
 # You have limited access to other companies so trade might be a bit difficult\`\`\`   
 \`\`\`css
-[ NOT YET IMPLEMENTED DO NOT USE ! ]
 [ Factory ]
 # You are able to buy raw goods from farms and process them to create something new
 [ Advantages ]
