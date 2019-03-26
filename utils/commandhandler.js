@@ -136,7 +136,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		stats.cooldowns[cmd.help.name] = now;
 		await ecoPool.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`);
 		cmd.run(client, message, args, ecoPool, stats);
-		if (cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be unstable or even broken!');
+		if (cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be **__unstable__** or even **__broken__**!\nWe really need feedback for this if you have any suggestions make sure to let us know!');
 		message.channel.stopTyping(true);
 	}
 };
