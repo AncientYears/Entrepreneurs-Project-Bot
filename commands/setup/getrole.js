@@ -9,7 +9,8 @@ const { Pool } = require('mysql2');
  */
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(!message.member) return message.channel.send('This is not a Guild!');
-	if(message.member.roles.some(role => role.name === 'Entrepreneur-zumza')) return message.channel.send('You already have the rule O.o!').then(msg => msg.delete(5000));
+	if(message.channel.permissionsFor(message.guild.me).has('MANAGE_MESSAGES')) message.delete();
+	if(message.member.roles.some(role => role.name === 'Entrepreneur-zumza')) return message.channel.send('You already have the role O.o!').then(msg => msg.delete(5000));
 	if(!stats || !stats.business.name) return message.reply(`Name your business first using **${client.prefix}bname**!`);
 	if(!stats || !stats.business.type) return message.reply(`Select your business type using **${client.prefix}btype**`);
 	if(!stats.business.location) {return message.reply(`Select your business type using **${client.prefix}blocate**`);}
