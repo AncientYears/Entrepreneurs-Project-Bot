@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 	}).filter(element => element);
 
 	const purgeable = await purger.map(async purge => {
-		const data = await client.fetchUser(purge);
+		const data = await client.user.fetch(purge);
 		return purge + ' | ' + data.tag;
 	});
 
