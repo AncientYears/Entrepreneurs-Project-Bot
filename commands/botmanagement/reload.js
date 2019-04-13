@@ -17,6 +17,7 @@ module.exports.run = (client, message, args) => {
 	// We also need to delete and reload the command from the client.commands Enmap
 	client.commands.delete(commandName);
 	const props = require(`..${cmd.help.category ? '/' + cmd.help.category : '' }/${commandName}.js`);
+	props.help['category'] = cmd.help.category;
 	client.commands.set(commandName, props);
 	message.reply(`The command ${commandName} has been reloaded`);
 };

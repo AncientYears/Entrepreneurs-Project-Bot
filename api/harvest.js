@@ -30,7 +30,7 @@ module.exports = (database, stats) => {
 	if(!stats.creation.time || Date.now() <= stats.creation.time) {
 		return { status: 400, error : 'zumza-produceNotFinished', timeLeft: isNaN(stats.creation.time) ? -1 : Number(stats.creation.time) - Date.now() };
 	}
-	else if(!harvestAbles[stats.business.type].includes(stats.creation.type)) {
+	else if(!harvestAbles[stats.business.type] || !harvestAbles[stats.business.type].includes(stats.creation.type)) {
 		return { status: 400, error : 'zumza-businessTypeNotValid', ableTypes: getTypes(stats.creation.type, harvestAbles) };
 	}
 	else {
