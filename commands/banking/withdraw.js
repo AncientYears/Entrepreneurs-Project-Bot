@@ -8,7 +8,7 @@ const { Pool } = require('mysql2');
  * @param {Object} stats - Object containing User Stats
  */
 module.exports.run = (client, message, args, ecoPool, stats) => {
-	const withdraw = client.api.withdraw(ecoPool, stats, args[0]);
+	const withdraw = client.zumzaApi.withdraw(ecoPool, stats, args[0]);
 	if(withdraw.status != 200) {
 		if(withdraw.error === 'zumza-NaN') return message.channel.send(`**'${withdraw.NaN || 'null'}'** is not a Valid Number!\n**${client.format(this.help.usage)}**`);
 		if(withdraw.error === 'zumza-notEnoughMoney') return message.channel.send(`You do not eneugh money inside of your bank!\nYou need ${withdraw.missing}$ more!`);

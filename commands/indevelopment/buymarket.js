@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args, database, stats) => {
 	if (!stats.stocks[offer.type]) stats.stocks[offer.type] = 0;
 	stats.stocks[offer.type] = parseInt(stats.stocks[offer.type]) + parseInt(offer.amount);
 
-	const sellerstats = await client.api.getStats(offer.userID, database).then(stat => stat.data);
+	const sellerstats = await client.zumzaApi.getStats(offer.userID, database).then(stat => stat.data);
 	delete sellerstats.market[offer.id];
 	database.query(`UPDATE stats SET market = '${JSON.stringify(sellerstats.market)}' WHERE userID = '${sellerstats.userID}'`);
 	database.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${stats.userID}'`);

@@ -3,7 +3,7 @@ const discord = require('discord.js');
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(stats.business.type !== 'factory') return message.channel.send('Sorry, you do not have a factory! \nYou have a **' + stats.business.type + '**');
 	if(!args[0] || !args[1]) return message.channel.send(client.format('Correct Usage: ' + this.help.usage));
-	const fabricated = client.api.produce(ecoPool, stats, args[0], args[1]);
+	const fabricated = client.zumzaApi.produce(ecoPool, stats, args[0], args[1]);
 	if(fabricated.error || fabricated.status !== 200) {
 		if(fabricated.error === 'zumza-alreadyProducing') {
 			const Embed = new discord.RichEmbed()

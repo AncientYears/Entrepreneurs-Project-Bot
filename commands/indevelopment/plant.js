@@ -2,7 +2,7 @@ const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(!args[0] || !args[1]) return message.channel.send(client.format('Correct Usage: ' + this.help.usage));
-	const planted = client.api.produce(ecoPool, stats, args[0], args[1]);
+	const planted = client.zumzaApi.produce(ecoPool, stats, args[0], args[1]);
 	if(planted.error || planted.status !== 200) {
 		if(planted.error === 'zumza-alreadyProducing') {
 			const Embed = new discord.RichEmbed()

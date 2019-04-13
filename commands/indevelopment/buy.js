@@ -29,7 +29,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		return message.channel.send(farmEmbed);
 	}
 
-	const buy = client.api.buy(ecoPool, stats, args[0], args[1]);
+	const buy = client.zumzaApi.buy(ecoPool, stats, args[0], args[1]);
 	if(buy.error) {
 		return message.channel.send(`This command failed because of \`${buy.error}\`\n\`\`\`${require('util').inspect(buy)}\`\`\``);
 		// TO-DO: Fancy Error Handler
@@ -55,7 +55,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	}
 	else if (tobuy === 'potato' || tobuy === 'potatoes') {
 		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
-		message.channel.send(client.api.buy(client, ecoPool, message, stats, 'potato', args[1], 1).message);
+		message.channel.send(client.zumzaApi.buy(client, ecoPool, message, stats, 'potato', args[1], 1).message);
 	}
 	else{ return message.channel.send('Invalid Operation');}
 	*/

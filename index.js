@@ -35,7 +35,7 @@ client.on('messageUpdate', async (oldmessage, message) => {
 
 client.on('guildMemberAdd', async (member, message) => {
 	if(member.user.bot || (member.guild.id !== '490999695422783489' && !message)) return;
-	const stats = await client.api.getStats(member.id, ecoPool).then(data => data.data);
+	const stats = await client.zumzaApi.getStats(member.id, ecoPool).then(data => data.data);
 	if(stats.business.name)return;
 	member.user.send(`
 Welcome **${member.user.username}** to the Entrepreneurs server!

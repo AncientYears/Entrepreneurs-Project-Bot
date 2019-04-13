@@ -3,7 +3,7 @@ const uptime = require(process.cwd() + '/utils/uptime.js'); // For time conversa
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 
-	const harvest = client.api.harvest(ecoPool, stats);
+	const harvest = client.zumzaApi.harvest(ecoPool, stats);
 	if(harvest.status != 200) {
 		if(harvest.error === 'zumza-produceNotFinished') {
 			if(harvest.timeLeft == '-1') {

@@ -75,14 +75,14 @@ module.exports.start = (client) => { // load commands from command dir
  * @param {Client} client - Discord Client
  */
 module.exports.loadApi = (client) => { // load commands from command dir
-	client.api = {};
+	client.zumzaApi = {};
 	fs.readdir('./api/', (err, files) => {
 		if (err) return console.error(err);
 		files = files.filter(f => f.split('.').pop() === 'js');
 		files.forEach(file => {
 			const api = require(`../api/${file}`);
 			const apiName = file.split('.')[0];
-			client.api[apiName] = api;
+			client.zumzaApi[apiName] = api;
 		});
 	});
 };
@@ -110,7 +110,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		message.channel.startTyping();
 		if (cmd.help.disableindm == true) return message.channel.send('Sorry this Command is not yet supported!'), message.channel.stopTyping(true); // check if command is supported in dm if not => return
 		console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
-		const stats = await client.api.getStats(message.author.id, ecoPool).then(data => data.data);
+		const stats = await client.zumzaApi.getStats(message.author.id, ecoPool).then(data => data.data);
 		if (cmd.help.requires) {
 			if (cmd.help.requires.includes('botowner')) if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Bot Owner! `), message.channel.stopTyping(true);
 			if (cmd.help.requires.includes('guild') && message.channel.type !== 'text') return message.channel.send('This command needs to be run in a guild!'), console.log(`[Ping:${Math.round(client.ping)}ms] ${cmd.help.name} failed!: Not Guild! `), message.channel.stopTyping(true);
