@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/AncientYears/Entrepreneurs-Project-Bot#readme",
   "dependencies": {
-    "discord.js": "^11.4.2",
+    "discord.js": "github:discordjs/discord.js",
     "dotenv": "^6.2.0",
     "ms": "^2.1.1",
     "mysql2": "^1.6.4"
