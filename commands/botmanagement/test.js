@@ -17,16 +17,20 @@ fakeargs['stats'] = '10';
  * @param {Message} message - Discord.js Message
  */
 module.exports.run = async (client, message) => {
+	let x = 0;
 	const data = client.commands.map(cmd => cmd.help.name);
-	function myFunc(i) {
-		if(['setitem', 'setmoney', 'settype', 'restart'].includes(data[i])) return;
-		const fakeargsrun = fakeargs[data[i]] ? fakeargs[data[i]] : '';
-		console.log(`Running fake Command with ${message.author.tag}: Running ${client.prefix}${data[i]} ${fakeargsrun}`);
+	function myFunc(v) {
+		if(['setitem', 'setmoney', 'settype', 'restart'].includes(v)) return;
+		const fakeargsrun = fakeargs[v] ? fakeargs[v] : '';
+		message.channel.send(`Running fake Command with ${message.author.tag}: Running ${client.prefix}${v} ${fakeargsrun}`);
 		const fakeMessageData = message;
-		fakeMessageData.content = `${client.prefix}${data[i]} ${fakeargsrun}`;
+		fakeMessageData.content = `${client.prefix}${v} ${fakeargsrun}`;
 		client.emit('message', fakeMessageData);
 	}
-	data.forEach((v, i) => setTimeout(myFunc, i * 3000, i));
+	data.forEach((v) => {
+		setTimeout(myFunc, x * 5000, v);
+		x++;
+	});
 
 
 };
