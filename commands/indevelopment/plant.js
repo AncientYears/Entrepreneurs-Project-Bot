@@ -5,28 +5,28 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const planted = client.zumzaApi.produce(ecoPool, stats, args[0], args[1]);
 	if(planted.error || planted.status !== 200) {
 		if(planted.error === 'zumza-alreadyProducing') {
-			const Embed = new discord.RichEmbed()
+			const Embed = new discord.MessageEmbed()
 				.setAuthor('You are already doing something. Get back here!!', message.author.displayAvatarURL)
 				.setDescription(`You should be currently looking after your **${planted.stats.creation.type}**!`)
 				.setColor('RED');
 			return message.channel.send(Embed);
 		}
 		if(planted.error === 'zumza-businessTypeNotValid') {
-			const Embed = new discord.RichEmbed()
+			const Embed = new discord.MessageEmbed()
 				.setAuthor('Thats not your business!', message.author.displayAvatarURL)
 				.setDescription(`These Business-types are able to do that job:\n${planted.ableTypes.join('\n')}`)
 				.setColor('RED');
 			return message.channel.send(Embed);
 		}
 		if(planted.error === 'zumza-notEnoughMaterial') {
-			const Embed = new discord.RichEmbed()
+			const Embed = new discord.MessageEmbed()
 				.setAuthor('Let\'s go shopping!', message.author.displayAvatarURL)
 				.setDescription(`We are missing some stuff:${planted.missing.map(x => '\n\t' + x[0] + 'x ' + x[1]).join('')}`)
 				.setColor('RED');
 			return message.channel.send(Embed);
 		}
 		if(planted.error === 'zumza-NaN') {
-			const Embed = new discord.RichEmbed()
+			const Embed = new discord.MessageEmbed()
 				.setAuthor('That\'s not a Number!', message.author.displayAvatarURL)
 				.setDescription(`'${planted.NaN}' is not a valid Number!`)
 				.setColor('RED');
@@ -37,7 +37,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	}
 
 	else {
-		const farmEmbed = new discord.RichEmbed()
+		const farmEmbed = new discord.MessageEmbed()
 			.setAuthor('Plant', message.author.displayAvatarURL)
 			.setDescription(`Successfully planted **${planted.created.amount} ${planted.created.type}**!\nThis has cost you:${planted.cost.map(x => '\n\t' + x[0] + 'x ' + x[1]).join('')}`)
 			.setColor('GREEN')

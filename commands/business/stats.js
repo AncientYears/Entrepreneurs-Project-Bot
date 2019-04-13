@@ -13,7 +13,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(message.author.id != users.id) stats = await client.zumzaApi.getStats(users.id, ecoPool).then(data => data.data);
 	if (!stats.business.location || !stats.business.location.length) return message.reply('Sorry but **' + users.username + '** did not create their business yet!');
 
-	const statsEmbed = new discord.RichEmbed()
+	const statsEmbed = new discord.MessageEmbed()
 		.setAuthor('Stats', users.displayAvatarURL)
 		.setDescription(`
 						**Company:** ${stats.business.name}

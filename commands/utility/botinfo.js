@@ -15,7 +15,7 @@ const { Client, Message } = require('discord.js');
  * @param {Message} message - Discord.js Message
  */
 module.exports.run = async (bot, message) => {
-	const botembed = new Discord.RichEmbed()
+	const botembed = new Discord.MessageEmbed()
 		.setTitle('Bot Information')
 		.setColor('RANDOM')
 		.setTimestamp(message.createdAt)
