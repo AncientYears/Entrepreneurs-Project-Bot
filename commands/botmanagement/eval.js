@@ -1,6 +1,5 @@
 /* eslint no-unused-vars: 0  */
 const Discord = require('discord.js');
-const request = require('snekfetch');
 
 
 const cblockre = /(^```js)|(```$)/g;
@@ -16,20 +15,7 @@ const { Pool } = require('mysql2');
  */
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	try {
-		if(args[0] == 'secured') {
-			args.shift();
-			this.secured = true;
-		}
-		else {this.secured = false;}
-
 		let content = args.join(' ');
-		if(args[0] == 'haste') {
-			if(!args[1]) return message.reply('To eval a haste upload your code to ' + client.haste);
-			const data = await request.get(client.haste + '/raw/' + args[1]);
-			content = data.body.toString();
-		}
-
-
 		if (cblockre.test(content)) {
 			content = content.replace(cblockre, '').trim();
 		}
@@ -64,18 +50,12 @@ const header = (m, x) => {
 
 async function respond(message, result, client, secured) {
 	header(message);
+	if (result.length >= 2000) {
+		result = result.slice(0, 1950);
+		result += ' \n...';
+	}
 	const wrapped = `${message.author}\n\`\`\`js\n${result}\n\`\`\``;
-	if (wrapped.length >= 2000) {
-		if(secured == true) return message.reply('message was too long in secured mode!');
-		const key = await request.post(client.haste + '/documents')
-			.send(result)
-			.then((r) => r.body.key);
-		await message.reply(`**Output was too long and was uploaded to ${client.haste}${client.haste.substring(client.haste.length - 1) == '/' ? '' : '/'}${key}.js**`);
-		console.log('hasted', `${client.haste}/${key}.js`);
-	}
-	else {
-		await message.channel.send(wrapped);
-		console.log(result);
-	}
+	await message.channel.send(wrapped);
+	console.log(result);
 	header(message);
 }
