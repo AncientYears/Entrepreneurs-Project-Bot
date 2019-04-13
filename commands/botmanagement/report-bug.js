@@ -12,7 +12,7 @@ const { Pool } = require('mysql2');
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const bugembed = new discord.MessageEmbed().setTitle('BugReport');
 
-	const messages = await message.channel.fetchMessages({ limit: 10 }).then(msgs => {return msgs.first(10).reverse();});
+	const messages = await message.channel.messages.fetch({ limit: 10 }).then(msgs => {return msgs.first(10).reverse();});
 	bugembed.addField('Last 10 Messages',
 		`\`\`\`
 ${messages.map(msg =>
