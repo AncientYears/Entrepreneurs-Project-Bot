@@ -22,13 +22,13 @@ module.exports.run = async (client, message) => {
 	function myFunc(v) {
 		if(['setitem', 'setmoney', 'settype', 'restart'].includes(v)) return;
 		const fakeargsrun = fakeargs[v] ? fakeargs[v] : '';
-		console.log(`Running fake Command with ${message.author.tag}: Running ${client.prefix}${v} ${fakeargsrun}`);
+		message.channel.send(`Running fake Command with ${message.author.tag}: Running ${client.prefix}${v} ${fakeargsrun}`);
 		const fakeMessageData = message;
 		fakeMessageData.content = `${client.prefix}${v} ${fakeargsrun}`;
 		client.emit('message', fakeMessageData);
 	}
 	data.forEach((v) => {
-		setTimeout(myFunc, x * 3000, v);
+		setTimeout(myFunc, x * 5000, v);
 		x++;
 	});
 
