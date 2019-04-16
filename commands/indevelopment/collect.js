@@ -16,8 +16,8 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 			}
 			else {
 				const Embed = new discord.MessageEmbed()
-					.setAuthor('Still Growing!', message.author.displayAvatarURL)
-					.setDescription(`Your plants are still growing!\nThey will need anothter ${uptime(collect.timeLeft)}`)
+					.setAuthor('Still Produceing!', message.author.displayAvatarURL)
+					.setDescription(`Your Machines are still produceing!\nThey will need anothter ${uptime(collect.timeLeft)}`)
 					.setFooter('Use !factory to get more Info')
 					.setColor('RED');
 				return message.channel.send(Embed);
