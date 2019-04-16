@@ -3,11 +3,11 @@ const uptime = require(process.cwd() + '/utils/uptime.js'); // For time conversa
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 
-	const harvest = client.api.harvest(ecoPool, stats);
+	const harvest = client.zumzaApi.harvest(ecoPool, stats);
 	if(harvest.status != 200) {
 		if(harvest.error === 'zumza-produceNotFinished') {
 			if(harvest.timeLeft == '-1') {
-				const Embed = new discord.RichEmbed()
+				const Embed = new discord.MessageEmbed()
 					.setAuthor('Nothing in Progress!', message.author.displayAvatarURL)
 					.setDescription('What do you expect to harvest when nothing is planted in the first place!')
 					.setFooter('Use !farm to get more Info')
@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 				return message.channel.send(Embed);
 			}
 			else {
-				const Embed = new discord.RichEmbed()
+				const Embed = new discord.MessageEmbed()
 					.setAuthor('Still Growing!', message.author.displayAvatarURL)
 					.setDescription(`Your plants are still growing!\nThey will need anohter ${uptime(harvest.timeLeft)}`)
 					.setFooter('Use !farm to get more Info')
@@ -32,7 +32,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	}
 
 	else {
-		const farmEmbed = new discord.RichEmbed()
+		const farmEmbed = new discord.MessageEmbed()
 			.setAuthor('Harvested!', message.author.displayAvatarURL)
 			.setDescription(`Successfully harvested: **${harvest.harvested.map(x => '\n\t- ' + x[0] + 'x ' + x[1]).join('')} with a luck of ${require('util').inspect(harvest.luck)}**!`)
 			.setColor('GREEN');

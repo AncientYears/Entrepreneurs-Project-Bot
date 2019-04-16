@@ -14,7 +14,7 @@ client.on('ready', async () => {
 	console.log(`${client.user.username} is up and running!`);
 	const branch = require(process.cwd() + '/utils/branch.js')();
 	if(branch == 'master' && client.user.id != '491313910620749834') client.branch = 'beta'; else client.branch = branch;
-	client.user.setPresence({ game: { name: `${client.prefix} | Branch: ${client.branch}` }, status: 'online' });
+	client.user.setPresence({ activity: { name: `${client.prefix} | Branch: ${client.branch}` }, status: 'online' });
 	console.log(`Ready to serve in ${client.channels.size} channels on ${client.guilds.size} servers, for a total of ${client.users.size} users.`);
 	client.format = function(string) {
 		string = string.replace(/<prefix>/g, client.prefix);
@@ -35,7 +35,7 @@ client.on('messageUpdate', async (oldmessage, message) => {
 
 client.on('guildMemberAdd', async (member, message) => {
 	if(member.user.bot || (member.guild.id !== '490999695422783489' && !message)) return;
-	const stats = await client.api.getStats(member.id, ecoPool).then(data => data.data);
+	const stats = await client.zumzaApi.getStats(member.id, ecoPool).then(data => data.data);
 	if(stats.business.name)return;
 	member.user.send(`
 Welcome **${member.user.username}** to the Entrepreneurs server!

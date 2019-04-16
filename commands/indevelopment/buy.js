@@ -2,7 +2,7 @@ const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(!args[0]) {
-		const categoryEmbed = new discord.RichEmbed()
+		const categoryEmbed = new discord.MessageEmbed()
 			.setAuthor('Categories', message.author.displayAvatarURL)
 			.setDescription(`**Farm**
 							- Buy all your farm supplies/upgrades here!
@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		return message.channel.send(categoryEmbed);
 	}
 	else if (args[0] === 'farm') {
-		const farmEmbed = new discord.RichEmbed()
+		const farmEmbed = new discord.MessageEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
 			.setDescription(`
 							**potato** - 1$ / 1
@@ -29,12 +29,12 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		return message.channel.send(farmEmbed);
 	}
 
-	const buy = client.api.buy(ecoPool, stats, args[0], args[1]);
+	const buy = client.zumzaApi.buy(ecoPool, stats, args[0], args[1]);
 	if(buy.error) {
 		return message.channel.send(`This command failed because of \`${buy.error}\`\n\`\`\`${require('util').inspect(buy)}\`\`\``);
 		// TO-DO: Fancy Error Handler
 	}
-	const buyEmbed = new discord.RichEmbed()
+	const buyEmbed = new discord.MessageEmbed()
 		.setAuthor('Plant', message.author.displayAvatarURL)
 		.setDescription(`Successfully bought **${buy.bought[0]} ${buy.bought[1]}**!\nThis has cost you: **${buy.cost}$**`)
 		.setColor('GREEN');
@@ -46,7 +46,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const tobuy = args[0].toLowerCase();
 	if (tobuy === 'farm') {
 		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
-		const farmEmbed = new discord.RichEmbed()
+		const farmEmbed = new discord.MessageEmbed()
 			.setAuthor('Farm', message.author.displayAvatarURL)
 			.setDescription(`**potato** - 1$ / 1
 							- Cheap crop, not the most profitable though.`)
@@ -55,7 +55,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	}
 	else if (tobuy === 'potato' || tobuy === 'potatoes') {
 		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
-		message.channel.send(client.api.buy(client, ecoPool, message, stats, 'potato', args[1], 1).message);
+		message.channel.send(client.zumzaApi.buy(client, ecoPool, message, stats, 'potato', args[1], 1).message);
 	}
 	else{ return message.channel.send('Invalid Operation');}
 	*/

@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args, database) => {
 		item = args[0];
 		amount = args[1];
 	}
-	const stats = await client.api.getStats(message.author.id, database).then(data => data.data);
+	const stats = await client.zumzaApi.getStats(message.author.id, database).then(data => data.data);
 	stats.stocks[item] = amount;
 	database.query(`UPDATE stats SET stocks = '${JSON.stringify(stats.stocks)}' WHERE userID = '${user.id}'`);
 

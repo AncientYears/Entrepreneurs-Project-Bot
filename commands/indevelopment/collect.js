@@ -3,11 +3,11 @@ const uptime = require(process.cwd() + '/utils/uptime.js'); // For time conversa
 
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 
-	const collect = client.api.harvest(ecoPool, stats);
+	const collect = client.zumzaApi.harvest(ecoPool, stats);
 	if(collect.status != 200) {
 		if(collect.error === 'zumza-produceNotFinished') {
 			if(collect.timeLeft == '-1') {
-				const Embed = new discord.RichEmbed()
+				const Embed = new discord.MessageEmbed()
 					.setAuthor('Nothing in Progress!', message.author.displayAvatarURL)
 					.setDescription('What do you expect to collect when nothing is produced in the first place!')
 					.setFooter('Use !factory to get more Info')
@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 				return message.channel.send(Embed);
 			}
 			else {
-				const Embed = new discord.RichEmbed()
+				const Embed = new discord.MessageEmbed()
 					.setAuthor('Still Produceing!', message.author.displayAvatarURL)
 					.setDescription(`Your Machines are still produceing!\nThey will need anothter ${uptime(collect.timeLeft)}`)
 					.setFooter('Use !factory to get more Info')
@@ -32,7 +32,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	}
 
 	else {
-		const collectEmbed = new discord.RichEmbed()
+		const collectEmbed = new discord.MessageEmbed()
 			.setAuthor('collected!', message.author.displayAvatarURL)
 			.setDescription(`Successfully collected: **${collect.collected.map(x => '\n\t- ' + x[0] + 'x ' + x[1]).join('')} with a luck of ${require('util').inspect(collect.luck)}**!`)
 			.setColor('GREEN');

@@ -12,7 +12,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 
 	const [users] = await ecoPool.query('SELECT userID, cooldowns FROM businesseco.stats');
 	if(!args.join(' ')) args = ['30', 'days'];
-	const dbembed = new discord.RichEmbed().setTitle('DB Purge Report');
+	const dbembed = new discord.MessageEmbed().setTitle('DB Purge Report');
 	const purger = users.map(data=> {
 		if(!data.cooldowns) return data.userID;
 		if(((Date.now() - Number(require('ms')(args.join(' ')))) - Math.max(...Object.values(data.cooldowns))) > 0) return data.userID;
@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args, ecoPool) => {
 	}).filter(element => element);
 
 	const purgeable = await purger.map(async purge => {
-		const data = await client.fetchUser(purge);
+		const data = await client.user.fetch(purge);
 		return purge + ' | ' + data.tag;
 	});
 

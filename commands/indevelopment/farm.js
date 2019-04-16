@@ -4,7 +4,7 @@ const uptime = require(process.cwd() + '/utils/uptime.js'); // For time conversa
 module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const timeLeft = Number(stats.creation.time) - message.createdTimestamp;
 
-	const farmEmbed = new discord.RichEmbed()
+	const farmEmbed = new discord.MessageEmbed()
 		.setAuthor('Farm', message.author.displayAvatarURL)
 		.addField('Status', stats.creation.time == undefined ? 'Not Growing' : (message.createdTimestamp <= stats.creation.time ? `${uptime(timeLeft)} left!\n${statusbar(stats)}` : `Finished use **${client.prefix}harvest**`))
 		.setDescription(`
