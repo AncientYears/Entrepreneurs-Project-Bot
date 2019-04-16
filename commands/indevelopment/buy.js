@@ -30,35 +30,39 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	}
 
 	const buy = client.zumzaApi.buy(ecoPool, stats, args[0], args[1]);
-	if(buy.error) {
-		return message.channel.send(`This command failed because of \`${buy.error}\`\n\`\`\`${require('util').inspect(buy)}\`\`\``);
-		// TO-DO: Fancy Error Handler
+	if(buy.error || buy.status !== 200) {
+		if(buy.error === 'zumza-notEnoughMoney') {
+			const Embed = new discord.MessageEmbed()
+				.setAuthor('You can\'t pay with nothing!', message.author.displayAvatarURL)
+				.setDescription(`You need ${buy.missing}$ more!\nYou have ${stats.cash}$ with you and ${stats.bank}$ in your Bank!`)
+				.setColor('RED');
+			return message.channel.send(Embed);
+		}
+		else if(buy.error === 'zumza-NaN') {
+			const Embed = new discord.MessageEmbed()
+				.setAuthor('That\'s not a Number!', message.author.displayAvatarURL)
+				.setDescription(`'${buy.NaN}' is not a valid Number!`)
+				.setColor('RED');
+			if(!buy.NaN) Embed.setDescription(client.format(this.help.usage));
+			return message.channel.send(Embed);
+		}
+		else if(buy.error === 'zumza-itemNotValidOrNotBuyable') {
+			const Embed = new discord.MessageEmbed()
+				.setAuthor('That\'s not an Valid Item!', message.author.displayAvatarURL)
+				.setDescription(`'${buy.NaI}' is not a valid, or has to be bought trough the market!`)
+				.setColor('RED');
+			if(!buy.NaI) Embed.setDescription(client.format(this.help.usage));
+			return message.channel.send(Embed);
+		}
+		else {
+			return message.channel.send(`UNHANDLED ERROR, please notify Develeopers!\nThis command failed because of \`${buy.error}\`\n\`\`\`${require('util').inspect(buy)}\`\`\``);
+		}
 	}
 	const buyEmbed = new discord.MessageEmbed()
 		.setAuthor('Plant', message.author.displayAvatarURL)
 		.setDescription(`Successfully bought **${buy.bought[0]} ${buy.bought[1]}**!\nThis has cost you: **${buy.cost}$**`)
 		.setColor('GREEN');
 	message.channel.send(buyEmbed);
-
-
-/*
-
-	const tobuy = args[0].toLowerCase();
-	if (tobuy === 'farm') {
-		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
-		const farmEmbed = new discord.MessageEmbed()
-			.setAuthor('Farm', message.author.displayAvatarURL)
-			.setDescription(`**potato** - 1$ / 1
-							- Cheap crop, not the most profitable though.`)
-			.setFooter(client.prefix + 'buy <item> <amount> to purchase an item');
-		return message.channel.send(farmEmbed);
-	}
-	else if (tobuy === 'potato' || tobuy === 'potatoes') {
-		if(stats.businessType !== 'farm') return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.businessType + '**');
-		message.channel.send(client.zumzaApi.buy(client, ecoPool, message, stats, 'potato', args[1], 1).message);
-	}
-	else{ return message.channel.send('Invalid Operation');}
-	*/
 };
 
 module.exports.help = {
