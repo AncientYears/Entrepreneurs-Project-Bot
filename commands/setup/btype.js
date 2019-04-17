@@ -8,7 +8,7 @@ const { Pool } = require('mysql2');
  * @param {Object} stats - Object containing User Stats
  */
 module.exports.run = async (client, message, args, ecoPool, stats) => {
-	const types = ['farm', 'factory', 'shop'];
+	const types = ['farm', 'factory', '_shop'];
 	if(!stats || !stats.business.name) return message.reply(`Name your business first using **${client.prefix}bname**!`);
 	if(stats && !stats.business.type) {
 		if(!args[0] || !types.includes(args[0].toLowerCase())) {
@@ -50,7 +50,7 @@ The types are as follows:\`\`\`css
 		else {
 			stats.business.type = args[0].toLowerCase();
 			ecoPool.query(`UPDATE stats SET business = '${JSON.stringify(stats.business)}' WHERE userID = '${message.author.id}'`);
-			message.reply(`You now have a **${args[0].toLowerCase()}** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **${client.prefix}blocate** to view the possible locations for companies!)`);
+			message.reply(`You now have a **${args[0]}** business! \nWhat a smart choice! \nNow, where do you want to locate your business? (Use **${client.prefix}blocate** to view the possible locations for companies!)`);
 		}
 	}
 	else {
