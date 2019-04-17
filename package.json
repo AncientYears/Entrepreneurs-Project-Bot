@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "The awesome discord bot made by us.",
   "main": "index.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AncientYears/Entrepreneurs-Project-Bot.git"
