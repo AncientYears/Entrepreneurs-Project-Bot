@@ -20,7 +20,7 @@ module.exports.run = async (client, message) => {
 	let x = 0;
 	const data = client.commands.map(cmd => cmd.help.name);
 	function myFunc(v) {
-		if(['setitem', 'setmoney', 'settype', 'restart'].includes(v)) return;
+		if(['setitem', 'setmoney', 'settype', 'restart', 'test'].includes(v)) return;
 		const fakeargsrun = fakeargs[v] ? fakeargs[v] : '';
 		message.channel.send(`Running fake Command with ${message.author.tag}: Running ${client.prefix}${v} ${fakeargsrun}`);
 		const fakeMessageData = message;
