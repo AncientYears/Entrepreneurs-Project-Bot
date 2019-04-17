@@ -1,10 +1,10 @@
-const discord = require('discord.js');
-const mysql = require('mysql2/promise');
+const { Client, Collection } = require('discord.js');
+const { createPool } = require('mysql2/promise');
 require('dotenv').config();
 const commandhandler = require('./utils/commandhandler.js');
-const client = new discord.Client({ disableEveryone: false });
+const client = new Client({ disableEveryone: false });
 
-client.commands = new discord.Collection();
+client.commands = new Collection();
 client.prefix = process.env.prefix || '?';
 commandhandler.start(client);
 commandhandler.loadApi(client);
@@ -111,7 +111,7 @@ Error: ${err.name}
 });
 
 
-const ecoPool = mysql.createPool({
+const ecoPool = createPool({
 	host: process.env.mysqlHost,
 	user: process.env.mysqlUser,
 	password: process.env.mysqlPassword,
