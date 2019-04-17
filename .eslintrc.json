@@ -1,5 +1,4 @@
 {
-    "extends": "eslint:recommended",
     "env": {
         "node": true,
         "es6": true
@@ -11,9 +10,13 @@
     },
     
     "plugins": [
-        "jsdoc"
-    ]
-    ,
+		"jsdoc",
+		"node"
+    ],
+	  "extends": [
+		"eslint:recommended",
+		"plugin:node/recommended"
+	  ],
     
     "rules": {
         "jsdoc/check-examples": 1,
