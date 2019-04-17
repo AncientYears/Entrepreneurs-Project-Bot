@@ -1,11 +1,11 @@
-const Discord = require('discord.js');
+const { Client, Message, Collection } = require('discord.js');
+const { Pool } = require('mysql2');
 /**
- * Command
- * @param {discord.Client} client
- * @param {discord.Message} message
- * @param {Array} args
- * @param {*} ecoPool
- * @param {Object} stats
+ * @param {Client} client - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ * @param {Array} args - Array with parsed args
+ * @param {Pool} database - DataBase
+ * @param {Object} stats - Object containing User Stats
  */
 module.exports.run = async (client, message, args, database, stats) => {
 
@@ -37,5 +37,5 @@ function transformMarket(data) {
 			transform[e[0]]['userID'] = user.userID;
 		});
 	});
-	return new Discord.Collection(Object.entries(transform));
+	return new Collection(Object.entries(transform));
 }

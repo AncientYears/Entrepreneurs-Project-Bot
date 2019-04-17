@@ -1,18 +1,17 @@
-const discord = require('discord.js');
-
+const { Client, Message, MessageEmbed } = require('discord.js');
+const { Pool } = require('mysql2');
 /**
- * Command
- * @param {discord.Client} client
- * @param {discord.Message} message
- * @param {Array} args
- * @param {*} ecoPool
+ * @param {Client} client - Discord.js Client
+ * @param {Message} message - Discord.js Message
+ * @param {Array} args - Array with parsed args
+ * @param {Pool} ecoPool - DataBase
  */
 module.exports.run = async (client, message, args, ecoPool) => {
 
 
 	const [users] = await ecoPool.query('SELECT userID, cooldowns FROM businesseco.stats');
 	if(!args.join(' ')) args = ['30', 'days'];
-	const dbembed = new discord.MessageEmbed().setTitle('DB Purge Report');
+	const dbembed = new MessageEmbed().setTitle('DB Purge Report');
 	const purger = users.map(data=> {
 		if(!data.cooldowns) return data.userID;
 		if(((Date.now() - Number(require('ms')(args.join(' ')))) - Math.max(...Object.values(data.cooldowns))) > 0) return data.userID;
