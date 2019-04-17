@@ -26,6 +26,6 @@ module.exports.run = async (bot, message) => {
 		.addField(`Prefix: ${bot.prefix}`, '\u200B', true)
 		.addField('Discord.Js Version', Discord.version, true);
 	const m = await message.channel.send(botembed);
-	await botembed.addField('Ping:', `Latency is ${m.createdTimestamp - message.createdTimestamp}ms.\nAPI Latency is ${Math.round(bot.ping)}ms!`);
+	await botembed.addField('Ping:', `Latency is ${m.createdTimestamp - message.createdTimestamp}ms.\nAPI Latency is ${Math.round(bot.ws.ping)}ms!`);
 	await m.edit(botembed);
 };

@@ -8,7 +8,7 @@ const { Client, Message } = require('discord.js');
 module.exports.run = async (client, message) => {
 	const pingEmbed = new discord.MessageEmbed()
 		.setAuthor('Bot Latency', client.user.avatarURL)
-		.addField('Ping', Math.round(client.ping) + 'ms');
+		.addField('Ping', Math.round(client.ws.ping) + 'ms');
 
 	message.channel.send(pingEmbed);
 };
