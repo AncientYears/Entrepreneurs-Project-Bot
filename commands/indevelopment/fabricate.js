@@ -49,7 +49,8 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 
 module.exports.help = {
 	name: 'fabricate',
-	usage: '<prefix>fabricate <crop> <amount>',
+	usage: '<prefix>fabricate <product> <amount>',
+	aliases: ['produce'],
 	hideinhelp: false,
 	requires: ['business'],
 };
