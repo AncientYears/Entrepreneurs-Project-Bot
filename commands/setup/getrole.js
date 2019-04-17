@@ -17,7 +17,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	else {
 		const roleToAdd = message.guild.roles.find(role => role.name === 'Entrepreneur-zumza');
 		if(!roleToAdd) return message.channel.send(client.format('This guild has no role named `Entrepreneur-zumza`! But this one has for sure! <mainserverinvite>'));
-		message.member.addRole(roleToAdd);
+		message.member.roles.add(roleToAdd);
 		message.delete(5000).catch(() => null);
 		message.reply('Here is your Role!').then(msg => msg.delete(5000));
 	}

@@ -52,7 +52,7 @@ The types are as follows:\`\`\`css
 			if(!member) return;
 			const roleToAdd = theGuild.roles.get('498870271764070410');
 			if(!roleToAdd) throw Error('Couldnt get Role!');
-			member.addRole(roleToAdd);
+			member.roles.add(roleToAdd);
 		}
 	}
 	else {
