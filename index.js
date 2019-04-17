@@ -34,8 +34,12 @@ client.on('messageUpdate', async (oldmessage, message) => {
 });
 
 client.on('guildMemberAdd', async (member, message) => {
-	if(member.user.bot || (member.guild.id !== '490999695422783489' && !message)) return;
 	const stats = await client.zumzaApi.getStats(member.id, ecoPool).then(data => data.data);
+	if(!member.roles.some(role => role.name === 'Entrepreneur-zumza')) {
+		const roleToAdd = member.guild.roles.find(role => role.name === 'Entrepreneur-zumza');
+		if(stats && stats.business.location && roleToAdd) member.roles.add(roleToAdd);
+	}
+	if(member.user.bot || (member.guild.id !== '490999695422783489' && !message)) return;
 	if(stats.business.name)return;
 	member.user.send(`
 Welcome **${member.user.username}** to the Entrepreneurs server!
