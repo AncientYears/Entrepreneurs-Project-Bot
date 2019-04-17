@@ -34,6 +34,7 @@ client.on('messageUpdate', async (oldmessage, message) => {
 });
 
 client.on('guildMemberAdd', async (member, message) => {
+	if(!message && member.guild.large) return;
 	const stats = await client.zumzaApi.getStats(member.id, ecoPool).then(data => data.data);
 	if(!member.roles.some(role => role.name === 'Entrepreneur-zumza')) {
 		const roleToAdd = member.guild.roles.find(role => role.name === 'Entrepreneur-zumza');
