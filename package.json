@@ -26,7 +26,8 @@
     "dotenv": "^6.2.0",
     "eslint-plugin-node": "^8.0.1",
     "ms": "^2.1.1",
-    "mysql2": "^1.6.4"
+    "mysql2": "^1.6.4",
+    "percentagebar": "^1.0.1"
   },
   "devDependencies": {
     "eslint": "^5.13.0",
