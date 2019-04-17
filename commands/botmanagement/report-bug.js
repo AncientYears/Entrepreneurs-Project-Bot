@@ -16,7 +16,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	bugembed.addField('Last 10 Messages',
 		`\`\`\`
 ${messages.map(msg =>
-		msg.author.tag + '\n' + msg.content.slice(0, 60) + (msg.content.length < 60 ? '' : '...') + '\n').join('\n')}
+		msg.author.tag + '\n' + msg.content.slice(0, 60).replace(/`/g, '^') + (msg.content.length < 60 ? '' : '...') + '\n').join('\n')}
     \`\`\``
 	);
 	bugembed.addField('Stats', '```' + require('util').inspect(stats).slice(0, 988) + (require('util').inspect(stats).length < 988 ? '' : '...') + '```');
