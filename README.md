@@ -9,21 +9,21 @@
 	- [Command: deposit](#command-deposit)
 	- [Command: withdraw](#command-withdraw)
 	- [Command: report-bug](#command-report-bug)
-	- [Command: leaderboard](#command-leaderboard)
-	- [Command: stats](#command-stats)
+	- [Command: suggest](#command-suggest)
 	- [Command: buy](#command-buy)
+	- [Command: farm](#command-farm)
+	- [Command: harvest](#command-harvest)
+	- [Command: leaderboard](#command-leaderboard)
+	- [Command: plant](#command-plant)
+	- [Command: stats](#command-stats)
 	- [Command: buymarket](#command-buymarket)
 	- [Command: collect](#command-collect)
 	- [Command: fabricate](#command-fabricate)
 	- [Command: factory](#command-factory)
-	- [Command: farm](#command-farm)
-	- [Command: harvest](#command-harvest)
 	- [Command: marketinfo](#command-marketinfo)
 	- [Command: mymarket](#command-mymarket)
-	- [Command: plant](#command-plant)
 	- [Command: removemarket](#command-removemarket)
 	- [Command: sellmarket](#command-sellmarket)
-	- [Command: suggest](#command-suggest)
 	- [Command: viewmarket](#command-viewmarket)
 	- [Command: breset](#command-breset)
 	- [Command: getrole](#command-getrole)
@@ -67,19 +67,35 @@ When you need some cheap stocks it might be cheaper to just check the market ( `
     Usage: ?report-bug <info>
     Aliases: [ bug-report, bug ]
 
+## Command: suggest
+    Category: botmanagement
+    Usage: ?suggest <info>
+
+## Command: buy
+    Category: business
+    Usage: ?buy <item> <amount>
+
+## Command: farm
+    Category: business
+    Usage: ?farm
+    Aliases: [ crops ]
+
+## Command: harvest
+    Category: business
+
 ## Command: leaderboard
     Category: business
     Usage: ?leaderboard
+
+## Command: plant
+    Category: business
+    Usage: ?plant <crop> <amount>
 
 ## Command: stats
     Category: business
     Description: Check your or anothers Entrepreneurs business stats!
     Usage: ?stats or ?stats @Zumza 
     Aliases: [ statistics ]
-
-## Command: buy
-    Category: indevelopment
-    Usage: ?buy <item> <amount>
 
 ## Command: buymarket
     Category: indevelopment
@@ -90,19 +106,12 @@ When you need some cheap stocks it might be cheaper to just check the market ( `
 
 ## Command: fabricate
     Category: indevelopment
-    Usage: ?fabricate <crop> <amount>
+    Usage: ?fabricate <product> <amount>
+    Aliases: [ produce ]
 
 ## Command: factory
     Category: indevelopment
     Usage: ?factory
-
-## Command: farm
-    Category: indevelopment
-    Usage: ?farm
-    Aliases: [ crops ]
-
-## Command: harvest
-    Category: indevelopment
 
 ## Command: marketinfo
     Category: indevelopment
@@ -112,10 +121,6 @@ When you need some cheap stocks it might be cheaper to just check the market ( `
     Category: indevelopment
     Usage: ?mymarket
 
-## Command: plant
-    Category: indevelopment
-    Usage: ?plant <crop> <amount>
-
 ## Command: removemarket
     Category: indevelopment
     Usage: ?removemarket <id>
@@ -123,10 +128,6 @@ When you need some cheap stocks it might be cheaper to just check the market ( `
 ## Command: sellmarket
     Category: indevelopment
     Usage: ?sellmarket <amount> <item> <price>
-
-## Command: suggest
-    Category: indevelopment
-    Usage: ?suggest <info>
 
 ## Command: viewmarket
     Category: indevelopment
