@@ -12,7 +12,7 @@ module.exports.run = (client, message, args, ecoPool, stats) => {
 	if(withdraw.status != 200) {
 		if(withdraw.error === 'zumza-NaN') return message.channel.send(`**'${withdraw.NaN || 'null'}'** is not a Valid Number!\n**${client.format(this.help.usage)}**`);
 		if(withdraw.error === 'zumza-notEnoughMoney') return message.channel.send(`You do not eneugh money inside of your bank!\nYou need ${withdraw.missing}$ more!`);
-		return message.channel.send(`This command failed because of \`${withdraw.error}\`\n\`\`\`${require('util').inspect(withdraw)}\`\`\``);
+		return message.channel.send(`UNHANDLED ERROR, please notify Develeopers!\nThis Command failed because of \`${withdraw.error}\`\n\`\`\`${require('util').inspect(withdraw)}\`\`\``);
 	}
 
 	message.channel.send(`You have successfully withdrawn **${Number(withdraw.cost)}** from your bank! \nYou have **${Number(withdraw.stats.bank) - Number(withdraw.cost)}** left inside your bank!`);

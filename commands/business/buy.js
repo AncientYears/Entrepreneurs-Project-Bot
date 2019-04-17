@@ -7,8 +7,11 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 			.setDescription(`**Farm**
 							- Buy all your farm supplies/upgrades here!
 		
-							**Coming Soon**
-							- Coming soon, this is format test`)
+							**Factory**
+							- Nothing yet avaiable, suggest something!
+							
+							**Shop**
+							- Nothing yet avaiable, suggest something!`)
 
 			.setFooter(client.format('<prefix>buy <category> to view a category'));
 		return message.channel.send(categoryEmbed);

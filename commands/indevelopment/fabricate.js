@@ -34,7 +34,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 			return message.channel.send(Embed);
 		}
 		// TO-DO: Handle Uncommon Errors
-		return message.channel.send(`This command failed because of \`${fabricated.error}\`\n\`\`\`${require('util').inspect(fabricated)}\`\`\``);
+		return message.channel.send(`UNHANDLED ERROR, please notify Develeopers!\nThis Command failed because of \`${fabricated.error}\`\n\`\`\`${require('util').inspect(fabricated)}\`\`\``);
 	}
 
 	else {

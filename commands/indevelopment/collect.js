@@ -25,7 +25,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 
 		}
 
-		return message.channel.send(`This command failed because of \`${collect.error}\`\n\`\`\`${require('util').inspect(collect)}\`\`\``);
+		return message.channel.send(`UNHANDLED ERROR, please notify Develeopers!\nThis Command failed because of \`${collect.error}\`\n\`\`\`${require('util').inspect(collect)}\`\`\``);
 
 		// TO-DO: Handle uncommon errors
 		// planted.missing.map(x => '\n\t' + x[0] + 'x ' + x[1]).join('')}

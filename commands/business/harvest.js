@@ -25,7 +25,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 
 		}
 
-		return message.channel.send(`This command failed because of \`${harvest.error}\`\n\`\`\`${require('util').inspect(harvest)}\`\`\``);
+		return message.channel.send(`UNHANDLED ERROR, please notify Develeopers!\nThis Command failed because of \`${harvest.error}\`\n\`\`\`${require('util').inspect(harvest)}\`\`\``);
 
 		// TO-DO: Handle uncommon errors
 		// planted.missing.map(x => '\n\t' + x[0] + 'x ' + x[1]).join('')}
