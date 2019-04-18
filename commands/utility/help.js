@@ -8,7 +8,7 @@ const { Client, Message } = require('discord.js');
 module.exports.run = async (client, message, args) => {
 	if(!args.length) {
 		return message.author.send(
-			client.commands.map(props => props.help.hideinhelp ? '' : `**Command: ${props.help.name}**\n${props.help.category ? `\tCategory: ${props.help.category}\n` : '' }${props.help.description ? `\tDescription: ${props.help.description}\n` : '' }${props.help.usage ? `\tUsage: ${client.format(props.help.usage)}\n` : '' }${props.help.aliases ? `\tAliases: [ ${props.help.aliases.join(', ')} ]\n` : '' }`).filter(data => data !== '')
+			client.commands.map(props => props.help.hideinhelp ? '' : `**Command: ${props.help.name}**\n${props.help.category ? `\tCategory: ${props.help.category}\n` : '' }${props.help.description ? `\tDescription: ${props.help.description}\n` : '' }${props.help.usage ? `\tUsage: ${client.format(props.help.usage)}\n` : `\tUsage: ${client.format(`<prefix>${props.help.name}`)}\n` }${props.help.aliases ? `\tAliases: [ ${props.help.aliases.join(', ')} ]\n` : '' }`).filter(data => data !== '')
 			, { split: { char: '\n\n' } })
 			.then(() => {
 				if (message.channel.type === 'dm') return;
