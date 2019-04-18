@@ -111,6 +111,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		if (cmd.help.disableindm == true) return message.channel.send('Sorry this Command is not yet supported!'), message.channel.stopTyping(true); // check if command is supported in dm if not => return
 		console.log(`[Ping:${Math.round(client.ws.ping)}ms][Shard #${client.shard.ids}] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
 		const stats = await client.zumzaApi.getStats(message.author.id, ecoPool).then(data => data.data);
+		if(stats.cash >= Number.MAX_SAFE_INTEGER || stats.bank >= Number.MAX_SAFE_INTEGER) return message.channel.send(client.format('Your Stats are corrupted, please contact a Bot Dev! <mainserverinvite>'));
 		if (cmd.help.requires) {
 			if (cmd.help.requires.includes('botowner')) if (!['193406800614129664', '211795109132369920'].includes(message.author.id)) return message.reply('This command cannot be used by you!'), console.log(`[Ping:${Math.round(client.ws.ping)}ms][Shard #${client.shard.ids}] ${cmd.help.name} failed!: Not Bot Owner! `), message.channel.stopTyping(true);
 			if (cmd.help.requires.includes('guild') && message.channel.type !== 'text') return message.channel.send('This command needs to be run in a guild!'), console.log(`[Ping:${Math.round(client.ws.ping)}ms][Shard #${client.shard.ids}] ${cmd.help.name} failed!: Not Guild! `), message.channel.stopTyping(true);
