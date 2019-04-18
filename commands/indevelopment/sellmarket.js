@@ -11,11 +11,11 @@ module.exports.run = async (client, message, args, database, stats) => {
 	const SnowFlake = SnowflakeUtil.generate();
 	console.log(SnowFlake);
 
-	if (isNaN(args[0]) || Number(args[0]).toFixed(0) < 1) return message.channel.send('zumza-NaN "' + args[0] + '"');
+	if (isNaN(args[0]) || Number(args[0]).toFixed(0) < 1) return message.channel.send(client.format(this.help.usage));
 	args[0] = Number(args[0]).toFixed(0);
 
-	if (isNaN(args[2]) || Number(args[2]).toFixed(0) < 1) return message.channel.send('zumza-NaN "' + args[2] + '"');
-	args[2] = Number(args[2]).toFixed(0);
+	if (isNaN(args[2]) || Number(args[2]).toFixed(2) < 0) return message.channel.send(client.format(this.help.usage));
+	args[2] = Number(args[2]).toFixed(2);
 
 
 	const material = [args[0], args[1]];

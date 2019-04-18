@@ -20,8 +20,8 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 						**Type:** ${stats.business.type}
 						**Location:** ${stats.business.location}
 						**Employees:** ${stats.employees} 
-						**Cash:** ${stats.cash}
-						**Bank:** ${stats.bank}
+						**Cash:** ${stats.cash}$
+						**Bank:** ${stats.bank}$
 						**Net Worth:** ${stats.netWorth}
 						**Stocks:**
 ${mapstock(stats) }`)
