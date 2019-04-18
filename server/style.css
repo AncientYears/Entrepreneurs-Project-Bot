@@ -1,0 +1,29 @@
+html {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
+code {
+  font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+    monospace, "Droid Sans Fallback";
+  font-size: 14px;
+  line-height: 19px;
+}
+p code {
+  color: #bba26e;
+}
+pre {
+  background-color: #161616;
+  border-color: aqua;
+  white-space: pre-wrap;
+  display: block;
+  padding: 1.5%;
+}
+
+a:-webkit-any-link {
+  color: #3384e0;
+  text-decoration: none;
+}
+ul p {
+  line-height: 15%;
+  display: flex;
+}
