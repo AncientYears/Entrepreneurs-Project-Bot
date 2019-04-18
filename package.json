@@ -4,7 +4,7 @@
   "description": "The awesome discord bot made by us.",
   "main": "index.js",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8.4.0"
   },
   "repository": {
     "type": "git",
