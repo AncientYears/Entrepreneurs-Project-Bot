@@ -1,4 +1,5 @@
 // Command Info Generator
+require('dotenv').config();
 const { Collection } = require('discord.js');
 const commands = new Collection();
 const { statSync, readdirSync } = require('fs');
@@ -71,7 +72,7 @@ app.get('/', function(req, res) {
 	res.end(zumzaData);
 });
 
-const port = process.PORT || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, console.log('Listening on ' + port));
 
 function format(string) {
