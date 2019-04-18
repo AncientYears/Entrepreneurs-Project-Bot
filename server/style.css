@@ -27,3 +27,8 @@ ul p {
   line-height: 15%;
   display: flex;
 }
+
+
+pre, h3 {
+	margin-left: 5%
+}
