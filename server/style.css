@@ -16,7 +16,7 @@ pre {
   border-color: aqua;
   white-space: pre-wrap;
   display: block;
-  padding: 5%;
+  padding: 1.5%;
 }
 
 a:-webkit-any-link {
