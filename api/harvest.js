@@ -1,5 +1,6 @@
 const harvestAbles = {
 	farm: ['potato', 'carrot_seed', 'corn_seed'],
+	factory: ['popcorn', 'chips', 'nutrient_paste'],
 };
 const harvestCosts = {
 	example: [
@@ -16,6 +17,15 @@ const harvestRewards = {
 	],
 	corn_seed: [
 		[3, 'corn'],
+	],
+	popcorn: [
+		[3, 'popcorn'],
+	],
+	cips: [
+		[3, 'chips'],
+	],
+	nutrient_paste: [
+		[3, 'nutrient_paste'],
 	],
 };
 
