@@ -8,7 +8,7 @@ const percentageBar = require('percentagebar');
 module.exports.run = async (client, message) => {
 	const indev = client.commands.filter(cmd => cmd.help.category == 'indevelopment').size;
 	const devEmbed = new MessageEmbed().setTitle('As you know the Bot is currently in development, here are some Stats:')
-		.setDescription(`We currently have ${client.commands.size} commands, of them are ${indev} currently indevelopment.\n This means ${percentageBar(client.commands.size, indev, 10)} of commands are indevelopment!\n`);
+		.setDescription(`We currently have ${client.commands.size} commands, of them are ${indev} currently indevelopment.\n This means ${percentageBar(client.commands.size, client.commands.size - indev, 10)} of commands are finished!\n`);
 	message.channel.send(devEmbed);
 
 };
