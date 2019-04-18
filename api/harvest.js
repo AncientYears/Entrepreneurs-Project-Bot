@@ -60,7 +60,7 @@ module.exports = (database, stats) => {
 
 
 		const harvested = harvestRewards[stats.creation.type].map(reward => {
-			stats.stocks[reward[1]] = Number(stats.stocks[reward[1]] == undefined ? 0 : stats.stocks[reward[1]]) + Number(reward[0] * luck * stats.creation.amount).toFixed(0);
+			stats.stocks[reward[1]] = (stats.stocks[reward[1]] == undefined ? 0 : Number(stats.stocks[reward[1]])) + Number(reward[0] * luck * stats.creation.amount).toFixed(0);
 			return [ Number(Number(reward[0]) * luck * stats.creation.amount).toFixed(0), reward[1]];
 
 		});
