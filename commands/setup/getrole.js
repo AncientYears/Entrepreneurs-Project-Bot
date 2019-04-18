@@ -27,4 +27,5 @@ module.exports.help = {
 	name: 'getrole',
 	usage: '<prefix>getrole',
 	hideinhelp: false,
+	description: 'If the guild supports it, collect your Entrepreneur Role',
 };

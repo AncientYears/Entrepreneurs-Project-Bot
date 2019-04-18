@@ -23,6 +23,7 @@ module.exports.help = {
 	name: 'mymarket',
 	usage: '<prefix>mymarket',
 	hideinhelp: false,
+	description: 'Shows the items you have on the Market.',
 	requires: ['business'],
 };
 

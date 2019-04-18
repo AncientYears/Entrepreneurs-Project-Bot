@@ -30,6 +30,7 @@ module.exports.run = async (client, message, args, database, stats) => {
 module.exports.help = {
 	name: 'marketinfo',
 	usage: '<prefix>marketinfo <id>',
+	description: 'Gives info abaut an item on the Market.',
 	hideinhelp: false,
 	requires: ['business'],
 };

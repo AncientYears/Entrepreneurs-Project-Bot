@@ -23,7 +23,8 @@ module.exports.run = async (client, message, args, database) => {
 
 module.exports.help = {
 	name: 'viewmarket',
-	usage: '<prefix>viewmarket <name>',
+	usage: '<prefix>viewmarket or <prefix>viewmarket <item_name>',
+	description: 'View the market.',
 	hideinhelp: false,
 	requires: ['business'],
 	cooldown: '1 min',

@@ -26,6 +26,7 @@ module.exports.run = async (client, message, args, database, stats) => {
 module.exports.help = {
 	name: 'removemarket',
 	usage: '<prefix>removemarket <id>',
+	description: 'Remove an item that you put on the Market.',
 	hideinhelp: false,
 	requires: ['business'],
 };
