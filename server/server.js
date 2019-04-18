@@ -80,6 +80,71 @@ app.get('/', function(req, res) {
 	res.end(zumzaData);
 });
 
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const auth = new Collection();
+
+const passport = require('passport');
+const DiscordStrategy = require('passport-discord').Strategy;
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
+
+app.use(session({
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: false,
+	store: new FileStore({ path: './server/sessions' }),
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+	done(null, user);
+});
+passport.deserializeUser(function(obj, done) {
+	done(null, obj);
+});
+
+passport.use(new DiscordStrategy({
+	clientID: CLIENT_ID,
+	clientSecret: CLIENT_SECRET,
+	callbackURL: '/login/callback',
+	scope: ['identify', 'guilds'],
+},
+function(accessToken, refreshToken, profile, cb) {
+	auth.set(profile.id, { profile, cb, refreshToken, accessToken });
+	process.nextTick(function() {
+		return cb(null, profile);
+	});
+}
+));
+
+app.get('/login',
+	passport.authenticate('discord'));
+
+app.get('/login/callback',
+	passport.authenticate('discord', { failureRedirect: '/login' }),
+	function(req, res) {
+		// Successful authentication, redirect home.
+		res.redirect('/stats');
+	});
+
+app.get('/logout', function(req, res) {
+	req.logout();
+	res.redirect('/');
+});
+const getStats = require('../api/getStats');
+app.get('/stats', checkAuth, async function(req, res) {
+	const stats = await getStats(req.user.id, ecoPool).then(data => data.data);
+	res.json(stats);
+});
+
+
+function checkAuth(req, res, next) {
+	if (req.isAuthenticated()) return next();
+	res.redirect('/login');
+}
+
 const port = process.env.PORT || 3000;
 app.listen(port, console.log('Listening on ' + port));
 
@@ -89,3 +154,10 @@ function format(string) {
 	string = string.replace(/<mainserverinvite>/g, 'https://discord.gg/p4ZhgNv');
 	return string;
 }
+const { createPool } = require('mysql2/promise');
+const ecoPool = createPool({
+	host: process.env.mysqlHost,
+	user: process.env.mysqlUser,
+	password: process.env.mysqlPassword,
+	database: process.env.mysqlDatabase,
+});
