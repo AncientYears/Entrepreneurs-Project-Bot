@@ -98,6 +98,7 @@ const ms = require('ms');
  * @param {Pool} ecoPool - EcoPool Config
  */
 module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
+	if(message.guild && !message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return;
 	if (message.system) return;
 	if (message.author.bot) return;
 	const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${client.prefix})\\s*`);
@@ -120,6 +121,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 			if (cmd.help.requires.includes('farm') && (!stats || !stats.business || stats.business.type !== 'farm')) return message.channel.send('Sorry, you do not have a farm! \nYou have a **' + stats.business.type + '**'), console.log(`[Ping:${Math.round(client.ws.ping)}ms][Shard #${client.shard.ids}] ${cmd.help.name} failed!: No Farm! `), message.channel.stopTyping(true);
 			if (cmd.help.requires.includes('shop') && (!stats || !stats.business || stats.business.type !== 'shop')) return message.channel.send('Sorry, you do not have a shop! \nYou have a **' + stats.business.type + '**'), console.log(`[Ping:${Math.round(client.ws.ping)}ms][Shard #${client.shard.ids}] ${cmd.help.name} failed!: No Shop! `), message.channel.stopTyping(true);
 			if (cmd.help.requires.includes('factory') && (!stats || !stats.business || stats.business.type !== 'factory')) return message.channel.send('Sorry, you do not have a factory! \nYou have a **' + stats.business.type + '**'), console.log(`[Ping:${Math.round(client.ws.ping)}ms][Shard #${client.shard.ids}] ${cmd.help.name} failed!: No Factory! `), message.channel.stopTyping(true);
+			if (cmd.help.requires.includes('embed') && message.guild && !message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('I cannot send Embeds, please give me Permissions to do so!');
 
 		}
 		if (((cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) && (!message.guild || !['490999695422783489', '511221411805790209'].includes(message.guild.id)))) return message.reply(client.format('This Command is indevelopment! Please join <mainserverinvite> and use it there until it is finished!')), message.channel.stopTyping(true);
