@@ -33,6 +33,7 @@ module.exports.start = (client) => { // load commands from command dir
 		jsfile.forEach((f, i) => { // if commands present
 			try{
 				const props = require(`../commands/${f}`); // => load each one
+				if(props.run.constructor.name == 'Function') throw new Error('Command is not async');
 
 				console.log(`${i} ${f} loaded!`); // => log that command got loaded
 				client.commands.set(props.help.name, props); // => add command to command list
@@ -49,6 +50,7 @@ module.exports.start = (client) => { // load commands from command dir
 			catfiles.forEach((f, i) => {
 				try{
 					const props = require(`../commands/${category}/${f}`); // => load each one
+					if(props.run.constructor.name == 'Function') throw new Error('Command is not async');
 
 					console.log(`${i} ${f} in category ${category} loaded!`); // => log that command got loaded
 					props.help.category = category;
@@ -138,7 +140,12 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		}
 		stats.cooldowns[cmd.help.name] = now;
 		await ecoPool.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`);
-		cmd.run(client, message, args, ecoPool, stats);
+
+		cmd.run(client, message, args, ecoPool, stats).catch((err) => {
+			message.channel.send('The Command had an Error! Don\'t worry I already contacted my Devs.');
+			throw err;
+		});
+
 		if (cmd.help.category === 'indevelopment' && !['193406800614129664', '211795109132369920'].includes(message.author.id)) message.reply('Just a quick sidenote:\nThis Command is still indevelopment and might be **__unstable__** or even **__broken__**!\nWe really need feedback for this if you have any suggestions make sure to let us know!');
 		message.channel.stopTyping(true);
 	}
