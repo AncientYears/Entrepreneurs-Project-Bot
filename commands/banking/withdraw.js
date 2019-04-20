@@ -7,7 +7,7 @@ const { Pool } = require('mysql2');
  * @param {Pool} ecoPool - DataBase
  * @param {Object} stats - Object containing User Stats
  */
-module.exports.run = (client, message, args, ecoPool, stats) => {
+module.exports.run = async (client, message, args, ecoPool, stats) => {
 	const withdraw = client.zumzaApi.withdraw(ecoPool, stats, args[0]);
 	if(withdraw.status != 200) {
 		if(withdraw.error === 'zumza-NaN') return message.channel.send(`**'${withdraw.NaN || 'null'}'** is not a Valid Number!\n**${client.format(this.help.usage)}**`);
@@ -15,7 +15,7 @@ module.exports.run = (client, message, args, ecoPool, stats) => {
 		return message.channel.send(`UNHANDLED ERROR, please notify Develeopers!\nThis Command failed because of \`${withdraw.error}\`\n\`\`\`${require('util').inspect(withdraw)}\`\`\``);
 	}
 
-	message.channel.send(`You have successfully withdrawn **${Number(withdraw.cost)}** from your bank! \nYou have **${Number(withdraw.stats.bank) - Number(withdraw.cost)}** left inside your bank!`);
+	return message.channel.send(`You have successfully withdrawn **${Number(withdraw.cost)}** from your bank! \nYou have **${Number(withdraw.stats.bank) - Number(withdraw.cost)}** left inside your bank!`);
 };
 
 module.exports.help = {

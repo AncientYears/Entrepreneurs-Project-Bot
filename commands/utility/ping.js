@@ -10,7 +10,7 @@ module.exports.run = async (client, message) => {
 		.setAuthor('Bot Latency', client.user.avatarURL)
 		.addField('Ping', Math.round(client.ws.ping) + 'ms');
 
-	message.channel.send(pingEmbed);
+	return message.channel.send(pingEmbed);;
 };
 
 module.exports.help = {

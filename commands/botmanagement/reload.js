@@ -4,7 +4,7 @@ const { Client, Message } = require('discord.js');
  * @param {Message} message - Discord.js Message
  * @param {Array} args - Array with parsed args
  */
-module.exports.run = (client, message, args) => {
+module.exports.run = async (client, message, args) => {
 	if(!args || args.size < 1) return message.reply('Must provide a command name to reload.');
 	const commandName = args[0];
 	// Check if the command exists and is valid
@@ -19,7 +19,7 @@ module.exports.run = (client, message, args) => {
 	const props = require(`..${cmd.help.category ? '/' + cmd.help.category : '' }/${commandName}.js`);
 	props.help['category'] = cmd.help.category;
 	client.commands.set(commandName, props);
-	message.reply(`The command ${commandName} has been reloaded`);
+	return message.reply(`The command ${commandName} has been reloaded`);
 };
 
 

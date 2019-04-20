@@ -26,7 +26,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 		await respond(message, evaled, client, this.secured);
 	}
 	catch (err) {
-		message.channel.send(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
+		return message.channel.send(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
 	}
 };
 

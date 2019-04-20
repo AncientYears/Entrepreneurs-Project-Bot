@@ -6,7 +6,7 @@ const { Pool } = require('mysql2');
  * @param {Array} args - Array with parsed args
  * @param {Pool} ecoPool - DataBase
  */
-module.exports.run = (client, message, args, ecoPool) => {
+module.exports.run = async (client, message, args, ecoPool) => {
 	let user = message.mentions.users.first() || client.users.get(args[0]);
 	let amount = 0;
 	if(user) {amount = args[1];}
