@@ -1,4 +1,4 @@
-const { Client, Collection } = require('discord.js');
+const { Client, Collection, MessageEmbed } = require('discord.js');
 const { createPool } = require('mysql2/promise');
 require('dotenv').config();
 const commandhandler = require('./utils/commandhandler.js');
@@ -32,6 +32,17 @@ client.on('message', async (message) => {
 client.on('messageUpdate', async (oldmessage, message) => {
 	commandhandler.run(client, message, ecoPool);
 });
+
+client.on('guildCreate', guild => {
+	const guildEmbed = new MessageEmbed().setTitle('Joined new Guild').setColor('GREEN').setDescription(`Guild: ${guild.name}\nSize: ${guild.memberCount}\nBots: ${guild.members.filter(member => member.user.bot).size}`);
+	client.channels.get('569264057165545480').send(guildEmbed);
+});
+
+client.on('guildDelete', guild => {
+	const guildEmbed = new MessageEmbed().setTitle('Left Guild').setColor('RED').setDescription(`Guild: ${guild.name}\nSize: ${guild.memberCount}\nBots: ${guild.members.filter(member => member.user.bot).size}`);
+	client.channels.get('569264057165545480').send(guildEmbed);
+});
+
 
 client.on('guildMemberAdd', async (member, message) => {
 	if(client.id !== '491313910620749834') return;
