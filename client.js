@@ -74,42 +74,71 @@ Alright, first things first, What should we call your business? **(${client.pref
 process.on('unhandledRejection', (err) => { // OHH NO UNHANLED ERROR: NOTIFY ALL BOT DEVS
 	console.error(err);
 	if (err.name == 'DiscordAPIError' && err.message == '401: Unauthorized') return process.exit();
-
-	if(err.name == 'DiscordAPIError') {
-		let addInfo = 'None Found!';
-		if(err.path !== undefined) {
-			const split = err.path.split('/');
-			if(split[3] == 'channels') {
-				const channel = client.channels.get(split[4]);
-				if(channel) {
-					addInfo = `Additional Debug Info:\n\tChannel: ${channel.name ? channel.name : 'Unknown'}\n\tGuild: ${channel.guild ? channel.guild.name : 'Unknown'}`;
-				}
-			}
-			if(split[3] == 'guilds') {
-				const guild = client.guilds.get(split[4]);
-				if(guild) {
-					addInfo = `Additional Debug Info:\n\tGuild: ${guild.name ? guild.name : 'Unknown'}`;
-				}
-			}
-		}
-		return (client.channels.get('526742123177836564') || client.channels.get('498776522153525258')).send(`
+	const addInfo = getDebugInfo(err);
+	console.error(addInfo);
+	return (client.channels.get('526742123177836564') || client.channels.get('498776522153525258')).send(`
 \`\`\`js
 Error: ${require('util').inspect(err).slice(0, 1800)}
 
 	${addInfo}
 \`\`\`
 		`);
-	}
 
-	return (client.channels.get('526742123177836564') || client.channels.get('498776522153525258')).send(`
-\`\`\`xs
-Error: ${err.name}
-	${err.message}
-	${err.stack}
-	\`\`\`
-	`);
 });
 
+function getDebugInfo(err) {
+	let addInfo = 'None Found!';
+	if(err.name !== 'DiscordAPIError') return addInfo;
+	if(err.path !== undefined) {
+		if(!err.path.startsWith('/api/v7')) err.path = '/api/v7' + err.path;
+		const arr = err.path.split('/');
+		addInfo += '\nAdditional Debug Info: ';
+		if(arr[3] == 'channels') {
+			const channel = client.channels.get(arr[4]);
+			if(channel) {
+				if(channel.type === 'dm') {
+					addInfo += `\nDMChannel: ${channel.recipient.id}:${channel.recipient.tag}`;
+				}
+				else if (channel.guild) {
+					addInfo += `\nGuildChannel: ${channel.id}:${channel.name}\n\t${channel.guild.id}:${channel.guild.name}`;
+				}
+			}
+		}
+		if(arr[3] == 'guilds') {
+			const guild = client.guilds.get(arr[4]);
+			if(guild) {
+				addInfo += `\nGuild: ${guild.id}:${guild.name}`;
+			}
+		}
+		if(!arr[5])	return addInfo;
+
+		if(arr[5] == 'permissions') {
+			const channel = client.channels.get(arr[4]);
+			if(channel) {
+				const role = channel.guild.roles.get(arr[6]);
+				if(role) {
+					addInfo += `\nRole: ${role.id}:${role.name}`;
+				}
+			}
+		}
+		if(arr[5] == 'messages') {
+			const channel = client.channels.get(arr[4]);
+			if(channel) {
+				const msg = channel.messages.get(arr[6]);
+				if(msg) {
+					addInfo += `\nMessage: ${msg.content}${msg.id}`;
+					if(msg.author) {
+						addInfo += `\n\tUser: ${msg.author.username}-${msg.author.id}`;
+					}
+					if(msg.guild) {
+						addInfo += `\n\tGuild: ${msg.guild.name}-${msg.guild.id}`;
+					}
+				}
+			}
+		}
+		return addInfo;
+	}
+}
 
 const ecoPool = createPool({
 	host: process.env.mysqlHost,
