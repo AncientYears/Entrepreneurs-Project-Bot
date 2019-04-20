@@ -58,7 +58,7 @@ Alright, first things first, What should we call your business? **(${client.pref
 			id: member.guild.id,
 			denied: ['VIEW_CHANNEL'],
 		}];
-		const channel = await member.guild.createChannel('setup-channel-' + member.id, 'text', overwrites, 'Member could not be dmed!');
+		const channel = await member.guild.channels.create('setup-channel-' + member.id, 'text', overwrites, 'Member could not be dmed!');
 		channel.setParent(member.guild.channels.find(category => category.type === 'category' && category.name === 'setup'));
 		channel.setTopic(member.id);
 		channel.send(`${member}, You had DMs, disabled, so lets just do it here!
