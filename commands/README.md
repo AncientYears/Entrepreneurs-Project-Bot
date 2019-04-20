@@ -16,7 +16,7 @@ module.exports.help = {
 	name: 'cmd name',
 	description: 'description',
 	usage: 'usage',
-	requires: ['botowner', 'guild', 'dm', 'business', 'farm', 'factory', 'shop'],
+	requires: ['botowner', 'guild', 'dm', 'business', 'farm', 'factory', 'shop', 'embed'],
 	aliases: ['a', 'b'],
 	hideinhelp: true,
 	cooldown: '5min',

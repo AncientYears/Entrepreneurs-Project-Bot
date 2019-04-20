@@ -72,5 +72,5 @@ module.exports.help = {
 	name: 'buy',
 	hideinhelp: false,
 	usage: '<prefix>buy <item> <amount>',
-	requires: ['business'],
+	requires: ['business', 'embed'],
 };

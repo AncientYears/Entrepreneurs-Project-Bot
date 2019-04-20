@@ -28,7 +28,7 @@ module.exports.help = {
 	name: 'factory',
 	hideinhelp: false,
 	usage: '<prefix>factory',
-	requires: ['business', 'factory'],
+	requires: ['business', 'factory', 'embed'],
 };
 
 function statusbar(stats) {

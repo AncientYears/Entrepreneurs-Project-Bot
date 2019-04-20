@@ -30,4 +30,5 @@ module.exports.help = {
 	usage: '<prefix>report-bug <info>',
 	hideinhelp: false,
 	aliases: ['bug-report', 'bug'],
+	requires: ['embed'],
 };

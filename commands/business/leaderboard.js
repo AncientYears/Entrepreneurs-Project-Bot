@@ -20,6 +20,6 @@ module.exports.help = {
 	name: 'leaderboard',
 	usage: '<prefix>leaderboard',
 	hideinhelp: false,
-	requires: [],
+	requires: ['embed'],
 	cooldown: '10 min',
 };

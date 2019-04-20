@@ -52,5 +52,5 @@ module.exports.help = {
 	usage: '<prefix>fabricate <product> <amount>',
 	aliases: ['produce'],
 	hideinhelp: false,
-	requires: ['business'],
+	requires: ['business', 'embed'],
 };

@@ -18,4 +18,5 @@ module.exports.help = {
 	description: 'Show info abaut the Bot\'s current status',
 	usage: '<prefix>indevelopment',
 	aliases: ['indev', 'development'],
+	requires: ['embed'],
 };

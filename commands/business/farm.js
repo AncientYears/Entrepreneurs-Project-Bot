@@ -27,7 +27,7 @@ module.exports.help = {
 	hideinhelp: false,
 	usage: '<prefix>farm',
 	aliases: ['crops'],
-	requires: ['business', 'farm'],
+	requires: ['business', 'farm', 'embed'],
 };
 
 function statusbar(stats) {

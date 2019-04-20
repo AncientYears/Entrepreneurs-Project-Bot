@@ -7,6 +7,7 @@ module.exports.help = {
 	description: 'Shows you the Bot Info',
 	usage: '<prefix>botinfo',
 	aliases: ['info', 'bot', 'client', 'clientinfo'],
+	requires: ['embed'],
 };
 
 const { Client, Message } = require('discord.js');

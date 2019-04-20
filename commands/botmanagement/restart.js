@@ -26,5 +26,5 @@ module.exports.help = {
 	description: 'Restarts the Bot',
 	usage: '<prefix>restart',
 	hideinhelp: true,
-	requires: ['botowner'],
+	requires: ['botowner', 'embed'],
 };

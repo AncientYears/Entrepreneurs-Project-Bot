@@ -33,7 +33,7 @@ module.exports.help = {
 	description: 'Check your or anothers Entrepreneurs business stats!',
 	usage: '<prefix>stats or <prefix>stats <mention> ',
 	aliases: ['statistics'],
-	requires: ['business'],
+	requires: ['business', 'embed'],
 };
 
 function mapstock(stats) {

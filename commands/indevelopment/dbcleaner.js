@@ -44,5 +44,5 @@ module.exports.run = async (client, message, args, ecoPool) => {
 module.exports.help = {
 	name: 'dbcleaner',
 	hideinhelp: true,
-	requires: ['botowner'],
+	requires: ['botowner', 'embed'],
 };

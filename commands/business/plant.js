@@ -50,5 +50,5 @@ module.exports.help = {
 	name: 'plant',
 	usage: '<prefix>plant <crop> <amount>',
 	hideinhelp: false,
-	requires: ['business', 'farm'],
+	requires: ['business', 'farm', 'embed'],
 };

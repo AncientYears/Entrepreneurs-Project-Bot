@@ -18,4 +18,5 @@ module.exports.help = {
 	description: 'Shows bot latency',
 	usage: '<prefix>ping',
 	aliases: ['pong'],
+	requires: ['embed'],
 };

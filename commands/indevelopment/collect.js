@@ -46,5 +46,5 @@ module.exports.help = {
 	name: 'collect',
 	hideinhelp: false,
 	usage: '<prefix> collect',
-	requires: ['business', 'factory'],
+	requires: ['business', 'factory', 'embed'],
 };
