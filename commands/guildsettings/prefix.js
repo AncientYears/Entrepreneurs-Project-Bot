@@ -12,6 +12,7 @@ module.exports.run = async (client, message, args, ecoPool, stats, guildSettings
 	if(!message.member) message.channel.send(client.format('Error, Code: `zumza-unC` please Contact Developers! <mainserverinvite>'));
 	if(!message.member.permissions.has('MANAGE_GUILD') || !args[0]) return message.channel.send('The prefix is ' + guildSettings.prefix || client.prefix);
 	await ecoPool.query(`INSERT IGNORE INTO guildSettings (guildID, prefix) VALUES ('${message.guild.id}', ${ecoPool.escape(args.join())})`);
+	message.guild.guildSettings.prefix = args.join(' ');
 	return message.channel.send('New Prefix is: ' + ecoPool.escape(args.join()));
 };
 
