@@ -67,10 +67,11 @@ const converter = new showdown.Converter({ completeHTMLDocument: true, ghCompati
 const zumzaData = converter.makeHtml('<link rel="stylesheet" href="./readme.css">' + readFileSync('README.md', 'utf8').replace(/<run \?help>/g, commandList.join('\n')).replace(/\n\[cmdTOC\]: <> \(Addition Table of Contents for Commands\)/g, cmdTOC.join('\n')));
 // const style = readFileSync('./server/style.css');
 // Server Part
+const { join } = require('path');
 const express = require('express');
 const app = express();
-app.set('view engine', 'jsx')
-
+app.set('view engine', 'ejs');
+app.set('views', join(__dirname, '/views'));
 app.use(express.static(join(__dirname, '/public')));
 
 app.get('/', function(req, res) {
@@ -134,10 +135,22 @@ app.get('/logout', function(req, res) {
 const getStats = require('../api/getStats');
 app.get('/stats', checkAuth, async function(req, res) {
 	const stats = await getStats(req.user.id, ecoPool).then(data => data.data);
-	res.json(stats);
+	if(stats.business.name == '') {
+		stats.business.name = 'None, create one!';
+	}
+	stats.business.name = stats.business.name.upperCaseFirst();
+	stats.business.location = stats.business.location.upperCaseFirst();
+	stats.business.type = stats.business.type.upperCaseFirst();
+	stats.niceStock = [];
+	for(const stock in stats.stocks) { stats.niceStock.push(`${stats.stocks[stock]} ${stock.replace(/_+/, ' ')} \n`);}
+	if(stats.niceStock.length == 0) stats.niceStock.push('empty');
+	res.render('stats.ejs', { stats: stats });
 });
 
+String.prototype.upperCaseFirst = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
 
+};
 function checkAuth(req, res, next) {
 	if (req.isAuthenticated()) return next();
 	res.redirect('/login');
