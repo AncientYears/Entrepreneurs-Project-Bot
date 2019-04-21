@@ -69,6 +69,7 @@ const zumzaData = converter.makeHtml('<link rel="stylesheet" href="./style.css">
 // Server Part
 const express = require('express');
 const app = express();
+app.set('view engine', 'jsx')
 
 app.get('/style.css', function(req, res) {
 	const style = readFileSync('./server/style.css');
@@ -90,7 +91,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 
 app.use(session({
-	secret: 'keyboard cat',
+	secret: process.env.CLIENT_SECRET,
 	resave: false,
 	saveUninitialized: false,
 	store: new FileStore({ path: './server/sessions' }),
