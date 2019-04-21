@@ -104,7 +104,10 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 	if (message.system) return;
 	if (message.author.bot) return;
 	let guildSettings = {};
-	if(message.guild) [[guildSettings]] = await ecoPool.query(`SELECT * FROM businesseco.guildsettings WHERE guildID = '${message.guild.id}';`);
+	if(message.guild) {
+		[[guildSettings]] = await ecoPool.query(`SELECT * FROM businesseco.guildsettings WHERE guildID = '${message.guild.id}';`);
+		if(!guildSettings) guildSettings = {};
+	}
 	const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${guildSettings.prefix || client.prefix})\\s*`);
 	if (!prefixRegex.test(message.content)) return;
 	const [, matchedPrefix] = message.content.match(prefixRegex);
