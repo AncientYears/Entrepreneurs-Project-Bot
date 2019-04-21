@@ -64,17 +64,14 @@ categorys.forEach(category => {
 const { readFileSync } = require('fs');
 const showdown = require('showdown');
 const converter = new showdown.Converter({ completeHTMLDocument: true, ghCompatibleHeaderId: true });
-const zumzaData = converter.makeHtml('<link rel="stylesheet" href="./style.css">' + readFileSync('README.md', 'utf8').replace(/<run \?help>/g, commandList.join('\n')).replace(/\n\[cmdTOC\]: <> \(Addition Table of Contents for Commands\)/g, cmdTOC.join('\n')));
+const zumzaData = converter.makeHtml('<link rel="stylesheet" href="./readme.css">' + readFileSync('README.md', 'utf8').replace(/<run \?help>/g, commandList.join('\n')).replace(/\n\[cmdTOC\]: <> \(Addition Table of Contents for Commands\)/g, cmdTOC.join('\n')));
 // const style = readFileSync('./server/style.css');
 // Server Part
 const express = require('express');
 const app = express();
 app.set('view engine', 'jsx')
 
-app.get('/style.css', function(req, res) {
-	const style = readFileSync('./server/style.css');
-	res.end(style);
-});
+app.use(express.static(join(__dirname, '/public')));
 
 app.get('/', function(req, res) {
 	res.writeHead(200);
