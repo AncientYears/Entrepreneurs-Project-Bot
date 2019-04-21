@@ -33,13 +33,14 @@ client.on('messageUpdate', async (oldmessage, message) => {
 	commandhandler.run(client, message, ecoPool);
 });
 
+const inline = true;
 client.on('guildCreate', guild => {
-	const guildEmbed = new MessageEmbed().setTitle('Joined new Guild').setColor('GREEN').setDescription(`Guild: ${guild.name}\nSize: ${guild.memberCount}\nBots: ${guild.members.filter(member => member.user.bot).size}`);
+	const guildEmbed = new MessageEmbed().setTitle('Joined new Guild').setColor('GREEN').addField('Guild', guild.name, inline).addField('Size', guild.memberCount, inline).addField('Bots', guild.members.filter(member => member.user.bot).size, inline).addField('Owner', guild.owner ? guild.owner.user.tag : (client.users.get(guild.ownerID) ? client.users.get(guild.ownerID).tag : guild.ownerID));
 	client.channels.get('569264057165545480').send(guildEmbed);
 });
 
 client.on('guildDelete', guild => {
-	const guildEmbed = new MessageEmbed().setTitle('Left Guild').setColor('RED').setDescription(`Guild: ${guild.name}\nSize: ${guild.memberCount}\nBots: ${guild.members.filter(member => member.user.bot).size}`);
+	const guildEmbed = new MessageEmbed().setTitle('Left Guild').setColor('RED').addField('Guild', guild.name, inline).addField('Size', guild.memberCount, inline).addField('Bots', guild.members.filter(member => member.user.bot).size, inline).addField('Owner', guild.owner ? guild.owner.user.tag : (client.users.get(guild.ownerID) ? client.users.get(guild.ownerID).tag : guild.ownerID));
 	client.channels.get('569264057165545480').send(guildEmbed);
 });
 
