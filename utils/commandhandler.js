@@ -103,7 +103,9 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 	if(message.guild && !message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return;
 	if (message.system) return;
 	if (message.author.bot) return;
-	const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${client.prefix})\\s*`);
+	let guildSettings = {};
+	if(message.guild) [[guildSettings]] = await ecoPool.query(`SELECT * FROM businesseco.guildsettings WHERE guildID = '${message.guild.id}';`);
+	const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${guildSettings.prefix || client.prefix})\\s*`);
 	if (!prefixRegex.test(message.content)) return;
 	const [, matchedPrefix] = message.content.match(prefixRegex);
 	const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
@@ -141,7 +143,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		stats.cooldowns[cmd.help.name] = now;
 		await ecoPool.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`);
 
-		cmd.run(client, message, args, ecoPool, stats).catch((err) => {
+		cmd.run(client, message, args, ecoPool, stats, guildSettings).catch((err) => {
 			message.channel.send('The Command had an Error! Don\'t worry I already contacted my Devs.');
 			throw err;
 		});
