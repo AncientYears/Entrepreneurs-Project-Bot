@@ -49,12 +49,12 @@ categorys.forEach(category =>{
 console.log('Categorys loaded or none found!\n-------------------------------');
 console.log(`${commands.size} Commands loaded! ${errorc == 0 ? '' : `${errorc} Error occured!` }`);
 
-const cmdTOC = commands.filter(cmd => cmd.help.category == undefined).map(props => props.help.hideinhelp ? '' : `\t- [Command: ${props.help.name}](#command-${props.help.name.toLowerCase().replace(/ /g, '-')})`).filter(data => data !== '');
+const cmdTOC = commands.filter(cmd => !cmd.help.hideinhelp).filter(cmd => cmd.help.category == undefined).map(props => props.help.hideinhelp ? '' : `\t- [Command: ${props.help.name}](#command-${props.help.name.toLowerCase().replace(/ /g, '-')})`).filter(data => data !== '');
 const commandList = commands.filter(cmd => cmd.help.category == undefined).map(props => props.help.hideinhelp || props.help.category ? '' : `## Command: ${props.help.name}\n${props.help.category ? `\tCategory: ${props.help.category}\n` : '' }${props.help.description ? `\tDescription: ${props.help.description}\n` : '' }${props.help.usage ? `\tUsage: ${format(props.help.usage)}\n` : `\tUsage: ${format(`<prefix>${props.help.name}`)}\n` }${props.help.aliases ? `\tAliases: [ ${props.help.aliases.join(', ')} ]\n` : '' }`).filter(data => data !== '');
 categorys.forEach(category => {
 	commandList.push(`## Category: ${category}`);
 	cmdTOC.push(`\t- [Category: ${category}](#category-${category.toLowerCase().replace(/ /g, '-')})`);
-	commands.filter(cmd => cmd.help.category == category).map(props => [props.help.hideinhelp ? '' : `### Command: ${props.help.name}\n${props.help.description ? `\tDescription: ${props.help.description}\n` : '' }${props.help.usage ? `\tUsage: ${format(props.help.usage)}\n` : `\tUsage: ${format(`<prefix>${props.help.name}`)}\n` }${props.help.aliases ? `\tAliases: [ ${props.help.aliases.join(', ')} ]\n` : '' }`, props]).filter(data => data !== '')
+	commands.filter(cmd => !cmd.help.hideinhelp).filter(cmd => cmd.help.category == category).map(props => [props.help.hideinhelp ? '' : `### Command: ${props.help.name}\n${props.help.description ? `\tDescription: ${props.help.description}\n` : '' }${props.help.usage ? `\tUsage: ${format(props.help.usage)}\n` : `\tUsage: ${format(`<prefix>${props.help.name}`)}\n` }${props.help.aliases ? `\tAliases: [ ${props.help.aliases.join(', ')} ]\n` : '' }`, props]).filter(data => data !== '')
 		.forEach(cmd => {
 			cmdTOC.push(`\t\t- [Command: ${cmd[1].help.name}](#command-${cmd[1].help.name.toLowerCase().replace(/ /g, '-')})`);
 			commandList.push(cmd[0]);
