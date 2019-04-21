@@ -46,7 +46,7 @@ client.on('guildDelete', guild => {
 
 
 client.on('guildMemberAdd', async (member, message) => {
-	if(client.id !== '491313910620749834') return;
+	if(client.user.id !== '491313910620749834') return;
 	if(!message && member.guild.large) return;
 	const stats = await client.zumzaApi.getStats(member.id, ecoPool).then(data => data.data);
 	if(!member.roles.some(role => role.name === 'Entrepreneur-zumza')) {
@@ -86,7 +86,7 @@ Alright, first things first, What should we call your business? **(${client.pref
 
 process.on('unhandledRejection', (err) => { // OHH NO UNHANLED ERROR: NOTIFY ALL BOT DEVS
 	console.error(err);
-	if(client.id !== '491313910620749834') return;
+	if(client.user.id !== '491313910620749834') return;
 	if (err.name == 'DiscordAPIError' && err.message == '401: Unauthorized') return process.exit();
 	const addInfo = getDebugInfo(err);
 	console.error(addInfo);
