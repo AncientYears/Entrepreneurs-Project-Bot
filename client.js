@@ -9,6 +9,16 @@ client.prefix = process.env.prefix || '?';
 commandhandler.start(client);
 commandhandler.loadApi(client);
 
+const DBL = require('dblapi.js');
+const dbl = new DBL(process.env.DBL_TOKEN, client);
+
+dbl.on('posted', () => {
+	console.log('Server count posted!');
+});
+
+dbl.on('error', e => {
+	console.log(`Oops! ${e}`);
+});
 
 client.on('ready', async () => {
 	console.log(`${client.user.username} is up and running!`);
