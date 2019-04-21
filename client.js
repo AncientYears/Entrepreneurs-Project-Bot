@@ -10,11 +10,7 @@ commandhandler.start(client);
 commandhandler.loadApi(client);
 
 const DBL = require('dblapi.js');
-const dbl = new DBL(process.env.DBL_TOKEN, client);
-
-dbl.on('posted', () => {
-	console.log('Server count posted!');
-});
+const dbl = new DBL(process.env.DBL_TOKEN);
 
 dbl.on('error', e => {
 	console.log(`Oops! ${e}`);
@@ -32,6 +28,11 @@ client.on('ready', async () => {
 		string = string.replace(/<mainserverinvite>/g, 'https://discord.gg/p4ZhgNv');
 		return string;
 	};
+	if(client.user.id !== '491313910620749834') return;
+	dbl.postStats(client.guilds.size, client.shard.ids, client.shard.count);
+	setInterval(() => {
+		dbl.postStats(client.guilds.size, client.shard.ids, client.shard.count);
+	}, 1800000);
 });
 
 
