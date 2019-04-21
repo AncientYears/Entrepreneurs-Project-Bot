@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 			content = content.replace(cblockre, '').trim();
 		}
 
-		let evaled = eval(content);
+		let evaled = await eval(content);
 
 		if (typeof evaled !== 'string') {evaled = require('util').inspect(evaled);}
 		await respond(message, evaled, client, this.secured);
