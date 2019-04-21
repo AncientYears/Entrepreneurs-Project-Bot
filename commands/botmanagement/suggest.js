@@ -19,5 +19,5 @@ module.exports.help = {
 	usage: '<prefix>suggest <info>',
 	hideinhelp: false,
 	cooldown: '2 min',
-	requires: ['botowner', 'embed'],
+	requires: ['embed'],
 };
