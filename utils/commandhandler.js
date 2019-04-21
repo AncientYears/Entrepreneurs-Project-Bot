@@ -112,7 +112,7 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 	if (cmd) {
 		message.channel.startTyping();
 		if (cmd.help.disableindm == true) return message.channel.send('Sorry this Command is not yet supported!'), message.channel.stopTyping(true); // check if command is supported in dm if not => return
-		console.log(`[Ping:${Math.round(client.ws.ping)}ms][Shard #${client.shard.ids}] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} `); // if command can run => log action
+		console.log(`[Ping:${Math.round(client.ws.ping)}ms][Shard #${client.shard.ids}] ${cmd.help.name} request by ${message.author.username} @ ${message.author.id} ${message.guild ? `in ${message.guild.name} @ ${message.guild.id}` : ''}`); // if command can run => log action
 		const stats = await client.zumzaApi.getStats(message.author.id, ecoPool).then(data => data.data);
 		if(stats.cash >= Number.MAX_SAFE_INTEGER || stats.bank >= Number.MAX_SAFE_INTEGER) return message.channel.send(client.format('Your Stats are corrupted, please contact a Bot Dev! <mainserverinvite>'));
 		if (cmd.help.requires) {
