@@ -22,7 +22,8 @@ ul{
     min-height: 1px;
     padding-right: 15px;
 	padding-left: 15px;
-	background: #1abc9c
+	background: #1abc9c;
+	color: #212529;
 }
 
 .h6, h6 {
@@ -36,3 +37,77 @@ ul{
 	color: inherit;
 	white-space: nowrap;
 }
+* {box-sizing: border-box}
+
+
+/* Set height of body and the document to 100% */
+body, html {
+	height: 100%;
+	margin: 0;
+	font-family: Arial;
+  }
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#Stats {background-color: #212529;}
+#News {background-color: green;}
+#Contact {background-color: blue;}
+#About {background-color: orange;}
+
+  code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+	  monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+  }
+  p code {
+	color: #bba26e;
+  }
+  pre {
+	background-color: #161616;
+	border-color: aqua;
+	white-space: pre-wrap;
+	display: block;
+	padding: 1.5%;
+	color: white;
+  }
+  
+  a:-webkit-any-link {
+	color: #3384e0;
+	text-decoration: none;
+  }
+  ul p {
+	display: flexbox;
+  }
+  
+  
+  pre, h3 {
+	  margin-left: 5%
+  }

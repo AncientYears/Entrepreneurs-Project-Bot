@@ -63,8 +63,8 @@ categorys.forEach(category => {
 // Generate Page
 const { readFileSync } = require('fs');
 const showdown = require('showdown');
-const converter = new showdown.Converter({ completeHTMLDocument: true, ghCompatibleHeaderId: true });
-const zumzaData = converter.makeHtml('<link rel="stylesheet" href="./readme.css">' + readFileSync('README.md', 'utf8').replace(/<run \?help>/g, commandList.join('\n')).replace(/\n\[cmdTOC\]: <> \(Addition Table of Contents for Commands\)/g, cmdTOC.join('\n')));
+const converter = new showdown.Converter({ completeHTMLDocument: false, ghCompatibleHeaderId: true });
+const zumzaData = converter.makeHtml(readFileSync('README.md', 'utf8').replace(/<run \?help>/g, commandList.join('\n')).replace(/\n\[cmdTOC\]: <> \(Addition Table of Contents for Commands\)/g, cmdTOC.join('\n')));
 // const style = readFileSync('./server/style.css');
 // Server Part
 const { join } = require('path');
@@ -73,11 +73,6 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', join(__dirname, '/views'));
 app.use(express.static(join(__dirname, '/public')));
-
-app.get('/', function(req, res) {
-	res.writeHead(200);
-	res.end(zumzaData);
-});
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -125,7 +120,7 @@ app.get('/login/callback',
 	passport.authenticate('discord', { failureRedirect: '/login' }),
 	function(req, res) {
 		// Successful authentication, redirect home.
-		res.redirect('/stats');
+		res.redirect('/');
 	});
 
 app.get('/logout', function(req, res) {
@@ -133,7 +128,7 @@ app.get('/logout', function(req, res) {
 	res.redirect('/');
 });
 const getStats = require('../api/getStats');
-app.get('/stats', checkAuth, async function(req, res) {
+app.get('/', checkAuth, async function(req, res) {
 	const stats = await getStats(req.user.id, ecoPool).then(data => data.data);
 	if(stats.business.name == '') {
 		stats.business.name = 'None, create one!';
@@ -144,12 +139,11 @@ app.get('/stats', checkAuth, async function(req, res) {
 	stats.niceStock = [];
 	for(const stock in stats.stocks) { stats.niceStock.push(`${stats.stocks[stock]} ${stock.replace(/_+/, ' ')} \n`);}
 	if(stats.niceStock.length == 0) stats.niceStock.push('empty');
-	res.render('stats.ejs', { stats: stats });
+	res.render('stats.ejs', { stats: stats, ReadMe: zumzaData });
 });
 
 String.prototype.upperCaseFirst = function() {
 	return this.charAt(0).toUpperCase() + this.slice(1);
-
 };
 function checkAuth(req, res, next) {
 	if (req.isAuthenticated()) return next();
