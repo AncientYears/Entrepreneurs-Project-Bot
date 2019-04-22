@@ -59,13 +59,13 @@ client.on('guildDelete', guild => {
 client.on('guildMemberAdd', async (member, message) => {
 	if(client.user.id !== '491313910620749834') return;
 	if(!message && member.guild.large) return;
+	if(member.user.bot) return;
 	const stats = await client.zumzaApi.getStats(member.id, ecoPool).then(data => data.data);
 	if(!member.roles.some(role => role.name === 'Entrepreneur-zumza')) {
 		const roleToAdd = member.guild.roles.find(role => role.name === 'Entrepreneur-zumza');
 		if(stats && stats.business.location && roleToAdd) member.roles.add(roleToAdd);
 	}
-	if(member.user.bot || (member.guild.id !== '490999695422783489' && !message)) return;
-	if(stats.business.name)return;
+	if(stats.business.name || (member.guild.id !== '490999695422783489' && !message))return;
 	member.user.send(`
 Welcome **${member.user.username}** to the Entrepreneurs server!
 I'm Zumza, a distant cousin of Wumpus. I will be your main accountant during your stay here. I will give you tips and advice on how to grow your very own business!
