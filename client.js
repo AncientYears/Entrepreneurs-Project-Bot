@@ -29,9 +29,9 @@ client.on('ready', async () => {
 		return string;
 	};
 	if(client.user.id !== '491313910620749834') return;
-	dbl.postStats(client.guilds.size, client.shard.ids, client.shard.count);
+	dbl.postStats(client.guilds.size, client.shard.ids, client.shard.count).then(console.log).catch(console.error);
 	setInterval(() => {
-		dbl.postStats(client.guilds.size, client.shard.ids, client.shard.count);
+		dbl.postStats(client.guilds.size, client.shard.ids, client.shard.count).then(console.log).catch(console.error);
 	}, 1800000);
 });
 
