@@ -147,6 +147,8 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		stats.cooldowns[cmd.help.name] = now;
 		await ecoPool.query(`UPDATE stats SET cooldowns = '${JSON.stringify(stats.cooldowns)}' WHERE userID = '${message.author.id}'`);
 
+		if(!cmd.help.used) cmd.help.used = 0;
+		cmd.help.used += 1;
 		cmd.run(client, message, args, ecoPool, stats, guildSettings).catch((err) => {
 			message.channel.send('The Command had an Error! Don\'t worry I already contacted my Devs.');
 			throw err;
