@@ -1,3 +1,4 @@
+const { checkAlias } = require('./alias');
 const buyPrice = {
 	potato: 1,
 	carrot_seed: 2,
@@ -7,6 +8,7 @@ const buyPrice = {
 module.exports = (database, stats, tobuy, amount) => {
 	if(isNaN(amount) || Number(amount).toFixed(0) < 1) return { status: 400, error : 'zumza-NaN', NaN: amount };
 	amount = Number(amount).toFixed(0);
+	tobuy = checkAlias(tobuy);
 	if(!buyPrice[tobuy]) return { status: 400, error : 'zumza-itemNotValidOrNotBuyable', NaI: tobuy };
 	if(stats.cash < buyPrice[tobuy] * amount) return { status: 400, error : 'zumza-notEnoughMoney', missing: buyPrice[tobuy] * amount - stats.cash };
 	if(!stats.stocks[tobuy]) stats.stocks[tobuy] = 0;

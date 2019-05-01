@@ -36,7 +36,9 @@ const produceTime = {
 	nutrient_paste: '30m',
 };
 
+const { checkAlias } = require('./alias');
 module.exports = (database, stats, toProduce, amount) => {
+	toProduce = checkAlias(toProduce);
 	if(stats.creation.amount) {
 		return { status: 400, error : 'zumza-alreadyProducing', stats: stats };
 	}
