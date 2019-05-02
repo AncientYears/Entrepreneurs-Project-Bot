@@ -109,6 +109,9 @@ module.exports.run = async (client, message, ecoPool) => { // commandhandler.run
 		if(!guildSettings) guildSettings = {};
 		message.guild.guildSettings = guildSettings;
 	}
+	else {
+		guildSettings = message.guild ? message.guild.guildSettings : {};
+	}
 	const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${message.guild ? message.guild.guildSettings.prefix || client.prefix : client.prefix })\\s*`);
 	if (!prefixRegex.test(message.content)) return;
 	const [, matchedPrefix] = message.content.match(prefixRegex);
