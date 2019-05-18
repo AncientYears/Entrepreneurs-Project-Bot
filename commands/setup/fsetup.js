@@ -36,5 +36,5 @@ module.exports.help = {
 	name: 'fsetup',
 	hideinhelp: true,
 	description: 'Forces somebody to setup',
-	require: ['botowner'],
+	requires: ['botowner'],
 };
