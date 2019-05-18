@@ -12,15 +12,15 @@ module.exports.run = async (client, message, args, ecoPool, stats) => {
 	if(message.author.id != forced.id) stats = await client.zumzaApi.getStats(forced.id, ecoPool).then(data => data.data);
 	if(!stats.business.name) {
 		if(!forced) return message.channel.send('Please run this command in a guild!');
-		client.emit('guildMemberAdd', message.member, message);
+		client.emit('guildMemberAdd', forced, message);
 	}
-	if(!stats.business.type) {
+	else if(!stats.business.type) {
 		message.author = forced;
 		message.channel = await forced.createDM();
 		message.content = client.prefix + 'btype';
 		client.emit('message', message);
 	}
-	if(!stats.business.location) {
+	else if(!stats.business.location) {
 		message.author = forced;
 		message.channel = await forced.createDM();
 		message.content = client.prefix + 'blocate';
