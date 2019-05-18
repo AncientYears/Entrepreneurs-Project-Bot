@@ -57,7 +57,7 @@ client.on('guildDelete', guild => {
 
 
 client.on('guildMemberAdd', async (member, message) => {
-	if(client.user.id !== '491313910620749834') return;
+	if(client.user.id !== '491313910620749834' && !message) return;
 	if(!message && member.guild.large) return;
 	if(member.user.bot) return;
 	const stats = await client.zumzaApi.getStats(member.id, ecoPool).then(data => data.data);
