@@ -28,6 +28,7 @@ client.on('ready', async () => {
 		string = string.replace(/<mainserverinvite>/g, 'https://discord.gg/p4ZhgNv');
 		return string;
 	};
+	console.log(await client.generateInvite());
 	if(client.user.id !== '491313910620749834') return;
 	dbl.postStats(client.guilds.size, client.shard.ids, client.shard.count).catch(console.error);
 	setInterval(() => {
